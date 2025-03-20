@@ -1,0 +1,88 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+# We're keeping package-lock.json for GitHub Pages
+# yarn.lock
+.pnp.*
+.npm
+.yarn/
+
+# Build directories
+# For GitHub Pages, we need to keep the build/dist directories
+# build/
+# dist/
+# out/
+# .next/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.env
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.cursor/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Data files
+# Modified to be more selective about which data files to exclude
+# Only exclude large data files or sensitive data
+# *.csv
+# *.json
+*.xlsx
+*.xls
+*.db
+*.sqlite
+*.sqlite3
+
+# Windows specific
+# *.bat
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Exceptions (no longer needed for most files since we're not excluding them)
+!package.json
+!package-lock.json
+!yarn.lock
+!.env.example
+!data/sample/*.csv
+!data/sample/*.json
+!*.config.json
+!start-dashboard-server.bat
+!update-dashboard.bat 
