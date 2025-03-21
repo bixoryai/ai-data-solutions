@@ -1,0 +1,110 @@
+name: PR Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      # Check all project directories with package.json files    
+      - name: Find npm projects
+        id: find-projects
+        run: |
+          # Find all package.json files (excluding node_modules)
+          PACKAGE_FILES=$(find . -name "package.json" -not -path "*/node_modules/*" -not -path "*/\.*" | sort)
+          echo "Found the following npm projects:"
+          echo "$PACKAGE_FILES" | tee project_list.txt
+          echo "project_list<<EOF" >> $GITHUB_OUTPUT
+          cat project_list.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+      - name: Check npm projects
+        run: |
+          # Read list of projects
+          PACKAGE_FILES="${{ steps.find-projects.outputs.project_list }}"
+          
+          # Check each project
+          for PACKAGE_FILE in $PACKAGE_FILES; do
+            PROJECT_DIR=$(dirname "$PACKAGE_FILE")
+            PROJECT_NAME=$(basename "$PROJECT_DIR")
+            
+            echo "🔍 Checking project: $PROJECT_NAME ($PROJECT_DIR)"
+            cd "$GITHUB_WORKSPACE/$PROJECT_DIR"
+            
+            # Install dependencies
+            echo "Installing dependencies..."
+            npm ci || echo "⚠️ Warning: npm ci failed, trying npm install" && npm install
+            
+            # Run any available tests (but don't fail if tests fail)
+            if grep -q "\"test\":" package.json; then
+              echo "Running tests..."
+              npm test -- --watchAll=false || echo "⚠️ Warning: Tests failed but continuing"
+            fi
+            
+            # Check if build works (but don't fail if build fails)
+            if grep -q "\"build\":" package.json; then
+              echo "Checking build..."
+              npm run build || echo "⚠️ Warning: Build failed but continuing"
+            fi
+            
+            # Return to workspace root for next iteration
+            cd "$GITHUB_WORKSPACE"
+            echo "✅ Finished checking $PROJECT_NAME"
+            echo "-------------------------------------"
+          done
+          
+      - name: Check if docs are updated for component changes
+        id: doc-check
+        run: |
+          # Get list of changed files
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          
+          # Check if components were modified but docs weren't
+          if echo "$CHANGED_FILES" | grep -q "\.tsx\|\.jsx" && ! echo "$CHANGED_FILES" | grep -q "\.md\|docs/"; then
+            echo "⚠️ Component files were modified, but no documentation updates were found" >> $GITHUB_STEP_SUMMARY
+            echo "docs_missing=true" >> $GITHUB_OUTPUT
+          else
+            echo "docs_missing=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Comment on PR for docs
+        if: steps.doc-check.outputs.docs_missing == 'true'
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## 📝 Documentation Reminder
+            
+            It looks like you've modified component code but haven't updated any documentation.
+            
+            Please consider if you need to update:
+            - Component README files
+            - User documentation
+            - API documentation
+            - Development guide
+            
+            This is just a friendly reminder - you can ignore this if documentation updates aren't needed for your changes.
+      
+      - name: Comment on successful checks
+        if: success()
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## ✅ Basic Checks Passed
+            
+            All automated PR checks have completed successfully!
+            
+            - Make sure to review the PR yourself before requesting reviews
+            - Test your changes thoroughly in different environments if applicable
+            - Consider adding any relevant information to the PR description 

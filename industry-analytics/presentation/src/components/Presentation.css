@@ -284,16 +284,16 @@ h1, h2, h3 {
   left: 0;
 }
 
-/* Reveal.js overrides */
-.reveal .controls {
+/* Custom controls styling */
+.custom-controls {
   color: #4f46e5;
 }
 
-.reveal .progress {
+.custom-progress {
   color: #4f46e5;
 }
 
-.reveal .slide-number {
+.slide-number {
   color: #4f46e5;
 }
 
