@@ -70,12 +70,20 @@ const Presentation: React.FC = () => {
       title: "The Opportunity",
       content: (
         <div className="content-slide opportunity-slide">
+          <div className="bg-graphics">
+            <div className="data-point point1"></div>
+            <div className="data-point point2"></div>
+            <div className="data-point point3"></div>
+            <div className="data-line line1"></div>
+            <div className="data-line line2"></div>
+          </div>
+          
           <div className="opportunity-header">
             <h2>Why Industry-specific AI Analytics Now?</h2>
             
             <div className="opportunity-highlight">
               <div className="pulse-circle"></div>
-              <span>Industry AI adoption expected to grow at 24% CAGR</span>
+              <span>Industry AI adoption expected to grow at <strong>24% CAGR</strong></span>
             </div>
           </div>
           
@@ -138,14 +146,15 @@ const Presentation: React.FC = () => {
             
             <div className="opportunity-highlight challenges-highlight-top">
               <div className="pulse-circle"></div>
-              <span>Our industry-specific AI solutions address these pain points with proven results</span>
+              <span>Our industry-specific AI solutions address these pain points with <strong>proven results</strong></span>
             </div>
           </div>
           
           <div className="challenges-container">
+            <div className="challenges-container-horizontal-line"></div>
             <div className="challenge-item">
               <div className="challenge-content">
-                <div className="challenge-icon">
+                <div className="challenge-icon decision-icon">
                   <BrainCircuit />
                 </div>
                 <h3>Complex Decision Making</h3>
@@ -154,7 +163,7 @@ const Presentation: React.FC = () => {
             </div>
             <div className="challenge-item">
               <div className="challenge-content">
-                <div className="challenge-icon">
+                <div className="challenge-icon predictive-icon">
                   <LineChart />
                 </div>
                 <h3>Predictive Gaps</h3>
@@ -163,7 +172,7 @@ const Presentation: React.FC = () => {
             </div>
             <div className="challenge-item">
               <div className="challenge-content">
-                <div className="challenge-icon">
+                <div className="challenge-icon operational-icon">
                   <Cog />
                 </div>
                 <h3>Operational Inefficiencies</h3>
@@ -172,7 +181,7 @@ const Presentation: React.FC = () => {
             </div>
             <div className="challenge-item">
               <div className="challenge-content">
-                <div className="challenge-icon">
+                <div className="challenge-icon data-value-icon">
                   <Database />
                 </div>
                 <h3>Untapped Data Value</h3>
@@ -181,7 +190,7 @@ const Presentation: React.FC = () => {
             </div>
             <div className="challenge-item">
               <div className="challenge-content">
-                <div className="challenge-icon">
+                <div className="challenge-icon adoption-icon">
                   <ShieldCheck />
                 </div>
                 <h3>AI Adoption Barriers</h3>
@@ -767,7 +776,201 @@ const Presentation: React.FC = () => {
       )
     },
     {
-      title: "Ready To Start?",
+      title: "Investment & Returns",
+      content: (
+        <div className="content-slide investment-slide">
+          <h2>Investment & Returns</h2>
+          <div className="investment-subtitle">Clear Financial Impact with Measurable ROI</div>
+          
+          <div className="investment-container">
+            <div className="investment-column">
+              <div className="investment-header">
+                <CircleDollarSign className="investment-icon" />
+                <h3>Initial Investment</h3>
+              </div>
+              <div className="investment-content">
+                <div className="investment-packages">
+                  <div className="package">
+                    <div className="package-name">Proof of Value</div>
+                    <div className="package-price">$75,000 - $150,000</div>
+                    <div className="package-description">Single use case with 8-week implementation</div>
+                  </div>
+                  
+                  <div className="package featured">
+                    <div className="package-badge">RECOMMENDED</div>
+                    <div className="package-name">Industry AI Platform</div>
+                    <div className="package-price">$250,000 - $500,000</div>
+                    <div className="package-description">Multiple use cases with scalable platform</div>
+                  </div>
+                  
+                  <div className="package">
+                    <div className="package-name">Enterprise Partnership</div>
+                    <div className="package-price">Custom Pricing</div>
+                    <div className="package-description">Full digital transformation program</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="investment-column">
+              <div className="investment-header">
+                <BarChart className="investment-icon" />
+                <h3>ROI Timeline</h3>
+              </div>
+              <div className="investment-content">
+                <div className="roi-timeline">
+                  <div className="timeline-container">
+                    <div className="timeline-track"></div>
+                    
+                    <div className="timeline-point">
+                      <div className="point-marker"></div>
+                      <div className="point-label">Week 6-8</div>
+                      <div className="point-value">First Value Delivered</div>
+                    </div>
+                    
+                    <div className="timeline-point">
+                      <div className="point-marker"></div>
+                      <div className="point-label">Week 20</div>
+                      <div className="point-value">Investment Break-even</div>
+                    </div>
+                    
+                    <div className="timeline-point">
+                      <div className="point-marker"></div>
+                      <div className="point-label">Week 32</div>
+                      <div className="point-value">100% ROI Achieved</div>
+                    </div>
+                    
+                    <div className="timeline-point">
+                      <div className="point-marker"></div>
+                      <div className="point-label">Week 52</div>
+                      <div className="point-value">300%+ ROI Realized</div>
+                    </div>
+                  </div>
+                  
+                  <div className="compounding-note">
+                    <Zap size={16} />
+                    <span>Value accelerates at 30% compounded quarterly as models improve</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="risk-mitigation">
+            <div className="risk-header">
+              <ShieldCheck size={20} />
+              <h3>Risk Mitigation</h3>
+            </div>
+            <p>Success-based pricing components available with performance guarantees and phased implementation</p>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "AI Implementation Success Metrics",
+      content: (
+        <div className="content-slide metrics-slide">
+          <h2>Measuring AI Implementation Success</h2>
+          
+          <div className="metrics-subtitle">
+            Key indicators to track throughout your AI transformation journey
+          </div>
+          
+          <div className="metrics-container">
+            <div className="metrics-category">
+              <div className="category-header">
+                <Activity className="category-icon" />
+                <h3>Operational Metrics</h3>
+              </div>
+              <ul className="metrics-list">
+                <li>
+                  <div className="metric-name">Process Efficiency</div>
+                  <div className="metric-target">25-40% improvement</div>
+                </li>
+                <li>
+                  <div className="metric-name">Decision Speed</div>
+                  <div className="metric-target">60% faster responses</div>
+                </li>
+                <li>
+                  <div className="metric-name">Error Reduction</div>
+                  <div className="metric-target">87% fewer mistakes</div>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="metrics-category">
+              <div className="category-header">
+                <CircleDollarSign className="category-icon" />
+                <h3>Financial Metrics</h3>
+              </div>
+              <ul className="metrics-list">
+                <li>
+                  <div className="metric-name">Implementation ROI</div>
+                  <div className="metric-target">220-320% first year</div>
+                </li>
+                <li>
+                  <div className="metric-name">Cost Reduction</div>
+                  <div className="metric-target">$450K-$1.2M annually</div>
+                </li>
+                <li>
+                  <div className="metric-name">Revenue Impact</div>
+                  <div className="metric-target">12-18% growth</div>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="metrics-category">
+              <div className="category-header">
+                <BarChart3 className="category-icon" />
+                <h3>Performance Metrics</h3>
+              </div>
+              <ul className="metrics-list">
+                <li>
+                  <div className="metric-name">Model Accuracy</div>
+                  <div className="metric-target">92-97% precision</div>
+                </li>
+                <li>
+                  <div className="metric-name">Processing Speed</div>
+                  <div className="metric-target">10-100x faster than manual</div>
+                </li>
+                <li>
+                  <div className="metric-name">Data Quality</div>
+                  <div className="metric-target">99.5% reliability</div>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="metrics-category">
+              <div className="category-header">
+                <Users className="category-icon" />
+                <h3>Adoption Metrics</h3>
+              </div>
+              <ul className="metrics-list">
+                <li>
+                  <div className="metric-name">User Engagement</div>
+                  <div className="metric-target">85% active usage</div>
+                </li>
+                <li>
+                  <div className="metric-name">Training Effectiveness</div>
+                  <div className="metric-target">95% competency</div>
+                </li>
+                <li>
+                  <div className="metric-name">Satisfaction Score</div>
+                  <div className="metric-target">4.7/5 average rating</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="metrics-note">
+            <AlertCircle size={16} className="note-icon" />
+            All metrics are customized during the AI Value Assessment phase for your specific environment
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Next Steps",
       content: (
         <div className="content-slide next-steps-slide">
           <div className="next-steps-header">
@@ -867,6 +1070,9 @@ const Presentation: React.FC = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  // Calculate progress percentage
+  const progress = ((currentSlide + 1) / slides.length) * 100;
+
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
@@ -882,6 +1088,9 @@ const Presentation: React.FC = () => {
 
   return (
     <div className="presentation-container">
+      <div className="progress-indicator">
+        <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+      </div>
       <div className="slide-content">
         {slides[currentSlide].content}
       </div>
