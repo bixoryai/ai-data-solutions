@@ -27,10 +27,6 @@ The presentation consists of the following slides:
 3. **Key Business Challenges We Solve** - Pain points addressed by the solution
 4. **Our AI-First Approach** - Solution overview with cross-industry AI capabilities
 5. **Industry-Specific AI Applications** - Interactive tabs showing solutions for different industries
-6. **Seamless Enterprise Integration** - AI enhancement capabilities that integrate with existing systems
-7. **The 90-Day Journey to Value** - Timeline showing the implementation journey
-8. **Why Our Company?** - Unique strengths and capabilities that set the company apart
-9. **Next Steps** - Action items to begin the transformation process
 
 ## UI Features
 
@@ -41,16 +37,6 @@ The presentation consists of the following slides:
 - **Visual Effects** - Background animations, data visualization elements, and interactive hover states
 - **Interactive Tabs** - Clickable tabs that switch between different content sections
 - **Optimized Card Layouts** - Different card layouts optimized for each slide's content
-
-## Code Architecture
-
-The presentation follows a modular approach:
-
-- **Shared Structure** - Common layout elements used across all slides (backgrounds, headers)
-- **Namespaced CSS** - Each new slide (7+) uses prefixed CSS classes to prevent style conflicts
-- **Data-Driven Content** - Content arrays drive the rendering of repeated elements
-- **Consistent Styling** - Unified color scheme, typography, and interactive elements
-- **Isolated Slide Logic** - Each slide can be modified without affecting others
 
 ## Development
 

@@ -35,10 +35,7 @@ import {
   Calendar,
   ArrowUpRight,
   Map,
-  Activity,
-  Mail,
-  Phone,
-  Globe
+  Activity
 } from 'lucide-react';
 
 // Define types for tab content
@@ -737,68 +734,6 @@ const Presentation: React.FC = () => {
                 <button className="slide12-cta-button">Schedule Your Discovery Workshop</button>
                 <div className="slide12-contact">develop@bixory.ai | (408)658-8538</div>
               </div>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      title: "Thank You",
-      subtitle: "For Your Attention",
-      content: (
-        <div className="title-slide">
-          <div className="bg-graphics animated">
-            <div className="data-point point1 pulse"></div>
-            <div className="data-point point2 pulse"></div>
-            <div className="data-point point3 pulse"></div>
-            <div className="data-line line1 glow"></div>
-            <div className="data-line line2 glow"></div>
-            <div className="data-flow flow1"></div>
-            <div className="data-flow flow2"></div>
-            <div className="data-flow flow3"></div>
-            <div className="data-flow flow4"></div>
-            <div className="data-flow flow5"></div>
-          </div>
-          
-          <div className="title-content">
-            <div className="slide10-container expanded">
-              <div className="slide10-contact-section horizontal">
-                <div className="slide10-contact-item">
-                  <div className="slide10-contact-icon">
-                    <Mail size={24} />
-                  </div>
-                  <div className="slide10-contact-label">Email</div>
-                  <div className="slide10-contact-value">develop@bixory.ai</div>
-                </div>
-                
-                <div className="slide10-contact-item">
-                  <div className="slide10-contact-icon">
-                    <Phone size={24} />
-                  </div>
-                  <div className="slide10-contact-label">Phone</div>
-                  <div className="slide10-contact-value">(408) 658-8538</div>
-                </div>
-                
-                <div className="slide10-contact-item">
-                  <div className="slide10-contact-icon">
-                    <Globe size={24} />
-                  </div>
-                  <div className="slide10-contact-label">Website</div>
-                  <div className="slide10-contact-value">bixory.ai</div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="slide10-center-content">
-              <h1 className="slide10-title">Thank You</h1>
-              <h3 className="slide10-subtitle">For Your Attention</h3>
-            </div>
-            
-            <div className="slide10-logo animated centered">
-              <div className="logo-circle pulse-slow">
-                <img src={`${process.env.PUBLIC_URL}/images/favicon.png`} alt="Bixing Technology Logo" />
-              </div>
-              <div className="company-name fade-in">Bixing AI Technology</div>
             </div>
           </div>
         </div>
