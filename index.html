@@ -114,7 +114,7 @@
                             </svg>
                         </div>
                         <h3 class="text-2xl font-bold" data-i18n="manufacturingAnalytics">Manufacturing Analytics</h3>
-                        <p class="mt-2 opacity-80 featured-status" data-i18n="comingSoon">Coming Soon</p>
+                        <p class="mt-2 opacity-80 featured-status" data-i18n="ready">Ready</p>
                     </div>
                 </div>
                 <div class="lg:w-1/2 p-8">
@@ -141,7 +141,7 @@
                         </li>
                     </ul>
                     <div class="mt-8">
-                        <button class="btn btn-primary featured-button" disabled data-i18n="comingSoon">Coming Soon</button>
+                        <a href="./industry-analytics/dashboard-demo/build/index.html" class="btn btn-primary featured-button dashboard-link" data-i18n="ready">View Demo</a>
                     </div>
                 </div>
             </div>
@@ -155,7 +155,7 @@
                     <div class="card-header bg-primary-50">
                         <div class="flex justify-between items-center">
                             <h3 class="text-xl font-semibold text-primary-900" data-i18n="industryAnalyticsShort">Industry Analytics</h3>
-                            <span class="status-badge status-coming-soon" data-i18n="comingSoon">Coming Soon</span>
+                            <span class="status-badge status-ready" data-i18n="ready">Ready</span>
                         </div>
                     </div>
                     <div class="card-body">
@@ -166,8 +166,8 @@
                             <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded" data-i18n="tag3">Dashboards</span>
                         </div>
                         <div class="flex gap-2">
-                            <a href="./industry-analytics/presentation/build/index.html" class="btn btn-secondary flex-1 text-center">About</a>
-                            <button class="btn btn-primary flex-1" disabled data-i18n="comingSoon">Demo</button>
+                            <a href="./industry-analytics/presentation/build/index.html" class="btn btn-secondary flex-1 text-center dashboard-link">About</a>
+                            <a href="./industry-analytics/dashboard-demo/build/index.html" class="btn btn-primary flex-1 dashboard-link" data-i18n="ready">View Demo</a>
                         </div>
                     </div>
                 </div>
@@ -177,7 +177,7 @@
                     <div class="card-header bg-secondary-emerald bg-opacity-10">
                         <div class="flex justify-between items-center">
                             <h3 class="text-xl font-semibold text-gray-800" data-i18n="syntheticData">Synthetic Data Generator</h3>
-                            <span class="status-badge status-coming-soon" data-i18n="comingSoon">Coming Soon</span>
+                            <span class="status-badge status-ready" data-i18n="ready">Ready</span>
                         </div>
                     </div>
                     <div class="card-body">
@@ -188,8 +188,8 @@
                             <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded" data-i18n="tag6">Testing</span>
                         </div>
                         <div class="flex gap-2">
-                            <a href="/synthetic-data-generator/about.html" class="btn btn-secondary flex-1 text-center">About</a>
-                            <button class="btn btn-primary flex-1" disabled data-i18n="comingSoon">Demo</button>
+                            <a href="./synthetic-data-generator/presentation/build/index.html" class="btn btn-secondary flex-1 text-center dashboard-link">About</a>
+                            <a href="./synthetic-data-generator/presentation/build/index.html" class="btn btn-primary flex-1 dashboard-link" data-i18n="ready">View Demo</a>
                         </div>
                     </div>
                 </div>
@@ -210,7 +210,7 @@
                             <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded" data-i18n="tag9">Quality</span>
                         </div>
                         <div class="flex gap-2">
-                            <a href="/domain-dataset-curation/about.html" class="btn btn-secondary flex-1 text-center">About</a>
+                            <a href="./domain-dataset-curation/about.html" class="btn btn-secondary flex-1 text-center dashboard-link">About</a>
                             <button class="btn btn-primary flex-1" disabled data-i18n="comingSoon">Demo</button>
                         </div>
                     </div>
@@ -326,7 +326,7 @@
             // Demo availability check
             const demosAvailable = {
                 'industry-analytics': true,
-                'synthetic-data-generator': false,
+                'synthetic-data-generator': true,  // Updated to true to ensure links work
                 'domain-dataset-curation': false
             };
             
@@ -350,41 +350,48 @@
             document.documentElement.lang = lang;
         }
         
+        // Function to get the base URL for different environments
+        function getBaseUrl() {
+            const hostname = window.location.hostname;
+            // Check if running on custom domain
+            if (hostname === 'ai-data-solutions.bixory.ai') {
+                return '';
+            }
+            // Check if running on GitHub Pages
+            else if (hostname.includes('github.io')) {
+                return '/ai-data-solutions';
+            }
+            // Local development
+            return '';
+        }
+        
         // Function to update demo availability in the UI
         function updateDemoAvailability(demosAvailable) {
-            // Update featured solution (Manufacturing Analytics)
-            if (demosAvailable['industry-analytics']) {
-                const featuredButton = document.querySelector('.featured-button');
-                featuredButton.removeAttribute('disabled');
-                featuredButton.setAttribute('data-i18n', 'ready');
-                featuredButton.textContent = translations[document.documentElement.lang]['ready'];
-                featuredButton.addEventListener('click', function() {
-                    window.location.href = 'industry-analytics/dashboard-demo/build/index.html';
-                });
-                
-                // Update status text
-                const featuredStatus = document.querySelector('.featured-status');
-                featuredStatus.setAttribute('data-i18n', 'ready');
-                featuredStatus.textContent = translations[document.documentElement.lang]['ready'];
+            const baseUrl = getBaseUrl();
+            
+            // Update links to work with both GitHub Pages and local development
+            const featuredButton = document.querySelector('.featured-button');
+            if (featuredButton) {
+                const currentHref = featuredButton.getAttribute('href');
+                featuredButton.setAttribute('href', `${baseUrl}${currentHref.startsWith('/') ? '' : '/'}${currentHref.replace(/^\//, '')}`);
             }
             
-            // Update Industry Analytics card
-            if (demosAvailable['industry-analytics']) {
-                const industryCard = document.querySelector('.industry-card');
-                const statusBadge = industryCard.querySelector('.status-badge');
-                const button = industryCard.querySelector('button');
-                
-                statusBadge.classList.remove('status-coming-soon');
-                statusBadge.classList.add('status-ready');
-                statusBadge.setAttribute('data-i18n', 'ready');
-                statusBadge.textContent = translations[document.documentElement.lang]['ready'];
-                
-                button.removeAttribute('disabled');
-                button.setAttribute('data-i18n', 'ready');
-                button.textContent = translations[document.documentElement.lang]['ready'];
-                button.addEventListener('click', function() {
-                    window.location.href = 'industry-analytics/dashboard-demo/build/index.html';
-                });
+            // Update all dashboard links
+            document.querySelectorAll('.dashboard-link').forEach(link => {
+                const currentHref = link.getAttribute('href');
+                if (currentHref && !currentHref.startsWith('http')) {
+                    link.setAttribute('href', `${baseUrl}${currentHref.startsWith('/') ? '' : '/'}${currentHref.replace(/^\//, '')}`);
+                }
+            });
+            
+            // Update featured solution status if needed
+            if (demosAvailable['synthetic-data-generator']) {
+                // If we want to enable Synthetic Data Generator in the future
+            }
+            
+            // Update Domain Dataset Curation card if needed
+            if (demosAvailable['domain-dataset-curation']) {
+                // If we want to enable Domain Dataset Curation in the future
             }
         }
     </script>

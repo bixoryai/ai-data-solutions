@@ -1,0 +1,77 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual triggering
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+        
+      - name: Build Industry Analytics Dashboard
+        run: |
+          cd industry-analytics/dashboard-demo
+          npm ci
+          # Update the homepage in package.json to match custom domain
+          sed -i 's#"homepage": ".*"#"homepage": "https://ai-data-solutions.bixory.ai/industry-analytics/dashboard-demo/build"#' package.json
+          npm run build
+          
+      # Add builds for other dashboards when they're implemented
+      # - name: Build Synthetic Data Generator Dashboard
+      #   run: |
+      #     cd synthetic-data-generator/dashboard-demo
+      #     npm ci
+      #     sed -i 's#"homepage": ".*"#"homepage": "https://ai-data-solutions.bixory.ai/synthetic-data-generator/dashboard-demo/build"#' package.json
+      #     npm run build
+      
+      # - name: Build Domain Dataset Curation Dashboard
+      #   run: |
+      #     cd domain-dataset-curation/dashboard-demo
+      #     npm ci
+      #     sed -i 's#"homepage": ".*"#"homepage": "https://ai-data-solutions.bixory.ai/domain-dataset-curation/dashboard-demo/build"#' package.json
+      #     npm run build
+      
+      - name: Update Portal Links for Custom Domain
+        run: |
+          # No need to update links as the JavaScript in index.html now handles
+          # path resolution for custom domain, GitHub Pages, and local development
+          echo "Using dynamic path resolution in JavaScript for all environments"
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: .
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2

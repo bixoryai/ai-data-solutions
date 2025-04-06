@@ -60,33 +60,143 @@ type TabType = 'healthcare' | 'financial' | 'manufacturing' | 'energy';
 const Presentation: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeTab, setActiveTab] = useState<TabType>('healthcare');
+  const [language, setLanguage] = useState<'en' | 'zh'>('en');
+
+  // Define translations
+  const translations = {
+    en: {
+      title: 'Industry Analytics',
+      subtitle: 'AI-Powered Solutions for Manufacturing Excellence',
+      nextSlide: 'Next Slide',
+      prevSlide: 'Previous Slide',
+      slideOf: 'of',
+      thankYou: 'Thank You',
+      forYourAttention: 'For Your Attention',
+      contactUs: 'Contact Us',
+      email: 'Email',
+      phone: 'Phone',
+      website: 'Website',
+      discovery: 'Discovery & AI Value Assessment',
+      firstModel: 'First AI Model Deployment',
+      insights: 'Initial Insights & Validation',
+      integration: 'Process Integration',
+      measurement: 'Value Measurement',
+      // Slide titles and content
+      industrySpecificAI: 'Industry-specific AI Analytics',
+      transformingIndustries: 'Transforming Industries with AI-Powered Insights',
+      predictiveAnalytics: 'Predictive Analytics',
+      operationalEfficiency: 'Operational Efficiency',
+      valueAcceleration: 'Value Acceleration',
+      // Company strengths
+      industryAIExpertise: 'Industry + AI Expertise',
+      domainKnowledge: 'Deep domain knowledge combined with cutting-edge AI capabilities',
+      provenMethodology: 'Proven Implementation Methodology',
+      successRate: '95% success rate with our 90-day deployment framework',
+      proprietaryAlgorithms: 'Proprietary Algorithms',
+      betterAccuracy: 'Industry-specific models delivering 30-50% better accuracy',
+      enterpriseGrade: 'Enterprise-Grade Platform',
+      securityScalability: 'Security, scalability, and compliance built into our core architecture',
+      transparentROI: 'Transparent ROI Framework',
+      clearMetrics: 'Clear measurement methodology with documented success metrics',
+      futureProof: 'Future-Proof Technology',
+      continuousLearning: 'Continuous learning systems that improve with every implementation',
+      // Company stats
+      implementationSuccessRate: 'Implementation Success Rate',
+      higherAccuracy: 'Higher Accuracy vs. Generic AI',
+      fasterTimeToValue: 'Faster Time to Value',
+      // Next steps
+      discoveryWorkshop: 'Discovery Workshop',
+      twoHourSession: '2-hour session to identify high-value opportunities',
+      aiValueAssessment: 'AI Value Assessment',
+      twoWeekAnalysis: '2-week analysis of your specific environment',
+      implementationPlan: 'Implementation Plan',
+      detailedRoadmap: 'Detailed roadmap tailored to your priorities',
+      pilotDeployment: 'Pilot Deployment',
+      eightWeekImplementation: '8-week implementation of first high-value use case'
+    },
+    zh: {
+      title: '行业分析',
+      subtitle: '制造业卓越的AI驱动解决方案',
+      nextSlide: '下一张幻灯片',
+      prevSlide: '上一张幻灯片',
+      slideOf: '/',
+      thankYou: '谢谢',
+      forYourAttention: '感谢您的关注',
+      contactUs: '联系我们',
+      email: '电子邮件',
+      phone: '电话',
+      website: '网站',
+      discovery: '发现和AI价值评估',
+      firstModel: '首个AI模型部署',
+      insights: '初步洞察和验证',
+      integration: '流程整合',
+      measurement: '价值衡量',
+      // Slide titles and content
+      industrySpecificAI: '行业特定AI分析',
+      transformingIndustries: '使用AI驱动的洞察力改变行业',
+      predictiveAnalytics: '预测分析',
+      operationalEfficiency: '运营效率',
+      valueAcceleration: '价值加速',
+      // Company strengths
+      industryAIExpertise: '行业 + AI专业知识',
+      domainKnowledge: '深度的领域知识与尖端的AI能力相结合',
+      provenMethodology: '经过验证的实施方法',
+      successRate: '我们的90天部署框架成功率达95%',
+      proprietaryAlgorithms: '专有算法',
+      betterAccuracy: '行业特定模型提供30-50%的更高准确度',
+      enterpriseGrade: '企业级平台',
+      securityScalability: '安全性、可扩展性和合规性内置于核心架构',
+      transparentROI: '透明的ROI框架',
+      clearMetrics: '清晰的测量方法和有文档记录的成功指标',
+      futureProof: '面向未来的技术',
+      continuousLearning: '随着每次实施而不断改进的持续学习系统',
+      // Company stats
+      implementationSuccessRate: '实施成功率',
+      higherAccuracy: '相比通用AI的更高准确度',
+      fasterTimeToValue: '更快的价值实现时间',
+      // Next steps
+      discoveryWorkshop: '发现工作坊',
+      twoHourSession: '2小时会议以识别高价值机会',
+      aiValueAssessment: 'AI价值评估',
+      twoWeekAnalysis: '2周分析您的特定环境',
+      implementationPlan: '实施计划',
+      detailedRoadmap: '根据您的优先事项量身定制的详细路线图',
+      pilotDeployment: '试点部署',
+      eightWeekImplementation: '8周实施第一个高价值用例'
+    }
+  };
+
+  // Helper function to get translated text
+  const t = (key: keyof typeof translations.en) => {
+    return translations[language][key] || key;
+  };
 
   // Timeline content for Slide 7
   const timelinePhases = [
     {
-      weeks: "Week 1-4",
-      title: "Discovery & AI Value Assessment",
-      description: "Identify high-value opportunities and establish baselines"
+      weeks: language === 'en' ? "Week 1-4" : "第1-4周",
+      title: t('discovery'),
+      description: language === 'en' ? "Identify high-value opportunities and establish baselines" : "识别高价值机会并建立基准"
     },
     {
-      weeks: "Week 5-6",
-      title: "First AI Model Deployment",
-      description: "Implement initial models for quick wins"
+      weeks: language === 'en' ? "Week 5-6" : "第5-6周",
+      title: t('firstModel'),
+      description: language === 'en' ? "Implement initial models for quick wins" : "实施初步模型以获得快速成果"
     },
     {
-      weeks: "Week 7-8",
-      title: "Initial Insights & Validation",
-      description: "Evaluate results and refine models"
+      weeks: language === 'en' ? "Week 7-8" : "第7-8周",
+      title: t('insights'),
+      description: language === 'en' ? "Evaluate results and refine models" : "评估结果并优化模型"
     },
     {
-      weeks: "Week 9-10",
-      title: "Process Integration",
-      description: "Embed AI into workflows and systems"
+      weeks: language === 'en' ? "Week 9-10" : "第9-10周",
+      title: t('integration'),
+      description: language === 'en' ? "Embed AI into workflows and systems" : "将AI嵌入工作流程和系统"
     },
     {
-      weeks: "Week 11-12",
-      title: "Value Measurement",
-      description: "Quantify impact and plan expansion"
+      weeks: language === 'en' ? "Week 11-12" : "第11-12周",
+      title: t('measurement'),
+      description: language === 'en' ? "Quantify impact and plan expansion" : "量化影响并计划扩展"
     }
   ];
 
@@ -117,28 +227,28 @@ const Presentation: React.FC = () => {
   // Company strengths content for Slide 11
   const companyStrengths = [
     {
-      title: "Industry + AI Expertise",
-      description: "Deep domain knowledge combined with cutting-edge AI capabilities"
+      title: t('industryAIExpertise'),
+      description: t('domainKnowledge')
     },
     {
-      title: "Proven Implementation Methodology",
-      description: "95% success rate with our 90-day deployment framework"
+      title: t('provenMethodology'),
+      description: t('successRate')
     },
     {
-      title: "Proprietary Algorithms",
-      description: "Industry-specific models delivering 30-50% better accuracy"
+      title: t('proprietaryAlgorithms'),
+      description: t('betterAccuracy')
     },
     {
-      title: "Enterprise-Grade Platform",
-      description: "Security, scalability, and compliance built into our core architecture"
+      title: t('enterpriseGrade'),
+      description: t('securityScalability')
     },
     {
-      title: "Transparent ROI Framework",
-      description: "Clear measurement methodology with documented success metrics"
+      title: t('transparentROI'),
+      description: t('clearMetrics')
     },
     {
-      title: "Future-Proof Technology",
-      description: "Continuous learning systems that improve with every implementation"
+      title: t('futureProof'),
+      description: t('continuousLearning')
     }
   ];
 
@@ -146,35 +256,35 @@ const Presentation: React.FC = () => {
   const companyStats = [
     {
       value: "95%",
-      label: "Implementation Success Rate"
+      label: t('implementationSuccessRate')
     },
     {
       value: "30-50%",
-      label: "Higher Accuracy vs. Generic AI"
+      label: t('higherAccuracy')
     },
     {
       value: "3x",
-      label: "Faster Time to Value"
+      label: t('fasterTimeToValue')
     }
   ];
 
   // Next steps content for Slide 12
   const nextSteps = [
     {
-      title: "Discovery Workshop",
-      description: "2-hour session to identify high-value opportunities"
+      title: t('discoveryWorkshop'),
+      description: t('twoHourSession')
     },
     {
-      title: "AI Value Assessment",
-      description: "2-week analysis of your specific environment"
+      title: t('aiValueAssessment'),
+      description: t('twoWeekAnalysis')
     },
     {
-      title: "Implementation Plan",
-      description: "Detailed roadmap tailored to your priorities"
+      title: t('implementationPlan'),
+      description: t('detailedRoadmap')
     },
     {
-      title: "Pilot Deployment",
-      description: "8-week implementation of first high-value use case"
+      title: t('pilotDeployment'),
+      description: t('eightWeekImplementation')
     }
   ];
 
@@ -193,15 +303,15 @@ const Presentation: React.FC = () => {
           </div>
           
           <div className="title-content">
-            <h1>Industry-specific AI Analytics</h1>
-            <h3>Transforming Industries with AI-Powered Insights</h3>
+            <h1>{t('industrySpecificAI')}</h1>
+            <h3>{t('transformingIndustries')}</h3>
             
             <div className="tagline">
-              <span>Predictive Analytics</span>
+              <span>{t('predictiveAnalytics')}</span>
               <span className="divider">•</span>
-              <span>Operational Efficiency</span>
+              <span>{t('operationalEfficiency')}</span>
               <span className="divider">•</span>
-              <span>Value Acceleration</span>
+              <span>{t('valueAcceleration')}</span>
             </div>
           </div>
           
@@ -359,11 +469,11 @@ const Presentation: React.FC = () => {
           </div>
           
           <div className="title-content">
-            <h1>Our AI-First Approach</h1>
-            <h3>Advanced AI Tailored to Industry Needs</h3>
+            <h1>{language === 'en' ? 'Our AI-First Approach' : '我们的AI优先方法'}</h1>
+            <h3>{language === 'en' ? 'Advanced AI Tailored to Industry Needs' : '针对行业需求量身定制的高级AI'}</h3>
             
             <div className="ai-capabilities-section">
-              <div className="section-title">Cross-Industry AI Capabilities:</div>
+              <div className="section-title">{language === 'en' ? 'Cross-Industry AI Capabilities:' : '跨行业AI能力:'}</div>
               <div className="capabilities-grid">
                 <div className="capability-card">
                   <div className="card-icon predictive-icon">
@@ -436,8 +546,8 @@ const Presentation: React.FC = () => {
           </div>
           
           <div className="title-content">
-            <h1>Industry-Specific AI Applications</h1>
-            <h3>Tailored Solutions for Each Industry</h3>
+            <h1>{language === 'en' ? 'Industry-Specific AI Applications' : '行业特定AI应用'}</h1>
+            <h3>{language === 'en' ? 'Tailored Solutions for Each Industry' : '针对每个行业的定制解决方案'}</h3>
             
             <div className="industry-applications-section">
               <div className="applications-tabs">
@@ -507,8 +617,8 @@ const Presentation: React.FC = () => {
           </div>
           
           <div className="title-content">
-            <h1>Seamless Enterprise Integration</h1>
-            <h3>AI Enhancement Without Disruption</h3>
+            <h1>{language === 'en' ? 'Seamless Enterprise Integration' : '无缝企业集成'}</h1>
+            <h3>{language === 'en' ? 'AI Enhancement Without Disruption' : '无中断的AI增强'}</h3>
             
             <div className="integration-section">
               <div className="integration-grid">
@@ -613,11 +723,11 @@ const Presentation: React.FC = () => {
           </div>
           
           <div className="title-content">
-            <h1>The 90-Day Journey to Value</h1>
-            <h3>Rapid, Measurable Impact</h3>
+            <h1>{language === 'en' ? 'The 90-Day Journey to Value' : '90天价值实现之旅'}</h1>
+            <h3>{language === 'en' ? 'Rapid, Measurable Impact' : '快速、可衡量的影响'}</h3>
             
             <div className="slide7-container">
-              <div className="slide7-journey-title">From Discovery to Measured Value in 90 Days</div>
+              <div className="slide7-journey-title">{language === 'en' ? 'From Discovery to Measured Value in 90 Days' : '90天内从发现到可衡量的价值'}</div>
               
               <div className="slide7-timeline">
                 {timelinePhases.map((phase, index) => (
@@ -637,7 +747,7 @@ const Presentation: React.FC = () => {
               </div>
               
               <div className="slide7-key-message">
-                <span>Our structured methodology consistently delivers <strong>measurable results</strong> by week 8 and <strong>positive ROI</strong> by week 12</span>
+                <span>{language === 'en' ? 'Our structured methodology consistently delivers ' : '我们的结构化方法始终在'}<strong>{language === 'en' ? 'measurable results' : '第8周提供可衡量的结果'}</strong>{language === 'en' ? ' by week 8 and ' : '，并在'}<strong>{language === 'en' ? 'positive ROI' : '第12周实现正收益'}</strong>{language === 'en' ? ' by week 12' : ''}</span>
               </div>
             </div>
           </div>
@@ -658,11 +768,11 @@ const Presentation: React.FC = () => {
           </div>
           
           <div className="title-content">
-            <h1 className="slide11-title">Why Our Company?</h1>
-            <h3 className="slide11-subtitle">Uniquely Positioned to Deliver Value</h3>
+            <h1 className="slide11-title">{language === 'en' ? 'Why Our Company?' : '为什么选择我们公司？'}</h1>
+            <h3 className="slide11-subtitle">{language === 'en' ? 'Uniquely Positioned to Deliver Value' : '独特定位以提供价值'}</h3>
             
             <div className="slide11-container">
-              <div className="slide11-section-title">Our Distinct Advantages</div>
+              <div className="slide11-section-title">{language === 'en' ? 'Our Distinct Advantages' : '我们的独特优势'}</div>
               
               <div className="slide11-strengths-grid">
                 {companyStrengths.map((strength, index) => (
@@ -710,11 +820,11 @@ const Presentation: React.FC = () => {
           </div>
           
           <div className="title-content">
-            <h1 className="slide12-title">Next Steps</h1>
-            <h3 className="slide12-subtitle">Begin Your AI Transformation</h3>
+            <h1 className="slide12-title">{language === 'en' ? 'Next Steps' : '下一步'}</h1>
+            <h3 className="slide12-subtitle">{language === 'en' ? 'Begin Your AI Transformation' : '开始您的AI转型'}</h3>
             
             <div className="slide12-container">
-              <div className="slide12-section-title">Your Path to AI-Powered Success</div>
+              <div className="slide12-section-title">{language === 'en' ? 'Your Path to AI-Powered Success' : '您通往AI驱动成功的道路'}</div>
               
               <div className="slide12-steps-flow">
                 {nextSteps.map((step, index) => (
@@ -767,7 +877,7 @@ const Presentation: React.FC = () => {
                   <div className="slide10-contact-icon">
                     <Mail size={24} />
                   </div>
-                  <div className="slide10-contact-label">Email</div>
+                  <div className="slide10-contact-label">{t('email')}</div>
                   <div className="slide10-contact-value">develop@bixory.ai</div>
                 </div>
                 
@@ -775,7 +885,7 @@ const Presentation: React.FC = () => {
                   <div className="slide10-contact-icon">
                     <Phone size={24} />
                   </div>
-                  <div className="slide10-contact-label">Phone</div>
+                  <div className="slide10-contact-label">{t('phone')}</div>
                   <div className="slide10-contact-value">(408) 658-8538</div>
                 </div>
                 
@@ -783,15 +893,15 @@ const Presentation: React.FC = () => {
                   <div className="slide10-contact-icon">
                     <Globe size={24} />
                   </div>
-                  <div className="slide10-contact-label">Website</div>
+                  <div className="slide10-contact-label">{t('website')}</div>
                   <div className="slide10-contact-value">bixory.ai</div>
                 </div>
               </div>
             </div>
             
             <div className="slide10-center-content">
-              <h1 className="slide10-title">Thank You</h1>
-              <h3 className="slide10-subtitle">For Your Attention</h3>
+              <h1 className="slide10-title">{t('thankYou')}</h1>
+              <h3 className="slide10-subtitle">{t('forYourAttention')}</h3>
             </div>
             
             <div className="slide10-logo animated centered">
@@ -838,6 +948,20 @@ const Presentation: React.FC = () => {
 
   return (
     <div className="presentation-container">
+      <div className="language-toggle">
+        <button 
+          onClick={() => setLanguage('en')}
+          className={`language-btn ${language === 'en' ? 'active' : ''}`}
+        >
+          EN
+        </button>
+        <button 
+          onClick={() => setLanguage('zh')}
+          className={`language-btn ${language === 'zh' ? 'active' : ''}`}
+        >
+          中文
+        </button>
+      </div>
       <div className="progress-bar">
         <div 
           className="progress" 
@@ -852,6 +976,7 @@ const Presentation: React.FC = () => {
           className="edge-nav-btn prev-edge-btn" 
           onClick={prevSlide}
           disabled={currentSlide === 0}
+          title={t('prevSlide')}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
@@ -862,6 +987,7 @@ const Presentation: React.FC = () => {
           className="edge-nav-btn next-edge-btn" 
           onClick={nextSlide}
           disabled={currentSlide === slides.length - 1}
+          title={t('nextSlide')}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="9 18 15 12 9 6"></polyline>
@@ -870,7 +996,7 @@ const Presentation: React.FC = () => {
         
         <div className="slide-info">
           <div className="slide-number">
-            {currentSlide + 1} / {slides.length}
+            {currentSlide + 1} {t('slideOf')} {slides.length}
           </div>
         </div>
       </div>

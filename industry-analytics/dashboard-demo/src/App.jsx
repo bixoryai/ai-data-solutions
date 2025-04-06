@@ -1,10 +1,10 @@
 import React from 'react';
-import Presentation from './components/Presentation';
+import IndustryAIAnalyticsDashboard from './components/IndustryAIAnalyticsDashboard';
 
 function App() {
   return (
     <div className="min-h-screen bg-gray-900">
-      <Presentation />
+      <IndustryAIAnalyticsDashboard />
     </div>
   );
 }

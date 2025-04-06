@@ -35,10 +35,27 @@ ai-data-solutions/
 ├── industry-analytics/          # Industry-specific AI Analytics project
 │   ├── dashboard-demo/          # Demo implementation of the dashboard
 │   │   ├── package.json         # Project dependencies
+│   │   ├── package-lock.json    # Dependency lock file
 │   │   ├── public/              # Static assets
 │   │   ├── src/                 # Source code
+│   │   │   ├── components/      # Dashboard components
+│   │   │   ├── App.jsx          # Main application component
+│   │   │   └── index.js         # Entry point
 │   │   ├── build/               # Compiled dashboard (created by build process)
+│   │   ├── build.bat            # Build script for Windows
+│   │   ├── tailwind.config.js   # Tailwind CSS configuration
+│   │   ├── postcss.config.js    # PostCSS configuration
 │   │   └── README.md            # Instructions for running the demo
+│   ├── presentation/            # Interactive presentation for industry analytics
+│   │   ├── package.json         # Project dependencies
+│   │   ├── package-lock.json    # Dependency lock file
+│   │   ├── public/              # Static assets
+│   │   ├── src/                 # Source code
+│   │   ├── backups/             # Backup files
+│   │   ├── tailwind.config.js   # Tailwind CSS configuration
+│   │   ├── postcss.config.js    # PostCSS configuration
+│   │   ├── tsconfig.json        # TypeScript configuration
+│   │   └── README.md            # Instructions for the presentation
 │   ├── production-app/          # Full implementation (future)
 │   └── README.md                # Project documentation
 │
@@ -49,6 +66,17 @@ ai-data-solutions/
 │   │   ├── src/                 # Source code
 │   │   ├── build/               # Compiled dashboard (created by build process)
 │   │   └── README.md            # Instructions for running the demo
+│   ├── presentation/            # Interactive presentation for synthetic data
+│   │   ├── package.json         # Project dependencies
+│   │   ├── public/              # Static assets
+│   │   ├── src/                 # Source code
+│   │   │   ├── components/      # Slide components
+│   │   │   ├── App.tsx          # Main application component
+│   │   │   └── index.tsx        # Entry point
+│   │   ├── tailwind.config.js   # Tailwind CSS configuration
+│   │   ├── postcss.config.js    # PostCSS configuration
+│   │   ├── tsconfig.json        # TypeScript configuration
+│   │   └── README.md            # Instructions for the presentation
 │   ├── generation-models/       # Data generation algorithms
 │   └── README.md                # Project documentation
 │
@@ -198,33 +226,57 @@ For complete details on our branching workflow, please see the [Contributing Gui
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Presentation Module
+## Presentation Modules
+
+The repository includes interactive presentation modules for showcasing our AI data solutions to clients and stakeholders. These presentations provide comprehensive overviews of our technology offerings and business value propositions.
+
+### Available Presentations
+
+1. **Industry Analytics Presentation**
+   - Overview of industry-specific AI analytics capabilities
+   - Manufacturing industry use cases and demonstrations
+   - Technical architecture and implementation details
+   - Business value and ROI analysis
+
+2. **Synthetic Data Generator Presentation**
+   - Executive summary and business case for synthetic data
+   - Technical explanation of synthetic data generation methods
+   - Market analysis and competitive landscape
+   - Implementation roadmap and technology overview
+   - Use cases across financial services, healthcare, and retail
 
 ### Technology Stack
 - **React**: Frontend library for building the interactive presentation UI
 - **TypeScript**: Type-safe JavaScript for robust application development
-- **CSS Modules**: Modular approach to styling with component-scoped CSS
-- **SVG Animations**: Custom SVG for background and animated elements
+- **Tailwind CSS**: Utility-first CSS framework for consistent styling
+- **Lucide Icons**: Modern icon library for clean visual elements
 
 ### Design Approach
-The presentation follows a modern, sleek dark theme that reflects futuristic AI technology:
+All presentations follow a modern, sleek dark theme that reflects futuristic AI technology:
 - **Dark Background**: Deep gradient background with subtle grid patterns
 - **High Contrast Text**: Bright yellow titles with white content for readability
 - **Animated Elements**: Subtle floating animations for visual engagement
 - **Glassmorphism**: Semi-transparent card elements with blur effects
 - **Responsive Layout**: Adapts to different screen sizes while maintaining visual integrity
 
+### Multilingual Support
+Both presentations support seamless switching between English and Chinese languages:
+- Language toggle accessible from any slide
+- Content dynamically updates based on selected language
+- Maintains consistent layout and styling across languages
+
 ### Implementation Details
-- The presentation is structured as a series of slides with navigation controls
-- Each slide is a React component with its own content and styling
-- Custom animations are implemented using CSS keyframes
-- The presentation uses a custom SVG background for the futuristic data visualization effect
-- Company branding (Bixing AI Technology) is prominently displayed with the logo
+- Each presentation is structured as a series of slides with navigation controls
+- Slides are implemented as React components with their own content and styling
+- Navigation includes previous/next controls and a home button
+- Progress indicator shows current position in the presentation
+- Company branding (Bixory AI) is prominently displayed throughout
 
 ### Development Guidelines
 - Maintain the established color scheme (dark background, yellow titles, light content)
 - Keep animations subtle and professional
 - Ensure all text has sufficient contrast with backgrounds
 - Follow React best practices with functional components
+- Maintain consistent styling between different presentation modules
 
-The presentation module is based on the company's branding guidelines and industry-standard presentation principles for technical demonstrations.
+The presentation modules are based on the company's branding guidelines and industry-standard presentation principles for technical demonstrations.
