@@ -73,9 +73,7 @@
             .status-coming-soon {
                 @apply bg-amber-100 text-amber-800;
             }
-            .language-toggle {
-                @apply absolute top-4 right-4 md:right-8 z-10;
-            }
+            /* Language toggle styling removed as it's now positioned in the flex layout */
             .language-button {
                 @apply px-3 py-1.5 rounded border border-gray-300 text-sm font-medium bg-white text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50;
             }
@@ -85,27 +83,34 @@
 <body class="bg-gray-50 min-h-screen">
     <header class="bg-gradient-to-r from-primary-800 to-primary-600 text-white relative shadow-md">
         <div class="container mx-auto px-4 py-5 md:py-6 lg:py-8">
-            <!-- Language toggle positioned absolutely for all screen sizes -->
-            <div class="language-toggle">
-                <button 
-                    id="language-toggle-btn" 
-                    class="language-button" 
-                    aria-label="Toggle language"
-                    role="button"
-                >
-                    <span id="language-text">中文</span>
-                </button>
+            <!-- Single row with logo, title, and language toggle -->
+            <div class="flex justify-between items-center max-w-6xl mx-auto">
+                <!-- Logo on the left -->
+                <div class="flex-shrink-0 w-1/4 flex justify-start">
+                    <img src="assets/images/logo.png" alt="AI Data Solutions Logo" class="h-20 md:h-24 lg:h-28 w-auto">
+                </div>
+                
+                <!-- Title in the center -->
+                <div class="flex-grow flex justify-center items-center">
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white text-center" data-i18n="title">AI Data Solutions</h1>
+                </div>
+                
+                <!-- Language toggle on the right -->
+                <div class="flex-shrink-0 w-1/4 flex justify-end">
+                    <button 
+                        id="language-toggle-btn" 
+                        class="language-button" 
+                        aria-label="Toggle language"
+                        role="button"
+                    >
+                        <span id="language-text">中文</span>
+                    </button>
+                </div>
             </div>
             
-            <!-- Responsive header layout that stacks on mobile -->
-            <div class="flex flex-col md:flex-row md:justify-between md:items-center max-w-6xl mx-auto">
-                <div class="flex justify-center md:justify-start mb-5 md:mb-0">
-                    <img src="assets/images/logo.png" alt="AI Data Solutions Logo" class="h-20 md:h-28 lg:h-36 w-auto">
-                </div>
-                <div class="text-center md:text-right md:flex-grow md:mx-4 lg:mx-8 mt-3 md:mt-0">
-                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white" data-i18n="title">AI Data Solutions</h1>
-                    <p class="mt-3 md:mt-4 text-base sm:text-lg md:text-xl text-primary-100 max-w-2xl mx-auto md:ml-auto md:mr-0" data-i18n="subtitle">Advanced AI-powered solutions for data processing, analysis, and visualization</p>
-                </div>
+            <!-- Subtitle row - centered -->
+            <div class="text-center mt-1 md:mt-2">
+                <p class="text-base sm:text-lg md:text-xl text-primary-100 max-w-2xl mx-auto" data-i18n="subtitle">Advanced AI-powered solutions for data processing, analysis, and visualization</p>
             </div>
         </div>
     </header>
