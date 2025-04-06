@@ -383,23 +383,42 @@
                     // Ensure paths are consistently formatted for all environments
                     let newHref = currentHref;
                     
-                    // Fix presentation links to ensure they work in all environments
-                    if (newHref.includes('presentation')) {
-                        // Make sure presentation links point to the built presentation slides
-                        if (!newHref.includes('/presentation/build/')) {
-                            newHref = newHref.replace('/presentation/', '/presentation/build/');
-                            newHref = newHref.replace('/presentation/build/index.html', '/presentation/build/');
+                    // Standardize all paths to ensure consistent behavior across environments
+                    
+                    // First, ensure all paths use forward slashes
+                    newHref = newHref.replace(/\\/g, '/');
+                    
+                    // For industry-analytics presentation link
+                    if (newHref.includes('industry-analytics/presentation')) {
+                        console.log('Processing industry-analytics presentation link: ' + newHref);
+                        newHref = './industry-analytics/presentation/build/index.html';
+                    }
+                    
+                    // For synthetic-data-generator dashboard link
+                    if (newHref.includes('synthetic-data-generator/dashboard-demo')) {
+                        console.log('Processing synthetic-data-generator dashboard link: ' + newHref);
+                        newHref = './synthetic-data-generator/dashboard-demo/build/index.html';
+                    }
+                    
+                    // For synthetic-data-generator presentation link
+                    if (newHref.includes('synthetic-data-generator/presentation')) {
+                        console.log('Processing synthetic-data-generator presentation link: ' + newHref);
+                        newHref = './synthetic-data-generator/presentation/build/index.html';
+                    }
+                    
+                    // Removed dashboard-specific handling as it's now covered in the standardized path section above
+                    
+                    // Special handling for GitHub Pages environment
+                    if (window.location.hostname.includes('github.io')) {
+                        // For GitHub Pages, ensure all paths start with the repository name
+                        if (newHref.startsWith('./')) {
+                            newHref = newHref.substring(2); // Remove the leading './' for GitHub Pages
                         }
+                        link.setAttribute('href', `${baseUrl}/${newHref}`);
+                    } else {
+                        // For local and custom domain, use the standard path formatting
+                        link.setAttribute('href', `${baseUrl}${newHref.startsWith('/') ? '' : '/'}${newHref.replace(/^\//, '')}`);
                     }
-                    
-                    // Fix dashboard demo links
-                    if (newHref.includes('dashboard-demo')) {
-                        // Make sure dashboard links point to the index.html in the build folder
-                        newHref = newHref.replace('/dashboard-demo/index.html', '/dashboard-demo/build/index.html');
-                    }
-                    
-                    // Apply the base URL
-                    link.setAttribute('href', `${baseUrl}${newHref.startsWith('/') ? '' : '/'}${newHref.replace(/^\//, '')}`);
                     
                     // Log the updated link for debugging
                     console.log(`Updated link: ${currentHref} -> ${link.getAttribute('href')}`);
