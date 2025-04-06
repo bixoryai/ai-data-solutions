@@ -244,6 +244,27 @@ const IndustryAIAnalyticsDashboard = () => {
   const [language, setLanguage] = useState('en');
   const industry = 'Manufacturing';
   
+  // Add global CSS to fix Chinese text orientation
+  useEffect(() => {
+    // Create a style element
+    const style = document.createElement('style');
+    // Add CSS rules to ensure horizontal text display
+    style.textContent = `
+      h1, h2, h3, p, span, div, button, text, tspan {
+        writing-mode: horizontal-tb !important;
+        text-orientation: mixed !important;
+        text-combine-upright: none !important;
+      }
+    `;
+    // Append the style to the document head
+    document.head.appendChild(style);
+    
+    // Clean up on component unmount
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+  
   // Initialize language from localStorage or default to English
   useEffect(() => {
     const savedLang = localStorage.getItem('dashboard_language') || 'en';
@@ -292,20 +313,15 @@ const IndustryAIAnalyticsDashboard = () => {
             </span>
           </div>
           <div className="flex items-center space-x-4">
-            {/* Language Toggle */}
-            <div className="flex items-center bg-indigo-600 rounded-full px-2 py-1">
-              <Globe size={16} className="mr-2" />
+            {/* Language Toggle - Styled to match homepage */}
+            <div className="flex items-center">
               <button 
-                className={`px-2 py-1 text-xs rounded-full ${language === 'en' ? 'bg-white text-indigo-700' : 'text-white'}`}
-                onClick={() => changeLanguage('en')}
+                className="px-3 py-1.5 rounded border border-gray-300 text-sm font-medium bg-white text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+                onClick={() => changeLanguage(language === 'en' ? 'zh' : 'en')}
+                aria-label="Toggle language"
+                role="button"
               >
-                EN
-              </button>
-              <button 
-                className={`px-2 py-1 text-xs rounded-full ${language === 'zh' ? 'bg-white text-indigo-700' : 'text-white'}`}
-                onClick={() => changeLanguage('zh')}
-              >
-                中文
+                <span>{language === 'en' ? '中文' : 'English'}</span>
               </button>
             </div>
             <Bell size={20} />

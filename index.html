@@ -77,26 +77,53 @@
             .language-button {
                 @apply px-3 py-1.5 rounded border border-gray-300 text-sm font-medium bg-white text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50;
             }
+            
+            /* Ensure proper display of Chinese text */
+            [data-i18n], h1, h2, h3, p, span, button {
+                writing-mode: horizontal-tb !important;
+                text-orientation: mixed !important;
+            }
         }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     <header class="bg-gradient-to-r from-primary-800 to-primary-600 text-white relative shadow-md">
         <div class="container mx-auto px-4 py-5 md:py-6 lg:py-8">
-            <!-- Single row with logo, title, and language toggle -->
-            <div class="flex justify-between items-center max-w-6xl mx-auto">
+            <!-- Single row with logo, title, and language toggle - Improved for mobile -->
+            <div class="flex flex-col sm:flex-row justify-between items-center max-w-6xl mx-auto">
+                <!-- Top row for mobile: Logo and language toggle -->
+                <div class="w-full sm:hidden flex justify-between items-center mb-4">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0">
+                        <img src="assets/images/logo.png" alt="AI Data Solutions Logo" class="h-16 w-auto">
+                    </div>
+                    
+                    <!-- Language toggle -->
+                    <div>
+                        <button 
+                            id="language-toggle-btn-mobile" 
+                            class="language-button" 
+                            aria-label="Toggle language"
+                            role="button"
+                        >
+                            <span id="language-text-mobile">中文</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Desktop layout (hidden on mobile) -->
                 <!-- Logo on the left -->
-                <div class="flex-shrink-0 w-1/4 flex justify-start">
+                <div class="hidden sm:flex flex-shrink-0 w-1/4 justify-start">
                     <img src="assets/images/logo.png" alt="AI Data Solutions Logo" class="h-20 md:h-24 lg:h-28 w-auto">
                 </div>
                 
-                <!-- Title in the center -->
+                <!-- Title in the center - shown on all screens -->
                 <div class="flex-grow flex justify-center items-center">
                     <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white text-center" data-i18n="title">AI Data Solutions</h1>
                 </div>
                 
-                <!-- Language toggle on the right -->
-                <div class="flex-shrink-0 w-1/4 flex justify-end">
+                <!-- Language toggle on the right (desktop only) -->
+                <div class="hidden sm:flex flex-shrink-0 w-1/4 justify-end">
                     <button 
                         id="language-toggle-btn" 
                         class="language-button" 
@@ -319,23 +346,43 @@
             const savedLang = localStorage.getItem('language') || 'en';
             setLanguage(savedLang);
             
-            // Set up language toggle button
+            // Set up language toggle buttons (desktop and mobile)
             const languageToggleBtn = document.getElementById('language-toggle-btn');
+            const languageToggleBtnMobile = document.getElementById('language-toggle-btn-mobile');
             const languageText = document.getElementById('language-text');
+            const languageTextMobile = document.getElementById('language-text-mobile');
             
             // Set initial button text based on saved language
-            languageText.textContent = savedLang === 'en' ? '中文' : 'English';
+            if (languageText) languageText.textContent = savedLang === 'en' ? '中文' : 'English';
+            if (languageTextMobile) languageTextMobile.textContent = savedLang === 'en' ? '中文' : 'English';
             
-            // Add click event listener to toggle button
-            languageToggleBtn.addEventListener('click', function() {
-                // Toggle language
-                const newLang = savedLang === 'en' ? 'zh' : 'en';
-                setLanguage(newLang);
-                localStorage.setItem('language', newLang);
-                
-                // Update button text
-                languageText.textContent = newLang === 'en' ? '中文' : 'English';
-            });
+            // Add click event listener to desktop toggle button
+            if (languageToggleBtn) {
+                languageToggleBtn.addEventListener('click', function() {
+                    // Toggle language
+                    const newLang = savedLang === 'en' ? 'zh' : 'en';
+                    setLanguage(newLang);
+                    localStorage.setItem('language', newLang);
+                    
+                    // Update button text on both desktop and mobile
+                    if (languageText) languageText.textContent = newLang === 'en' ? '中文' : 'English';
+                    if (languageTextMobile) languageTextMobile.textContent = newLang === 'en' ? '中文' : 'English';
+                });
+            }
+            
+            // Add click event listener to mobile toggle button
+            if (languageToggleBtnMobile) {
+                languageToggleBtnMobile.addEventListener('click', function() {
+                    // Toggle language
+                    const newLang = savedLang === 'en' ? 'zh' : 'en';
+                    setLanguage(newLang);
+                    localStorage.setItem('language', newLang);
+                    
+                    // Update button text on both desktop and mobile
+                    if (languageText) languageText.textContent = newLang === 'en' ? '中文' : 'English';
+                    if (languageTextMobile) languageTextMobile.textContent = newLang === 'en' ? '中文' : 'English';
+                });
+            }
             
             // Demo availability check
             const demosAvailable = {
