@@ -376,11 +376,33 @@
                 featuredButton.setAttribute('href', `${baseUrl}${currentHref.startsWith('/') ? '' : '/'}${currentHref.replace(/^\//, '')}`);
             }
             
-            // Update all dashboard links
+            // Update all dashboard links with consistent path formatting
             document.querySelectorAll('.dashboard-link').forEach(link => {
                 const currentHref = link.getAttribute('href');
                 if (currentHref && !currentHref.startsWith('http')) {
-                    link.setAttribute('href', `${baseUrl}${currentHref.startsWith('/') ? '' : '/'}${currentHref.replace(/^\//, '')}`);
+                    // Ensure paths are consistently formatted for all environments
+                    let newHref = currentHref;
+                    
+                    // Fix presentation links to ensure they work in all environments
+                    if (newHref.includes('presentation')) {
+                        // Make sure presentation links point to the built presentation slides
+                        if (!newHref.includes('/presentation/build/')) {
+                            newHref = newHref.replace('/presentation/', '/presentation/build/');
+                            newHref = newHref.replace('/presentation/build/index.html', '/presentation/build/');
+                        }
+                    }
+                    
+                    // Fix dashboard demo links
+                    if (newHref.includes('dashboard-demo')) {
+                        // Make sure dashboard links point to the index.html in the build folder
+                        newHref = newHref.replace('/dashboard-demo/index.html', '/dashboard-demo/build/index.html');
+                    }
+                    
+                    // Apply the base URL
+                    link.setAttribute('href', `${baseUrl}${newHref.startsWith('/') ? '' : '/'}${newHref.replace(/^\//, '')}`);
+                    
+                    // Log the updated link for debugging
+                    console.log(`Updated link: ${currentHref} -> ${link.getAttribute('href')}`);
                 }
             });
             
