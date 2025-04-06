@@ -1,4 +1,5 @@
 import React from 'react';
+import { TrendingUp, DollarSign, Shield, Cpu, Database, BarChart2 } from 'lucide-react';
 
 interface BusinessCaseProps {
   language: 'en' | 'zh';
@@ -45,36 +46,53 @@ const BusinessCase: React.FC<BusinessCaseProps> = ({ language }) => {
   
   return (
     <div className="max-w-4xl mx-auto w-full">
-      <h2 className="text-4xl font-bold text-yellow-400 mb-8 text-center">{title}</h2>
+      <h2 className="text-3xl font-bold text-blue-400 mb-8 text-center">{title}</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg border border-gray-700">
-          <h3 className="text-2xl font-semibold text-primary-400 mb-4">{marketTitle}</h3>
-          <ul className="space-y-3">
-            {marketPoints.map((point, index) => (
-              <li key={index} className="flex items-start">
-                <span className="text-yellow-400 mr-2">•</span>
-                <span className="text-lg">{point}</span>
-              </li>
-            ))}
+        <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-md">
+          <div className="flex items-center mb-4">
+            <TrendingUp className="text-blue-400 mr-3" size={24} />
+            <h3 className="text-xl font-semibold text-blue-300">{marketTitle}</h3>
+          </div>
+          <ul className="space-y-4">
+            {marketPoints.map((point, index) => {
+              // Choose an icon based on the index
+              const icons = [
+                <BarChart2 key="chart" className="text-blue-400 flex-shrink-0" size={20} />,
+                <DollarSign key="dollar" className="text-green-400 flex-shrink-0" size={20} />,
+                <Shield key="shield" className="text-purple-400 flex-shrink-0" size={20} />,
+                <Cpu key="cpu" className="text-amber-400 flex-shrink-0" size={20} />,
+                <Database key="database" className="text-red-400 flex-shrink-0" size={20} />,
+                <TrendingUp key="trend" className="text-indigo-400 flex-shrink-0" size={20} />
+              ];
+              return (
+                <li key={index} className="flex items-start">
+                  <span className="mr-3 mt-1">{icons[index]}</span>
+                  <span className="text-gray-300">{point}</span>
+                </li>
+              );
+            })}
           </ul>
         </div>
         
-        <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg border border-gray-700">
-          <h3 className="text-2xl font-semibold text-primary-400 mb-4 text-center">{chartTitle}</h3>
+        <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-md">
+          <div className="flex items-center justify-center mb-4">
+            <BarChart2 className="text-blue-400 mr-3" size={24} />
+            <h3 className="text-xl font-semibold text-blue-300 text-center">{chartTitle}</h3>
+          </div>
           <div className="h-64 flex items-end justify-between">
             {chartValues.map((value, index) => {
               const height = (value / maxValue) * 100;
               return (
                 <div key={index} className="flex flex-col items-center">
                   <div 
-                    className="w-8 bg-gradient-to-t from-primary-700 to-primary-400 rounded-t"
+                    className="w-8 bg-gradient-to-t from-blue-700 to-blue-400 rounded-t shadow-lg"
                     style={{ height: `${height}%` }}
                   ></div>
                   <div className="text-xs mt-2 transform -rotate-45 origin-top-left">
                     {chartYears[index]}
                   </div>
-                  <div className="text-xs mt-1 text-primary-300">
+                  <div className="text-xs mt-1 text-blue-300 font-medium">
                     ${value}M
                   </div>
                 </div>
@@ -84,8 +102,15 @@ const BusinessCase: React.FC<BusinessCaseProps> = ({ language }) => {
         </div>
       </div>
       
-      <div className="mt-8 p-6 bg-gradient-to-r from-primary-900 to-primary-800 bg-opacity-50 rounded-lg border border-primary-700">
-        <div className="text-center text-xl">
+      <div className="mt-8 p-6 bg-gradient-to-r from-blue-900 to-purple-900 rounded-lg shadow-lg">
+        <div className="flex items-center justify-center">
+          <div className="flex space-x-4 items-center mb-4">
+            <Cpu className="text-blue-300" size={24} />
+            <Shield className="text-purple-300" size={24} />
+            <Database className="text-green-300" size={24} />
+          </div>
+        </div>
+        <div className="text-center text-xl font-medium text-gray-200">
           {language === 'en' 
             ? "Synthetic data is positioned at the intersection of AI, privacy, and data science - three of the fastest growing technology sectors."
             : "合成数据位于AI、隐私和数据科学的交叉点 - 这是三个增长最快的技术领域。"}

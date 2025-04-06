@@ -1,4 +1,5 @@
 import React from 'react';
+import { Search, Settings, CheckCircle, Database, Shield, PlusCircle, AlertTriangle, Clock } from 'lucide-react';
 
 interface CoreActivitiesProps {
   language: 'en' | 'zh';
@@ -112,7 +113,7 @@ const CoreActivities: React.FC<CoreActivitiesProps> = ({ language }) => {
 
   return (
     <div className="max-w-4xl mx-auto w-full">
-      <h2 className="text-4xl font-bold text-yellow-400 mb-8 text-center">{title}</h2>
+      <h2 className="text-3xl font-bold text-blue-400 mb-8 text-center">{title}</h2>
       
       <div className="overflow-x-auto">
         <table className="min-w-full bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden">
@@ -141,22 +142,28 @@ const CoreActivities: React.FC<CoreActivitiesProps> = ({ language }) => {
         </table>
       </div>
       
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-primary-900 bg-opacity-30 p-4 rounded-lg border border-primary-800 flex flex-col items-center">
-          <div className="text-4xl mb-2">🔍</div>
-          <div className="text-center">
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-blue-900 bg-opacity-30 p-6 rounded-lg border border-blue-800 flex flex-col items-center hover:shadow-lg transition-shadow">
+          <div className="mb-3 bg-blue-800 bg-opacity-50 p-3 rounded-full">
+            <Search size={32} className="text-blue-300" />
+          </div>
+          <div className="text-center text-lg font-medium text-blue-300">
             {language === 'en' ? 'Analyze' : '分析'}
           </div>
         </div>
-        <div className="bg-primary-900 bg-opacity-30 p-4 rounded-lg border border-primary-800 flex flex-col items-center">
-          <div className="text-4xl mb-2">⚙️</div>
-          <div className="text-center">
+        <div className="bg-purple-900 bg-opacity-30 p-6 rounded-lg border border-purple-800 flex flex-col items-center hover:shadow-lg transition-shadow">
+          <div className="mb-3 bg-purple-800 bg-opacity-50 p-3 rounded-full">
+            <Settings size={32} className="text-purple-300" />
+          </div>
+          <div className="text-center text-lg font-medium text-purple-300">
             {language === 'en' ? 'Generate' : '生成'}
           </div>
         </div>
-        <div className="bg-primary-900 bg-opacity-30 p-4 rounded-lg border border-primary-800 flex flex-col items-center">
-          <div className="text-4xl mb-2">✅</div>
-          <div className="text-center">
+        <div className="bg-green-900 bg-opacity-30 p-6 rounded-lg border border-green-800 flex flex-col items-center hover:shadow-lg transition-shadow">
+          <div className="mb-3 bg-green-800 bg-opacity-50 p-3 rounded-full">
+            <CheckCircle size={32} className="text-green-300" />
+          </div>
+          <div className="text-center text-lg font-medium text-green-300">
             {language === 'en' ? 'Validate' : '验证'}
           </div>
         </div>

@@ -23,6 +23,7 @@ import {
   RefreshCw,
   ArrowRight,
   ArrowLeft,
+  Home,
   Search,
   Laptop,
   PieChart,
@@ -946,20 +947,48 @@ const Presentation: React.FC = () => {
     setActiveTab(tab);
   };
 
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'zh' : 'en');
+  };
+
+  const goToHome = () => {
+    // Get the base URL for different environments
+    const hostname = window.location.hostname;
+    
+    if (hostname === 'ai-data-solutions.bixory.ai') {
+      // Custom domain - go to root
+      window.location.href = '/';
+      return;
+    } else if (hostname.includes('github.io')) {
+      // GitHub Pages - include repository name
+      window.location.href = '/ai-data-solutions/';
+      return;
+    } else {
+      // Local development - go to parent directory
+      const currentPath = window.location.pathname;
+      const parentPath = currentPath.substring(0, currentPath.indexOf('/industry-analytics'));
+      window.location.href = parentPath || '/';
+      return;
+    }
+  };
+
   return (
     <div className="presentation-container">
+      <div className="home-button">
+        <button
+          onClick={goToHome}
+          className="p-2 rounded-full hover:bg-gray-200 transition-colors"
+          aria-label="Go to home page"
+        >
+          <Home size={24} className="text-gray-700" />
+        </button>
+      </div>
       <div className="language-toggle">
         <button 
-          onClick={() => setLanguage('en')}
-          className={`language-btn ${language === 'en' ? 'active' : ''}`}
+          onClick={toggleLanguage}
+          className="px-3 py-1 rounded border border-gray-300 text-sm font-medium hover:bg-gray-50"
         >
-          EN
-        </button>
-        <button 
-          onClick={() => setLanguage('zh')}
-          className={`language-btn ${language === 'zh' ? 'active' : ''}`}
-        >
-          中文
+          {language === 'en' ? '中文' : 'English'}
         </button>
       </div>
       <div className="progress-bar">

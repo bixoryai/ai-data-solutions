@@ -11,38 +11,44 @@ h1, h2, h3 {
   text-shadow: none;
 }
 
+/* Home button */
+.home-button {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  z-index: 100;
+}
+
+.home-button button {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 /* Language toggle */
 .language-toggle {
   position: absolute;
   top: 1rem;
   right: 2rem;
-  display: flex;
-  gap: 0.5rem;
   z-index: 100;
 }
 
-.language-btn {
-  background: rgba(30, 41, 59, 0.7);
-  color: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 2rem;
-  padding: 0.4rem 1rem;
-  font-size: 0.9rem;
+.language-toggle button {
+  background-color: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.language-btn:hover {
-  background: rgba(79, 70, 229, 0.5);
-  color: white;
-}
-
-.language-btn.active {
-  background: rgba(79, 70, 229, 0.8);
-  color: white;
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+.language-toggle button:hover {
+  background-color: #f9fafb;
 }
 
 /* Presentation container */

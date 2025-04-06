@@ -64,58 +64,68 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col">
-      {/* Header with navigation */}
-      <header className="bg-gray-800 p-4 flex justify-between items-center">
-        <button 
-          onClick={goToHome}
-          className="p-2 rounded-full hover:bg-gray-700 transition-colors"
-        >
-          <Home size={24} />
-        </button>
-        <div className="text-xl font-bold">
-          {language === 'en' ? 'AI Synthetic Data Generation' : 'AI合成数据生成'}
+    <div className="flex flex-col min-h-screen bg-gray-900 text-white">
+      {/* Header */}
+      <header className="bg-gray-800 shadow-md py-4 px-6 flex justify-between items-center">
+        <div className="flex items-center">
+          <a 
+            href="#"
+            onClick={(e) => { e.preventDefault(); goToHome(); }}
+            className="mr-4 p-2 rounded-full hover:bg-gray-700 transition-colors"
+            aria-label="Go to home page"
+          >
+            <Home size={24} className="text-blue-400" />
+          </a>
+          <h1 className="text-xl font-semibold text-white">
+            {language === 'en' ? 'AI Synthetic Data Generation' : 'AI合成数据生成'}
+          </h1>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex items-center">
           <button 
-            onClick={() => setLanguage('en')}
-            className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${language === 'en' ? 'bg-primary-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+            onClick={toggleLanguage}
+            className="px-3 py-1 rounded border border-gray-500 text-sm font-medium hover:bg-gray-700 transition-colors"
           >
-            EN
-          </button>
-          <button 
-            onClick={() => setLanguage('zh')}
-            className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${language === 'zh' ? 'bg-primary-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
-          >
-            中文
+            {language === 'en' ? '中文' : 'English'}
           </button>
         </div>
       </header>
 
-      {/* Pagination controls */}
-      <div className="bg-gray-800 py-2 px-4 flex justify-between items-center border-t border-gray-700">
-        <button 
-          onClick={goToPreviousSlide} 
+      {/* Navigation Controls */}
+      <div className="bg-gray-800 shadow-md py-3 px-6 flex justify-between items-center border-t border-gray-700">
+        <button
+          onClick={goToPreviousSlide}
           disabled={currentSlide === 0}
-          className={`p-2 rounded-full ${currentSlide === 0 ? 'text-gray-600' : 'hover:bg-gray-700 text-white'} transition-colors`}
+          className={`flex items-center px-4 py-2 rounded-md ${
+            currentSlide === 0
+              ? 'text-gray-500 cursor-not-allowed'
+              : 'text-blue-400 hover:bg-gray-700'
+          }`}
         >
-          <ChevronLeft size={20} />
+          <ChevronLeft size={20} className="mr-1" />
+          {language === 'en' ? 'Previous' : '上一页'}
         </button>
-        <div className="text-center text-sm text-gray-300">
-          {currentSlide + 1} / {slides.length}
+        <div className="text-sm text-gray-400">
+          {language === 'en' ? 'Slide' : '页面'} {currentSlide + 1} {language === 'en' ? 'of' : '/'} {slides.length}
         </div>
-        <button 
-          onClick={goToNextSlide} 
+        <button
+          onClick={goToNextSlide}
           disabled={currentSlide === slides.length - 1}
-          className={`p-2 rounded-full ${currentSlide === slides.length - 1 ? 'text-gray-600' : 'hover:bg-gray-700 text-white'} transition-colors`}
+          className={`flex items-center px-4 py-2 rounded-md ${
+            currentSlide === slides.length - 1
+              ? 'text-gray-500 cursor-not-allowed'
+              : 'text-blue-400 hover:bg-gray-700'
+          }`}
         >
-          <ChevronRight size={20} />
+          {language === 'en' ? 'Next' : '下一页'}
+          <ChevronRight size={20} className="ml-1" />
         </button>
       </div>
 
-      {/* Main content area */}
-      <main className="flex-grow flex flex-col items-center justify-center p-8">
-        {slides[currentSlide]}
+      {/* Main Content */}
+      <main className="flex-grow p-6">
+        <div className="max-w-6xl mx-auto bg-gray-800 bg-opacity-80 rounded-lg shadow-lg p-8">
+          {slides[currentSlide]}
+        </div>
       </main>
     </div>
   );
