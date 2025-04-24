@@ -238,6 +238,90 @@ const alertsData = [
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
+// Add touch-friendly styles to the component
+const touchFriendlyStyles = {
+  button: "touch-manipulation select-none active:scale-95 transition-transform",
+  card: "touch-manipulation active:shadow-lg transition-shadow",
+  link: "touch-manipulation select-none"
+};
+
+// Update the navigation buttons
+const NavigationButton = ({ icon: Icon, label, isActive, onClick }) => (
+  <button
+    onClick={onClick}
+    className={`${touchFriendlyStyles.button} flex items-center space-x-2 px-4 py-2 rounded-lg ${
+      isActive ? 'bg-primary-600 text-white' : 'text-gray-600 hover:bg-gray-100'
+    }`}
+  >
+    <Icon size={20} />
+    <span>{label}</span>
+  </button>
+);
+
+// Update the main navigation
+const Navigation = ({ activeTab, setActiveTab, t, language, changeLanguage }) => (
+  <nav className="bg-white shadow-sm">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between h-16">
+        <div className="flex space-x-4">
+          <NavigationButton
+            icon={Home}
+            label={t('dashboard')}
+            isActive={activeTab === 'dashboard'}
+            onClick={() => setActiveTab('dashboard')}
+          />
+          <NavigationButton
+            icon={BarChart2}
+            label={t('analytics')}
+            isActive={activeTab === 'analytics'}
+            onClick={() => setActiveTab('analytics')}
+          />
+          <NavigationButton
+            icon={AlertTriangle}
+            label={t('alerts')}
+            isActive={activeTab === 'alerts'}
+            onClick={() => setActiveTab('alerts')}
+          />
+          <NavigationButton
+            icon={FileText}
+            label={t('reports')}
+            isActive={activeTab === 'reports'}
+            onClick={() => setActiveTab('reports')}
+          />
+        </div>
+        <div className="flex items-center space-x-4">
+          <button
+            className={`${touchFriendlyStyles.button} p-2 rounded-full hover:bg-gray-100`}
+            onClick={() => changeLanguage(language === 'en' ? 'zh' : 'en')}
+          >
+            <Globe size={20} />
+          </button>
+          <button
+            className={`${touchFriendlyStyles.button} p-2 rounded-full hover:bg-gray-100`}
+          >
+            <Settings size={20} />
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+);
+
+// Update action buttons in the dashboard
+const ActionButton = ({ icon: Icon, label, onClick, variant = 'primary' }) => (
+  <button
+    onClick={onClick}
+    className={`${touchFriendlyStyles.button} flex items-center space-x-2 px-4 py-2 rounded-lg ${
+      variant === 'primary' 
+        ? 'bg-primary-600 text-white hover:bg-primary-700' 
+        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+    }`}
+  >
+    <Icon size={18} />
+    <span>{label}</span>
+  </button>
+);
+
 // Main component
 const IndustryAIAnalyticsDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -301,312 +385,64 @@ const IndustryAIAnalyticsDashboard = () => {
   };
   
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
-      {/* Header */}
-      <header className="bg-indigo-700 text-white px-6 py-4 shadow-md">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <Layers size={24} />
-            <span className="text-xl font-semibold">IndustryAI Analytics</span>
-            <span className="bg-indigo-500 px-2 py-1 rounded ml-2 text-xs font-medium">
-              {t('manufacturingEdition')}
-            </span>
-          </div>
-          <div className="flex items-center space-x-4">
-            {/* Language Toggle - Styled to match homepage */}
-            <div className="flex items-center">
-              <button 
-                className="px-3 py-1.5 rounded border border-gray-300 text-sm font-medium bg-white text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
-                onClick={() => changeLanguage(language === 'en' ? 'zh' : 'en')}
-                aria-label="Toggle language"
-                role="button"
-              >
-                <span>{language === 'en' ? '中文' : 'English'}</span>
-              </button>
-            </div>
-            <Bell size={20} />
-            <HelpCircle size={20} />
-            <div className="flex items-center ml-4">
-              <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center">
-                <User size={16} />
-              </div>
-              <span className="ml-2">John Operator</span>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        <div className="w-16 md:w-64 bg-gray-800 text-white">
-          <div className="flex flex-col h-full">
-            {/* Main Navigation */}
-            <div className="p-4 flex-1">
-              <nav className="space-y-2">
-                <button 
-                  className={`flex items-center space-x-3 w-full p-2 rounded ${activeTab === 'dashboard' ? 'bg-indigo-600' : 'hover:bg-gray-700'}`} 
-                  onClick={() => setActiveTab('dashboard')}
-                >
-                  <Home size={20} />
-                  <span className="hidden md:inline">{t('dashboard')}</span>
-                </button>
-                
-                <button 
-                  className={`flex items-center space-x-3 w-full p-2 rounded ${activeTab === 'analytics' ? 'bg-indigo-600' : 'hover:bg-gray-700'}`}
-                  onClick={() => setActiveTab('analytics')}
-                >
-                  <BarChart2 size={20} />
-                  <span className="hidden md:inline">{t('analytics')}</span>
-                </button>
-                
-                <button 
-                  className={`flex items-center space-x-3 w-full p-2 rounded ${activeTab === 'alerts' ? 'bg-indigo-600' : 'hover:bg-gray-700'}`}
-                  onClick={() => setActiveTab('alerts')}
-                >
-                  <AlertTriangle size={20} />
-                  <span className="hidden md:inline">{t('alerts')}</span>
-                </button>
-                
-                <button 
-                  className={`flex items-center space-x-3 w-full p-2 rounded ${activeTab === 'reports' ? 'bg-indigo-600' : 'hover:bg-gray-700'}`}
-                  onClick={() => setActiveTab('reports')}
-                >
-                  <FileText size={20} />
-                  <span className="hidden md:inline">{t('reports')}</span>
-                </button>
-                
-                <button 
-                  className={`flex items-center space-x-3 w-full p-2 rounded ${activeTab === 'settings' ? 'bg-indigo-600' : 'hover:bg-gray-700'}`}
-                  onClick={() => setActiveTab('settings')}
-                >
-                  <Settings size={20} />
-                  <span className="hidden md:inline">{t('settings')}</span>
-                </button>
-              </nav>
-            </div>
-
-            {/* Back to Portal Button at Bottom */}
-            <div className="p-4 border-t border-gray-700">
-              <a 
-                href="/"
-                className="flex items-center space-x-3 w-full p-2 rounded hover:bg-gray-700 text-gray-300 hover:text-white"
-              >
-                <Home size={20} />
-                <span className="hidden md:inline">{t('backToPortal')}</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Content */}
-        <div className="flex-1 overflow-auto p-6">
-          {renderContent()}
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <Navigation 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        t={t} 
+        language={language}
+        changeLanguage={changeLanguage}
+      />
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        {renderContent()}
+      </main>
     </div>
   );
 };
 
 // Dashboard component
 const Dashboard = ({ t }) => (
-  <div>
-    <div className="flex justify-between items-center mb-6">
-      <h1 className="text-2xl font-bold text-gray-800">{t('operationsDashboard')}</h1>
-      <div className="flex space-x-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-          <input 
-            className="pl-10 pr-4 py-2 border rounded-md w-64 focus:outline-none focus:ring-2 focus:ring-indigo-400" 
-            placeholder={t('searchAnalytics')} 
-          />
-        </div>
-        <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center">
-          <TrendingUp size={16} className="mr-2" />
-          {t('generateReport')}
-        </button>
-      </div>
+  <div className="p-4 space-y-6">
+    {/* Performance Trends Chart */}
+    <div className="bg-white rounded-lg shadow p-4">
+      <h3 className="text-lg font-semibold mb-4">{t('performanceTrends')}</h3>
+      <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 200 : 300}>
+        <LineChart data={performanceData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="efficiency" stroke="#8884d8" name={t('efficiency')} />
+          <Line type="monotone" dataKey="defects" stroke="#82ca9d" name={t('defects')} />
+          <Line type="monotone" dataKey="maintenance" stroke="#ffc658" name={t('maintenance')} />
+          <Line type="monotone" dataKey="target" stroke="#ff7300" name={t('target')} />
+        </LineChart>
+      </ResponsiveContainer>
     </div>
 
-    {/* Dashboard Metrics */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-      <div className="bg-white rounded-lg shadow p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-gray-500 text-sm">{t('operationalEfficiency')}</p>
-            <p className="text-2xl font-bold mt-1">87%</p>
-            <div className="flex items-center mt-1">
-              <span className="text-green-500 text-sm">↑ 2.4%</span>
-              <span className="text-gray-400 text-xs ml-2">{t('vsLastMonth')}</span>
-            </div>
-          </div>
-          <div className="p-2 rounded-full bg-green-100">
-            <Activity size={24} className="text-green-600" />
-          </div>
-        </div>
-      </div>
-      
-      <div className="bg-white rounded-lg shadow p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-gray-500 text-sm">{t('qualityRate')}</p>
-            <p className="text-2xl font-bold mt-1">98.8%</p>
-            <div className="flex items-center mt-1">
-              <span className="text-green-500 text-sm">↑ 0.2%</span>
-              <span className="text-gray-400 text-xs ml-2">{t('vsLastMonth')}</span>
-            </div>
-          </div>
-          <div className="p-2 rounded-full bg-blue-100">
-            <Layers size={24} className="text-blue-600" />
-          </div>
-        </div>
-      </div>
-      
-      <div className="bg-white rounded-lg shadow p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-gray-500 text-sm">{t('predictiveAlerts')}</p>
-            <p className="text-2xl font-bold mt-1">3</p>
-            <div className="flex items-center mt-1">
-              <span className="text-red-500 text-sm">↑ 1</span>
-              <span className="text-gray-400 text-xs ml-2">{t('requiringAttention')}</span>
-            </div>
-          </div>
-          <div className="p-2 rounded-full bg-amber-100">
-            <AlertTriangle size={24} className="text-amber-600" />
-          </div>
-        </div>
-      </div>
-      
-      <div className="bg-white rounded-lg shadow p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-gray-500 text-sm">{t('costOptimization')}</p>
-            <p className="text-2xl font-bold mt-1">$42K</p>
-            <div className="flex items-center mt-1">
-              <span className="text-green-500 text-sm">↑ 12%</span>
-              <span className="text-gray-400 text-xs ml-2">{t('potentialSavings')}</span>
-            </div>
-          </div>
-          <div className="p-2 rounded-full bg-purple-100">
-            <TrendingUp size={24} className="text-purple-600" />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {/* Charts */}
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-      <div className="bg-white rounded-lg shadow p-4">
-        <h2 className="text-lg font-semibold mb-4">{t('performanceTrends')}</h2>
-        <div className="h-64">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              data={performanceData}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis 
-                dataKey="name" 
-                tickFormatter={(value) => t(value)}
-              />
-              <YAxis 
-                label={{ value: t('percentage'), angle: -90, position: 'insideLeft' }} 
-              />
-              <Tooltip 
-                formatter={(value, name) => [value, t(name)]}
-                labelFormatter={(label) => t(label)}
-              />
-              <Legend 
-                formatter={(value) => t(value)}
-              />
-              <Line type="monotone" name="efficiency" dataKey="efficiency" stroke="#8884d8" activeDot={{ r: 8 }} />
-              <Line type="monotone" name="target" dataKey="target" stroke="#82ca9d" strokeDasharray="5 5" />
-              <Line type="monotone" name="defects" dataKey="defects" stroke="#ff7300" />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-        <div className="mt-4">
-          <h3 className="text-sm font-semibold text-gray-500">{t('aiInsight')}</h3>
-          <p className="text-sm text-gray-600">{t('efficiencyInsight')}</p>
-        </div>
-      </div>
-      
-      <div className="bg-white rounded-lg shadow p-4">
-        <h2 className="text-lg font-semibold mb-4">{t('resourceUtilization')}</h2>
-        <div className="h-64 flex justify-center">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={resourceData}
-                cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={80}
-                fill="#8884d8"
-                paddingAngle={5}
-                dataKey="value"
-                nameKey="name"
-                label={({name, value}) => `${t(name)}: ${value}%`}
-              >
-                {resourceData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip 
-                formatter={(value, name) => [value + '%', t(name)]}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-        <div className="mt-4">
-          <h3 className="text-sm font-semibold text-gray-500">{t('aiInsight')}</h3>
-          <p className="text-sm text-gray-600">{t('energyInsight')}</p>
-        </div>
-      </div>
-    </div>
-
-    {/* AI Alerts */}
-    <div className="bg-white rounded-lg shadow p-4 mb-6">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">{t('aiPoweredAlerts')}</h2>
-        <button className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">{t('viewAll')}</button>
-      </div>
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('equipment')}</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('issue')}</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('risk')}</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('aiRecommendation')}</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('action')}</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {alertsData.map((alert) => (
-              <tr key={alert.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{t(alert.equipment)}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{t(alert.issue)}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                    alert.risk === 'High' ? 'bg-red-100 text-red-800' : 
-                    alert.risk === 'Medium' ? 'bg-yellow-100 text-yellow-800' : 
-                    'bg-green-100 text-green-800'
-                  }`}>
-                    {alert.risk === 'High' ? t('high') : 
-                     alert.risk === 'Medium' ? t('medium') : 
-                     t('low')}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">{t(alert.ai)}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <button className="text-indigo-600 hover:text-indigo-900">{t('address')}</button>
-                </td>
-              </tr>
+    {/* Resource Utilization Chart */}
+    <div className="bg-white rounded-lg shadow p-4">
+      <h3 className="text-lg font-semibold mb-4">{t('resourceUtilization')}</h3>
+      <ResponsiveContainer width="100%" height={window.innerWidth < 768 ? 200 : 300}>
+        <PieChart>
+          <Pie
+            data={resourceData}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            outerRadius={window.innerWidth < 768 ? 60 : 80}
+            fill="#8884d8"
+            dataKey="value"
+            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+          >
+            {resourceData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
-          </tbody>
-        </table>
-      </div>
+          </Pie>
+          <Tooltip />
+        </PieChart>
+      </ResponsiveContainer>
     </div>
   </div>
 );
@@ -672,71 +508,42 @@ const Analytics = ({ t }) => (
 
 // Alerts component
 const Alerts = ({ t }) => (
-  <div>
-    <div className="flex justify-between items-center mb-6">
-      <h1 className="text-2xl font-bold text-gray-800">{t('alerts')}</h1>
-      <div className="flex space-x-2">
-        <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
-          {t('configureAlerts')}
-        </button>
-      </div>
-    </div>
-    
-    <div className="bg-white rounded-lg shadow overflow-hidden mb-6">
-      <div className="p-4 border-b border-gray-200 bg-gray-50">
-        <h2 className="text-lg font-semibold">{t('activeAlerts')}</h2>
+  <div className="p-4">
+    <div className="bg-white rounded-lg shadow">
+      <div className="p-4 border-b border-gray-200">
+        <h2 className="text-lg font-semibold">{t('aiPoweredAlerts')}</h2>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('priority')}</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('type')}</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('description')}</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('detected')}</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('status')}</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('actions')}</th>
+              <th scope="col" className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('equipment')}</th>
+              <th scope="col" className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('issue')}</th>
+              <th scope="col" className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('risk')}</th>
+              <th scope="col" className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('aiRecommendation')}</th>
+              <th scope="col" className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('action')}</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                  {t('high')}
-                </span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{t('equipment')}</td>
-              <td className="px-6 py-4 text-sm text-gray-900">{t('assemblyLineAlert')}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 {t('hoursAgo')}</td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                  {t('open')}
-                </span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <button className="text-indigo-600 hover:text-indigo-900 mr-2">{t('address')}</button>
-                <button className="text-gray-500 hover:text-gray-700">{t('resolve')}</button>
-              </td>
-            </tr>
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                  {t('medium')}
-                </span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{t('quality')}</td>
-              <td className="px-6 py-4 text-sm text-gray-900">{t('defectRateAlert')}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5 {t('hoursAgo')}</td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                  {t('inProgress')}
-                </span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <button className="text-indigo-600 hover:text-indigo-900 mr-2">{t('viewDetails')}</button>
-                <button className="text-gray-500 hover:text-gray-700">{t('resolve')}</button>
-              </td>
-            </tr>
+            {alertsData.map((alert) => (
+              <tr key={alert.id} className="hover:bg-gray-50">
+                <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{t(alert.equipment)}</td>
+                <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500">{t(alert.issue)}</td>
+                <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
+                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                    alert.risk === 'High' ? 'bg-red-100 text-red-800' : 
+                    alert.risk === 'Medium' ? 'bg-yellow-100 text-yellow-800' : 
+                    'bg-green-100 text-green-800'
+                  }`}>
+                    {t(alert.risk.toLowerCase())}
+                  </span>
+                </td>
+                <td className="px-4 sm:px-6 py-4 text-sm text-gray-500">{t(alert.ai)}</td>
+                <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <button className="text-indigo-600 hover:text-indigo-900">{t('viewDetails')}</button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

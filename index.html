@@ -58,11 +58,23 @@
             .btn-primary:disabled {
                 @apply bg-gray-400 cursor-not-allowed hover:bg-gray-400;
             }
+            .btn-primary-disabled {
+                @apply bg-blue-300 text-white cursor-not-allowed hover:bg-blue-300;
+            }
             .btn-secondary {
                 @apply bg-secondary-cyan text-white hover:bg-opacity-90;
             }
             .btn-secondary:disabled {
                 @apply bg-gray-400 cursor-not-allowed hover:bg-gray-400;
+            }
+            .btn-secondary-disabled {
+                @apply bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300;
+            }
+            .btn-outline {
+                @apply border border-primary-600 text-primary-600 hover:bg-primary-50;
+            }
+            .btn-outline-disabled {
+                @apply border border-gray-300 text-gray-400 cursor-not-allowed hover:bg-gray-50;
             }
             .status-badge {
                 @apply text-xs font-semibold px-2 py-1 rounded-full;
@@ -83,6 +95,19 @@
                 writing-mode: horizontal-tb !important;
                 text-orientation: mixed !important;
             }
+            
+            /* Build plan button margin */
+            .build-plan-btn {
+                @apply mt-2;
+            }
+            
+            /* Three-button container */
+            .three-button-row {
+                @apply flex flex-row gap-2 text-sm sm:text-base;
+            }
+            .three-button-row .btn {
+                @apply flex-1 text-center;
+            }
         }
     </style>
 </head>
@@ -95,7 +120,12 @@
                 <div class="w-full sm:hidden flex justify-between items-center mb-4">
                     <!-- Logo -->
                     <div class="flex-shrink-0">
-                        <img src="assets/images/logo.png" alt="AI Data Solutions Logo" class="h-16 w-auto">
+                        <img 
+                            src="assets/images/logo.png" 
+                            alt="AI Data Solutions Logo" 
+                            class="h-12 sm:h-16 w-auto"
+                            loading="lazy"
+                        >
                     </div>
                     
                     <!-- Language toggle -->
@@ -114,7 +144,12 @@
                 <!-- Desktop layout (hidden on mobile) -->
                 <!-- Logo on the left -->
                 <div class="hidden sm:flex flex-shrink-0 w-1/4 justify-start">
-                    <img src="assets/images/logo.png" alt="AI Data Solutions Logo" class="h-20 md:h-24 lg:h-28 w-auto">
+                    <img 
+                        src="assets/images/logo.png" 
+                        alt="AI Data Solutions Logo" 
+                        class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto"
+                        loading="lazy"
+                    >
                 </div>
                 
                 <!-- Title in the center - shown on all screens -->
@@ -205,9 +240,10 @@
                             <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded" data-i18n="tag2">Analytics</span>
                             <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded" data-i18n="tag3">Dashboards</span>
                         </div>
-                        <div class="flex gap-2 text-sm sm:text-base">
-                            <a href="./industry-analytics/presentation/build/index.html" class="btn btn-secondary flex-1 text-center dashboard-link">About</a>
-                            <a href="./industry-analytics/dashboard-demo/build/index.html" class="btn btn-primary flex-1 dashboard-link" data-i18n="ready">View Demo</a>
+                        <div class="three-button-row">
+                            <a href="./industry-analytics/presentation/build/index.html" class="btn btn-secondary dashboard-link" data-i18n="about">About</a>
+                            <a href="./industry-analytics/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
                         </div>
                     </div>
                 </div>
@@ -227,9 +263,10 @@
                             <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded" data-i18n="tag5">Privacy</span>
                             <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded" data-i18n="tag6">Testing</span>
                         </div>
-                        <div class="flex gap-2 text-sm sm:text-base">
-                            <a href="./synthetic-data-generator/presentation/build/index.html" class="btn btn-secondary flex-1 text-center dashboard-link">About</a>
-                            <a href="./synthetic-data-generator/dashboard-demo/build/index.html" class="btn btn-primary flex-1 dashboard-link" data-i18n="ready">View Demo</a>
+                        <div class="three-button-row">
+                            <a href="./synthetic-data-generator/presentation/build/index.html" class="btn btn-secondary dashboard-link" data-i18n="about">About</a>
+                            <a href="./synthetic-data-generator/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
                         </div>
                     </div>
                 </div>
@@ -249,9 +286,171 @@
                             <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded" data-i18n="tag8">Curation</span>
                             <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded" data-i18n="tag9">Quality</span>
                         </div>
-                        <div class="flex gap-2 text-sm sm:text-base">
-                            <a href="./domain-dataset-curation/presentation/build/index.html" class="btn btn-secondary flex-1 text-center dashboard-link">About</a>
-                            <a href="./domain-dataset-curation/dashboard-demo/build/index.html" class="btn btn-primary flex-1 dashboard-link" data-i18n="ready">View Demo</a>
+                        <div class="three-button-row">
+                            <a href="./domain-dataset-curation/presentation/build/index.html" class="btn btn-secondary dashboard-link" data-i18n="about">About</a>
+                            <a href="./domain-dataset-curation/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Predictive Maintenance Card -->
+                <div class="card">
+                    <div class="card-header bg-purple-100">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="predictiveMaintenance">Predictive Maintenance</h3>
+                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="predictiveMaintenanceDesc">AI-powered systems to predict equipment failures before they occur and optimize maintenance schedules.</p>
+                        <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded" data-i18n="assetManagement">Asset Management</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded" data-i18n="maintenance">Maintenance</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded" data-i18n="reliability">Reliability</span>
+                        </div>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Customer Analytics Card -->
+                <div class="card">
+                    <div class="card-header bg-indigo-100">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="customerAnalytics">Customer Analytics</h3>
+                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="customerAnalyticsDesc">Customer segmentation, behavior prediction, and personalized recommendation engines.</p>
+                        <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded" data-i18n="personalization">Personalization</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded" data-i18n="retention">Retention</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded" data-i18n="segmentation">Segmentation</span>
+                        </div>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- NLP Solutions Card -->
+                <div class="card">
+                    <div class="card-header bg-blue-100">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="nlpSolutions">NLP Solutions</h3>
+                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="nlpSolutionsDesc">Document understanding, information extraction, and intelligent search and knowledge management.</p>
+                        <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded" data-i18n="textAnalysis">Text Analysis</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded" data-i18n="informationExtraction">Information Extraction</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded" data-i18n="multilingual">Multilingual</span>
+                        </div>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Supply Chain Intelligence Card -->
+                <div class="card">
+                    <div class="card-header bg-teal-100">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="supplyChain">Supply Chain Intelligence</h3>
+                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="supplyChainDesc">Demand forecasting, inventory optimization, and risk identification and mitigation.</p>
+                        <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                            <span class="bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded" data-i18n="forecasting">Forecasting</span>
+                            <span class="bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded" data-i18n="logistics">Logistics</span>
+                            <span class="bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded" data-i18n="riskManagement">Risk Management</span>
+                        </div>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Computer Vision Card -->
+                <div class="card">
+                    <div class="card-header bg-orange-100">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="computerVision">Computer Vision</h3>
+                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="computerVisionDesc">Quality control, defect detection, and visual inspection automation for various industries.</p>
+                        <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                            <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded" data-i18n="imageAnalysis">Image Analysis</span>
+                            <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded" data-i18n="qualityControl">Quality Control</span>
+                            <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded" data-i18n="objectDetection">Object Detection</span>
+                        </div>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Financial Analytics Card -->
+                <div class="card">
+                    <div class="card-header bg-green-100">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="financialAnalytics">Financial Analytics</h3>
+                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="financialAnalyticsDesc">Fraud detection, credit risk assessment, and algorithmic trading and market analysis.</p>
+                        <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded" data-i18n="fraudDetection">Fraud Detection</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded" data-i18n="riskAssessment">Risk Assessment</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded" data-i18n="trading">Trading</span>
+                        </div>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Healthcare Data Card -->
+                <div class="card">
+                    <div class="card-header bg-red-100">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="healthcareData">Healthcare Data</h3>
+                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="healthcareDataDesc">Patient outcome prediction, medical image analysis, and drug discovery optimization.</p>
+                        <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded" data-i18n="clinicalAnalysis">Clinical Analysis</span>
+                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded" data-i18n="medicalImaging">Medical Imaging</span>
+                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded" data-i18n="drugDiscovery">Drug Discovery</span>
+                        </div>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
                         </div>
                     </div>
                 </div>
@@ -304,8 +503,54 @@
                 tag7: "Data Cleaning",
                 tag8: "Curation",
                 tag9: "Quality",
+                predictiveMaintenance: "Predictive Maintenance",
+                predictiveMaintenanceDesc: "AI-powered systems to predict equipment failures before they occur and optimize maintenance schedules.",
+                assetManagement: "Asset Management",
+                maintenance: "Maintenance",
+                reliability: "Reliability",
+                
+                customerAnalytics: "Customer Analytics",
+                customerAnalyticsDesc: "Customer segmentation, behavior prediction, and personalized recommendation engines.",
+                personalization: "Personalization",
+                retention: "Retention",
+                segmentation: "Segmentation",
+                
+                nlpSolutions: "NLP Solutions",
+                nlpSolutionsDesc: "Document understanding, information extraction, and intelligent search and knowledge management.",
+                textAnalysis: "Text Analysis",
+                informationExtraction: "Information Extraction",
+                multilingual: "Multilingual",
+                
+                supplyChain: "Supply Chain Intelligence",
+                supplyChainDesc: "Demand forecasting, inventory optimization, and risk identification and mitigation.",
+                forecasting: "Forecasting",
+                logistics: "Logistics",
+                riskManagement: "Risk Management",
+                
+                computerVision: "Computer Vision",
+                computerVisionDesc: "Quality control, defect detection, and visual inspection automation for various industries.",
+                imageAnalysis: "Image Analysis",
+                qualityControl: "Quality Control",
+                objectDetection: "Object Detection",
+                
+                financialAnalytics: "Financial Analytics",
+                financialAnalyticsDesc: "Fraud detection, credit risk assessment, and algorithmic trading and market analysis.",
+                fraudDetection: "Fraud Detection",
+                riskAssessment: "Risk Assessment",
+                trading: "Trading",
+                
+                healthcareData: "Healthcare Data",
+                healthcareDataDesc: "Patient outcome prediction, medical image analysis, and drug discovery optimization.",
+                clinicalAnalysis: "Clinical Analysis",
+                medicalImaging: "Medical Imaging",
+                drugDiscovery: "Drug Discovery",
+                
                 copyright: "© 2023 BixoryAI. All rights reserved.",
-                footerDesc: "A collection of AI-powered data solutions"
+                footerDesc: "A collection of AI-powered data solutions",
+                
+                buildPlan: "Build Plan",
+                
+                about: "About"
             },
             zh: {
                 title: "AI 数据解决方案",
@@ -335,8 +580,54 @@
                 tag7: "数据清洗",
                 tag8: "数据管理",
                 tag9: "质量",
+                predictiveMaintenance: "预测性维护",
+                predictiveMaintenanceDesc: "AI驱动的系统，可在设备故障发生前进行预测并优化维护计划。",
+                assetManagement: "资产管理",
+                maintenance: "维护",
+                reliability: "可靠性",
+                
+                customerAnalytics: "客户分析",
+                customerAnalyticsDesc: "客户细分、行为预测和个性化推荐引擎。",
+                personalization: "个性化",
+                retention: "客户保留",
+                segmentation: "细分",
+                
+                nlpSolutions: "自然语言处理解决方案",
+                nlpSolutionsDesc: "文档理解、信息提取以及智能搜索和知识管理。",
+                textAnalysis: "文本分析",
+                informationExtraction: "信息提取",
+                multilingual: "多语言",
+                
+                supplyChain: "供应链智能",
+                supplyChainDesc: "需求预测、库存优化以及风险识别和缓解。",
+                forecasting: "预测",
+                logistics: "物流",
+                riskManagement: "风险管理",
+                
+                computerVision: "计算机视觉",
+                computerVisionDesc: "质量控制、缺陷检测和各行业的视觉检测自动化。",
+                imageAnalysis: "图像分析",
+                qualityControl: "质量控制",
+                objectDetection: "物体检测",
+                
+                financialAnalytics: "金融分析",
+                financialAnalyticsDesc: "欺诈检测、信用风险评估以及算法交易和市场分析。",
+                fraudDetection: "欺诈检测",
+                riskAssessment: "风险评估",
+                trading: "交易",
+                
+                healthcareData: "医疗数据",
+                healthcareDataDesc: "患者结果预测、医学影像分析和药物发现优化。",
+                clinicalAnalysis: "临床分析",
+                medicalImaging: "医学影像",
+                drugDiscovery: "药物发现",
+                
                 copyright: "© 2023 BixoryAI. 保留所有权利。",
-                footerDesc: "AI 驱动的数据解决方案集合"
+                footerDesc: "AI 驱动的数据解决方案集合",
+                
+                buildPlan: "构建计划",
+                
+                about: "关于"
             }
         };
 
