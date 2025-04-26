@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Debug 404 Errors</title>
+  <script>
+    // Create a logger for network requests
+    const originalFetch = window.fetch;
+    window.fetch = function() {
+      console.log('Fetch request:', arguments[0]);
+      return originalFetch.apply(this, arguments);
+    };
+
+    // Log image requests
+    window.addEventListener('load', function() {
+      const observer = new PerformanceObserver((list) => {
+        list.getEntries().forEach((entry) => {
+          if (entry.initiatorType === 'img' || entry.name.includes('logo192')) {
+            console.log('Resource requested:', entry.name);
+          }
+        });
+      });
+      observer.observe({entryTypes: ['resource']});
+    });
+  </script>
+</head>
+<body>
+  <h1>Debug 404 Errors</h1>
+  <p>Open the browser console to see network requests</p>
+  
+  <script>
+    // Load the main app script to see what it requests
+    const script = document.createElement('script');
+    script.src = './static/js/main.684282cc.js';
+    document.body.appendChild(script);
+  </script>
+</body>
+</html> 

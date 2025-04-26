@@ -108,6 +108,19 @@
             .three-button-row .btn {
                 @apply flex-1 text-center;
             }
+
+            /* Industry filter buttons */
+            .industry-filter-btn {
+                @apply text-gray-600 hover:bg-gray-100 transition-colors;
+            }
+            .industry-filter-btn.active {
+                @apply bg-primary-600 text-white hover:bg-primary-700;
+            }
+
+            /* Card transitions for filtering */
+            .card {
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
         }
     </style>
 </head>
@@ -224,9 +237,22 @@
 
         <section>
             <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center" data-i18n="allSolutions">All Solutions</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            
+            <!-- Industry Filter Tabs -->
+            <div class="mb-6 flex flex-wrap justify-center">
+                <div class="mx-auto bg-white rounded-lg shadow-sm p-2 flex flex-wrap gap-2 justify-center">
+                    <button class="industry-filter-btn active px-3 py-1 rounded-md text-sm" data-industry="all" data-i18n="industryAll">All Industries</button>
+                    <button class="industry-filter-btn px-3 py-1 rounded-md text-sm" data-industry="manufacturing" data-i18n="industryManufacturing">Manufacturing</button>
+                    <button class="industry-filter-btn px-3 py-1 rounded-md text-sm" data-industry="finance" data-i18n="industryFinance">Finance</button>
+                    <button class="industry-filter-btn px-3 py-1 rounded-md text-sm" data-industry="healthcare" data-i18n="industryHealthcare">Healthcare</button>
+                    <button class="industry-filter-btn px-3 py-1 rounded-md text-sm" data-industry="retail" data-i18n="industryRetail">Retail</button>
+                    <button class="industry-filter-btn px-3 py-1 rounded-md text-sm" data-industry="supplychain" data-i18n="industrySupplyChain">Supply Chain</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="solutions-grid">
                 <!-- Industry Analytics Card -->
-                <div class="card industry-card">
+                <div class="card industry-card" data-industry="manufacturing">
                     <div class="card-header bg-primary-50">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-primary-900" data-i18n="industryAnalyticsShort">Industry Analytics</h3>
@@ -249,7 +275,7 @@
                 </div>
 
                 <!-- Synthetic Data Generator Card -->
-                <div class="card">
+                <div class="card" data-industry="all">
                     <div class="card-header bg-secondary-emerald bg-opacity-10">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="syntheticData">Synthetic Data Generator</h3>
@@ -272,7 +298,7 @@
                 </div>
 
                 <!-- Domain Dataset Curation Card -->
-                <div class="card">
+                <div class="card" data-industry="all">
                     <div class="card-header bg-accent-amber bg-opacity-10">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="datasetCuration">Domain Dataset Curation</h3>
@@ -295,7 +321,7 @@
                 </div>
                 
                 <!-- Predictive Maintenance Card -->
-                <div class="card">
+                <div class="card" data-industry="manufacturing">
                     <div class="card-header bg-purple-100">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="predictiveMaintenance">Predictive Maintenance</h3>
@@ -310,7 +336,7 @@
                             <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded" data-i18n="reliability">Reliability</span>
                         </div>
                         <div class="three-button-row">
-                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="predictive-maintenance/presentation/build/index.html" class="btn btn-secondary" data-i18n="about">About</a>
                             <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
                             <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
                         </div>
@@ -318,7 +344,7 @@
                 </div>
                 
                 <!-- Customer Analytics Card -->
-                <div class="card">
+                <div class="card" data-industry="retail">
                     <div class="card-header bg-indigo-100">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="customerAnalytics">Customer Analytics</h3>
@@ -341,7 +367,7 @@
                 </div>
                 
                 <!-- NLP Solutions Card -->
-                <div class="card">
+                <div class="card" data-industry="all">
                     <div class="card-header bg-blue-100">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="nlpSolutions">NLP Solutions</h3>
@@ -364,7 +390,7 @@
                 </div>
                 
                 <!-- Supply Chain Intelligence Card -->
-                <div class="card">
+                <div class="card" data-industry="supplychain">
                     <div class="card-header bg-teal-100">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="supplyChain">Supply Chain Intelligence</h3>
@@ -387,7 +413,7 @@
                 </div>
                 
                 <!-- Computer Vision Card -->
-                <div class="card">
+                <div class="card" data-industry="manufacturing">
                     <div class="card-header bg-orange-100">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="computerVision">Computer Vision</h3>
@@ -410,7 +436,7 @@
                 </div>
                 
                 <!-- Financial Analytics Card -->
-                <div class="card">
+                <div class="card" data-industry="finance">
                     <div class="card-header bg-green-100">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="financialAnalytics">Financial Analytics</h3>
@@ -433,7 +459,7 @@
                 </div>
                 
                 <!-- Healthcare Data Card -->
-                <div class="card">
+                <div class="card" data-industry="healthcare">
                     <div class="card-header bg-red-100">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="healthcareData">Healthcare Data</h3>
@@ -550,7 +576,14 @@
                 
                 buildPlan: "Build Plan",
                 
-                about: "About"
+                about: "About",
+                
+                industryAll: "All Industries",
+                industryManufacturing: "Manufacturing",
+                industryFinance: "Finance",
+                industryHealthcare: "Healthcare",
+                industryRetail: "Retail",
+                industrySupplyChain: "Supply Chain"
             },
             zh: {
                 title: "AI 数据解决方案",
@@ -627,7 +660,14 @@
                 
                 buildPlan: "构建计划",
                 
-                about: "关于"
+                about: "关于",
+                
+                industryAll: "所有行业",
+                industryManufacturing: "制造业",
+                industryFinance: "金融",
+                industryHealthcare: "医疗",
+                industryRetail: "零售",
+                industrySupplyChain: "供应链"
             }
         };
 
@@ -770,8 +810,6 @@
                         newHref = './domain-dataset-curation/presentation/build/index.html';
                     }
                     
-                    // Removed dashboard-specific handling as it's now covered in the standardized path section above
-                    
                     // Special handling for GitHub Pages environment
                     if (window.location.hostname.includes('github.io')) {
                         // For GitHub Pages, ensure all paths start with the repository name
@@ -799,6 +837,44 @@
                 // If we want to enable Domain Dataset Curation in the future
             }
         }
+
+        // Industry filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up industry filter buttons
+            const filterButtons = document.querySelectorAll('.industry-filter-btn');
+            const cards = document.querySelectorAll('.card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get the selected industry
+                    const industry = this.getAttribute('data-industry');
+                    
+                    // Filter cards based on selected industry
+                    cards.forEach(card => {
+                        const cardIndustry = card.getAttribute('data-industry');
+                        
+                        if (industry === 'all' || cardIndustry === industry || cardIndustry === 'all') {
+                            card.style.display = 'block';
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        } else {
+                            // Hide cards that don't match the selected industry
+                            card.style.opacity = '0';
+                            card.style.transform = 'scale(0.95)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300); // Match the transition duration
+                        }
+                    });
+                });
+            });
+        });
     </script>
 </body>
 </html> 
