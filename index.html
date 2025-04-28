@@ -325,7 +325,7 @@
                     <div class="card-header bg-purple-100">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="predictiveMaintenance">Predictive Maintenance</h3>
-                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
+                            <span class="status-badge status-ready text-xs" data-i18n="ready">Ready</span>
                         </div>
                     </div>
                     <div class="card-body p-4">
@@ -337,7 +337,7 @@
                         </div>
                         <div class="three-button-row">
                             <a href="predictive-maintenance/presentation/build/index.html" class="btn btn-secondary" data-i18n="about">About</a>
-                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
+                            <a href="predictive-maintenance/dashboard-demo/build/index.html" class="btn btn-primary" data-i18n="ready">View Demo</a>
                             <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
                         </div>
                     </div>
@@ -808,6 +808,12 @@
                     if (newHref.includes('domain-dataset-curation/presentation')) {
                         console.log('Processing domain-dataset-curation presentation link: ' + newHref);
                         newHref = './domain-dataset-curation/presentation/build/index.html';
+                    }
+                    
+                    // Predictive Maintenance Dashboard
+                    if (newHref.includes('predictive-maintenance/dashboard-demo')) {
+                        console.log('Processing predictive-maintenance dashboard link: ' + newHref);
+                        newHref = './predictive-maintenance/dashboard-demo/build/index.html';
                     }
                     
                     // Special handling for GitHub Pages environment

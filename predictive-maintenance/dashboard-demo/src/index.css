@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c5c5c5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Charts and visualization styles */
+.chart-container {
+  @apply bg-white p-4 rounded-lg shadow-sm;
+  height: 300px;
+}
+
+/* Card animations */
+.card {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.card:hover {
+  @apply shadow-md transform -translate-y-1;
+}
+
+/* Dashboard-specific styles */
+.sensor-status-good {
+  @apply text-green-500;
+}
+
+.sensor-status-warning {
+  @apply text-amber-500;
+}
+
+.sensor-status-critical {
+  @apply text-red-500;
+}
+
+.maintenance-scheduled {
+  @apply bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.maintenance-overdue {
+  @apply bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium;
+} 
