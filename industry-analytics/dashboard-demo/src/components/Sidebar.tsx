@@ -1,85 +1,102 @@
 import React from 'react';
-import { Layers, Activity, AlertTriangle, FileText, Settings } from 'lucide-react';
+import { Layers, Activity, AlertTriangle, FileText, Settings, Home } from 'lucide-react';
 
 type Section = 'dashboard' | 'analytics' | 'alerts' | 'reports' | 'settings';
+
+interface NavItem {
+  id: Section;
+  label: {
+    en: string;
+    zh: string;
+  };
+  icon: React.ReactNode;
+}
 
 interface SidebarProps {
   activeSection: Section;
   setActiveSection: (section: Section) => void;
   language: 'en' | 'zh';
-  translations: Record<string, string>;
+  isOpen: boolean;
+  goToHome?: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ 
-  activeSection, 
-  setActiveSection, 
+const navItems: NavItem[] = [
+  {
+    id: 'dashboard',
+    label: { en: 'Dashboard', zh: '仪表盘' },
+    icon: <Layers size={20} />,
+  },
+  {
+    id: 'analytics',
+    label: { en: 'Analytics', zh: '分析' },
+    icon: <Activity size={20} />,
+  },
+  {
+    id: 'alerts',
+    label: { en: 'Alerts', zh: '警报' },
+    icon: <AlertTriangle size={20} />,
+  },
+  {
+    id: 'reports',
+    label: { en: 'Reports', zh: '报告' },
+    icon: <FileText size={20} />,
+  },
+  {
+    id: 'settings',
+    label: { en: 'Settings', zh: '设置' },
+    icon: <Settings size={20} />,
+  },
+];
+
+const Sidebar: React.FC<SidebarProps> = ({
+  activeSection,
+  setActiveSection,
   language,
-  translations
+  isOpen,
+  goToHome = () => window.location.href = '/'
 }) => {
-  // t function to get translations
-  const t = (key: string): string => {
-    return translations[key] || key;
-  };
-
-  // Navigation items configuration
-  const navItems = [
-    { 
-      id: 'dashboard', 
-      label: t('dashboard'), 
-      icon: <Layers size={20} /> 
-    },
-    { 
-      id: 'analytics', 
-      label: t('analytics'), 
-      icon: <Activity size={20} /> 
-    },
-    { 
-      id: 'alerts', 
-      label: t('alerts'), 
-      icon: <AlertTriangle size={20} /> 
-    },
-    { 
-      id: 'reports', 
-      label: t('reports'), 
-      icon: <FileText size={20} /> 
-    },
-    { 
-      id: 'settings', 
-      label: t('settings'), 
-      icon: <Settings size={20} /> 
-    }
-  ];
-
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 flex-shrink-0 h-full">
-      <div className="h-full flex flex-col">
-        <div className="p-4 border-b border-gray-200">
-          <h2 className="text-lg font-medium text-gray-800">
-            {t('manufacturingEdition')}
-          </h2>
+    <aside 
+      className={`bg-gray-800 text-white w-64 fixed h-full transition-all duration-300 ease-in-out overflow-y-auto ${
+        isOpen ? 'left-0' : '-left-64'
+      }`}
+    >
+      <div className="p-4 border-b border-gray-700">
+        <h2 className="text-lg font-semibold">
+          {language === 'en' ? 'Navigation' : '导航'}
+        </h2>
+      </div>
+      <nav className="py-4">
+        <ul>
+          {navItems.map((item) => (
+            <li key={item.id}>
+              <button
+                onClick={() => setActiveSection(item.id)}
+                className={`w-full flex items-center px-4 py-3 text-left transition-colors duration-200 ${
+                  activeSection === item.id
+                    ? 'bg-primary-700 text-white'
+                    : 'text-gray-300 hover:bg-gray-700'
+                }`}
+              >
+                <span className="mr-3">{item.icon}</span>
+                <span>{item.label[language]}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className="absolute bottom-0 w-full bg-gray-900">
+        <button
+          onClick={goToHome}
+          className="w-full flex items-center justify-center px-4 py-3 text-gray-300 hover:bg-gray-700 transition-colors border-t border-gray-700"
+        >
+          <Home size={18} className="mr-2" />
+          <span>{language === 'en' ? 'Return Home' : '返回主页'}</span>
+        </button>
+        <div className="p-4 text-xs text-gray-400 text-center">
+          <p>{language === 'en' ? 'Bixory AI Technology' : 'Bixory AI 技术'}</p>
+          <p>© 2025</p>
         </div>
-        
-        <nav className="flex-1 px-4 py-6 overflow-y-auto">
-          <ul className="space-y-1">
-            {navItems.map((item) => (
-              <li key={item.id}>
-                <button
-                  onClick={() => setActiveSection(item.id as Section)}
-                  className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
-                    activeSection === item.id
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  <span className={`mr-3 ${activeSection === item.id ? 'text-primary-600' : 'text-gray-500'}`}>
-                    {item.icon}
-                  </span>
-                  {item.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
       </div>
     </aside>
   );

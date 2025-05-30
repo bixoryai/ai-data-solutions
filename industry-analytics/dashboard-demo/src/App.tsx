@@ -13,9 +13,14 @@ type Section = 'dashboard' | 'analytics' | 'alerts' | 'reports' | 'settings';
 function App() {
   const [language, setLanguage] = useState<'en' | 'zh'>('en');
   const [activeSection, setActiveSection] = useState<Section>('dashboard');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const changeLanguage = () => {
     setLanguage(language === 'en' ? 'zh' : 'en');
+  };
+
+  const toggleSidebar = () => {
+    setSidebarOpen((open) => !open);
   };
 
   const renderContent = () => {
@@ -37,15 +42,20 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-      <Header language={language} changeLanguage={changeLanguage} title={translations[language].operationsDashboard} />
+      <Header 
+        language={language} 
+        changeLanguage={changeLanguage} 
+        title={translations[language].operationsDashboard} 
+        toggleSidebar={toggleSidebar}
+      />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar 
           activeSection={activeSection}
           setActiveSection={(section: Section) => setActiveSection(section)} 
           language={language}
-          translations={translations[language]}
+          isOpen={sidebarOpen}
         />
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className={`flex-1 overflow-y-auto p-6 pt-24 transition-all duration-300 ${sidebarOpen ? 'ml-64' : ''}`}>
           {renderContent()}
         </main>
       </div>
