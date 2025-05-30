@@ -56,14 +56,14 @@ jobs:
           COMPONENT_CHANGES=""
           if echo "$CHANGED_FILES" | grep -q "\.tsx\|\.jsx"; then
             COMPONENT_FILES=$(echo "$CHANGED_FILES" | grep "\.tsx\|\.jsx" | sort)
-            COMPONENT_CHANGES="### React Components Modified:\n\`\`\`\n$COMPONENT_FILES\n\`\`\`"
+            COMPONENT_CHANGES="### React Components Modified:\n    $COMPONENT_FILES"
           fi
           
           # Generate doc changes if applicable
           DOC_CHANGES=""
           if echo "$CHANGED_FILES" | grep -q "\.md\|docs/"; then
             DOC_FILES=$(echo "$CHANGED_FILES" | grep "\.md\|docs/" | sort)
-            DOC_CHANGES="### Documentation Updates:\n\`\`\`\n$DOC_FILES\n\`\`\`"
+            DOC_CHANGES="### Documentation Updates:\n    $DOC_FILES"
           fi
           
           # Calculate stats
@@ -127,13 +127,11 @@ jobs:
                   '- Total files changed: ${{ steps.pr-content.outputs.total_files }}\n' +
                   '- Type of changes: ${{ steps.pr-content.outputs.type }}\n\n' +
                   '### Changes by directory:\n' +
-                  '```\n' +
-                  '${{ steps.pr-content.outputs.dir_summary }}\n' +
-                  '```\n\n' +
+                  '    ${{ steps.pr-content.outputs.dir_summary }}\n\n' +
                   '${{ steps.pr-content.outputs.component_changes }}\n\n' +
                   '${{ steps.pr-content.outputs.doc_changes }}\n\n' +
                   '### Full list of changed files:\n' +
-                  '${{ steps.pr-content.outputs.changed_files }}';
+                  '    ${{ steps.pr-content.outputs.changed_files }}';
                 
                 newBody = newBody.replace('<!-- Brief description of the approach taken to implement the solution -->', 
                   solutionApproach);
