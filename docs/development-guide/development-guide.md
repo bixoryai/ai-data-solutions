@@ -195,6 +195,27 @@ export const useCustomHook = (param1: string, param2: number) => {
 };
 ```
 
+### Dashboard UI/UX Standardization
+
+All dashboard demos in AI Data Solutions now follow a unified UI/UX standard for a consistent user experience. This standard includes:
+
+- A standardized Header (fixed, gradient background, home/menu icons, title, subtitle, language toggle)
+- A standardized Sidebar (fixed, dark theme, navigation icons/labels, "Return Home" button, company branding)
+- A language toggle button (top right in header) with preference stored in localStorage under the key `language`
+- Sidebar is open by default and toggled via the header
+- Main content layout with consistent padding/margin logic
+
+**Implementation:**
+- Use the shared `Header.tsx` and `Sidebar.tsx` components as the base for all dashboards.
+- Follow the interface and prop patterns as described in the [Dashboard UI/UX Standardization Guide](./dashboard-ui-standard.md).
+- Always use the `language` key for language preference in localStorage.
+- Refer to the [Component Audit](../improvements/component-audit.md) for the rationale and history of these standards.
+
+**Why this matters:**
+- Ensures a seamless experience for users switching between solutions
+- Simplifies maintenance and onboarding for new contributors
+- Reduces UI/UX inconsistencies and technical debt
+
 ## Styling Guidelines
 
 ### Tailwind CSS

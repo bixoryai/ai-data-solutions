@@ -29,19 +29,13 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <aside 
-      className={`bg-gray-800 text-white w-64 fixed h-full transition-all duration-300 ease-in-out overflow-y-auto ${
+      className={`relative bg-gray-800 text-white w-64 fixed h-screen transition-all duration-300 ease-in-out overflow-y-auto ${
         isOpen ? 'left-0' : '-left-64'
       }`}
     >
-      <div className="p-4 border-b border-gray-700">
-        <h2 className="text-lg font-semibold">
-          {language === 'en' ? 'Navigation' : '导航'}
-        </h2>
-      </div>
-      
       <nav className="py-4">
         <ul>
-          {navItems.map((item) => (
+          {navItems.map((item, idx) => (
             <li key={item.id}>
               <button
                 onClick={() => setActiveSection(item.id)}
@@ -49,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   activeSection === item.id
                     ? 'bg-primary-700 text-white'
                     : 'text-gray-300 hover:bg-gray-700'
-                }`}
+                }${idx === 0 ? ' mt-2' : ''}`}
               >
                 <span className="mr-3">{item.icon}</span>
                 <span>{item.label[language]}</span>

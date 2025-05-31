@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import EquipmentMonitoring from './components/EquipmentMonitoring';
@@ -15,8 +15,17 @@ type IndustrySector = 'manufacturing' | 'energy' | 'transportation';
 const App: React.FC = () => {
   // State for active section and language
   const [activeSection, setActiveSection] = useState<ActiveSection>('equipment-monitoring');
-  const [language, setLanguage] = useState<'en' | 'zh'>('en');
+  const getInitialLanguage = () => {
+    const stored = localStorage.getItem('language');
+    return stored === 'zh' ? 'zh' : 'en';
+  };
+  const [language, setLanguage] = useState<'en' | 'zh'>(getInitialLanguage());
   const [selectedSector, setSelectedSector] = useState<IndustrySector>('manufacturing');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language]);
 
   // Function to get the base URL for different environments
   const getBaseUrl = () => {
@@ -60,6 +69,8 @@ const App: React.FC = () => {
     setLanguage(language === 'en' ? 'zh' : 'en');
   };
 
+  const toggleSidebar = () => setIsSidebarOpen((open) => !open);
+
   // Render the active section component
   const renderActiveSection = () => {
     switch (activeSection) {
@@ -81,23 +92,28 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
-      <Header 
-        language={language} 
-        toggleLanguage={toggleLanguage} 
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Header
+        language={language}
+        toggleLanguage={toggleLanguage}
         goToHome={goToHome}
         selectedSector={selectedSector}
+        toggleSidebar={toggleSidebar}
       />
-      
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar 
-          activeSection={activeSection} 
-          setActiveSection={setActiveSection} 
+        <Sidebar
+          activeSection={activeSection}
+          setActiveSection={setActiveSection}
           language={language}
+          isOpen={isSidebarOpen}
           goToHome={goToHome}
         />
-        
-        <main className="flex-1 overflow-y-auto p-6">
+        <main
+          className="flex-1 w-full overflow-y-auto p-6 transition-all duration-300"
+          style={{ height: '100vh' }}
+          role="main"
+          aria-label={language === 'en' ? 'Main Content' : '主要内容'}
+        >
           <div className="max-w-6xl mx-auto">
             {renderActiveSection()}
           </div>

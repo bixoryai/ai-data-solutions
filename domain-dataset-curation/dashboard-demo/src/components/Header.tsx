@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Menu } from 'lucide-react';
+import { Home, Menu, Globe } from 'lucide-react';
 
 console.log("HEADER COMPONENT LOADED - Domain Dataset Curation");
 
@@ -21,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ language, toggleLanguage, goToHome, tog
   };
 
   return (
-    <header className="bg-gradient-to-r from-primary-800 to-primary-600 text-white">
+    <header className="bg-gradient-to-r from-indigo-900 to-indigo-700 text-white">
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
@@ -46,22 +46,13 @@ const Header: React.FC<HeaderProps> = ({ language, toggleLanguage, goToHome, tog
           </div>
           <div className="flex items-center space-x-4">
             <span className="text-primary-100 font-medium">{domainLabels[selectedDomain][language]}</span>
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => language !== 'en' && toggleLanguage()}
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${language === 'en' ? 'bg-white text-primary-700' : 'text-primary-100 hover:bg-primary-700'}`}
-                aria-label={language === 'en' ? 'Switch to Chinese' : '切换到英文'}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => language !== 'zh' && toggleLanguage()}
-                className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${language === 'zh' ? 'bg-white text-primary-700' : 'text-primary-100 hover:bg-primary-700'}`}
-                aria-label={language === 'en' ? 'Switch to Chinese' : '切换到英文'}
-              >
-                中文
-              </button>
-            </div>
+            <button
+              className="flex items-center px-3 py-1.5 bg-white bg-opacity-10 rounded-md text-sm hover:bg-opacity-20 transition-colors"
+              onClick={toggleLanguage}
+            >
+              <Globe size={16} className="mr-1.5" />
+              <span>{language === 'en' ? '中文' : 'English'}</span>
+            </button>
           </div>
         </div>
       </div>

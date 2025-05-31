@@ -23,7 +23,11 @@ type NavItem = {
 };
 
 const App: React.FC = () => {
-  const [language, setLanguage] = useState<Language>('en');
+  const getInitialLanguage = () => {
+    const stored = localStorage.getItem('language');
+    return stored === 'zh' ? 'zh' : 'en';
+  };
+  const [language, setLanguage] = useState<Language>(getInitialLanguage());
   const [activeSection, setActiveSection] = useState('data-profiler');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -102,17 +106,12 @@ const App: React.FC = () => {
   // Function to toggle language
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'zh' : 'en');
-    // Save language preference to localStorage
-    localStorage.setItem('language', language === 'en' ? 'zh' : 'en');
   };
 
-  // Initialize language from localStorage
+  // Persist language to localStorage whenever it changes
   useEffect(() => {
-    const savedLang = localStorage.getItem('language') as Language | null;
-    if (savedLang) {
-      setLanguage(savedLang);
-    }
-  }, []);
+    localStorage.setItem('language', language);
+  }, [language]);
 
   // Render active section content
   const renderContent = () => {

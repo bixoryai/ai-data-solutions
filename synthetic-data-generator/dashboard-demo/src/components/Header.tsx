@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Menu } from 'lucide-react';
+import { Home, Menu, Globe } from 'lucide-react';
 
 interface HeaderProps {
   language: 'en' | 'zh';
@@ -38,18 +38,13 @@ const Header: React.FC<HeaderProps> = ({ language, toggleLanguage, goToHome, tog
           </div>
           
           <div className="language-toggle">
-            <span 
-              className={`language-option ${language === 'en' ? 'active' : ''}`} 
-              onClick={() => language !== 'en' && toggleLanguage()}
+            <button 
+              className="flex items-center px-3 py-1.5 bg-white bg-opacity-10 rounded-md text-sm hover:bg-opacity-20 transition-colors"
+              onClick={toggleLanguage}
             >
-              EN
-            </span>
-            <span 
-              className={`language-option ${language === 'zh' ? 'active' : ''}`}
-              onClick={() => language !== 'zh' && toggleLanguage()}
-            >
-              中文
-            </span>
+              <Globe size={16} className="mr-1.5" />
+              <span>{language === 'en' ? '中文' : 'English'}</span>
+            </button>
           </div>
         </div>
       </div>

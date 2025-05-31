@@ -1,6 +1,13 @@
 # Dashboard UI/UX Standardization Guide
 
-This guide documents the standardized implementation for dashboard headers, side-menus (sidebars), language toggle buttons, and general UI/UX practices. Follow these guidelines to ensure a consistent look and feel across all solution dashboards.
+This guide documents the standardized implementation for dashboard headers, side-menus (sidebars), language toggle buttons, and general UI/UX practices. **All dashboard demos now use this unified standard, based on the component audit and recent improvements.**
+
+---
+
+## Background & Rationale
+- The standardization is based on a comprehensive [Component Audit](../improvements/component-audit.md) across all solutions.
+- Header and Sidebar patterns are unified, drawing from the best implementations in Synthetic Data Generator and Domain Dataset Curation.
+- This ensures a seamless, professional, and maintainable user experience across all dashboards.
 
 ---
 
@@ -11,6 +18,7 @@ This guide documents the standardized implementation for dashboard headers, side
   - Title (e.g., "Manufacturing Operations Dashboard") and subtitle ("Interactive Demo").
   - Language toggle button on the right.
 - **Padding:** Main content area should have top padding (`pt-24`) to avoid being hidden behind the header.
+- **Functionality:** Header and sidebar toggle logic are now identical across all dashboards.
 
 **Example Usage:**
 ```tsx
@@ -33,6 +41,7 @@ This guide documents the standardized implementation for dashboard headers, side
   - "Return Home" button at the bottom.
   - Company branding and copyright.
 - **Behavior:**
+  - Sidebar is open by default and toggled via the header.
   - Sidebar visibility is controlled by a state variable (`isOpen`).
   - Main content shifts right (`ml-64`) when sidebar is open.
 
@@ -55,7 +64,7 @@ This guide documents the standardized implementation for dashboard headers, side
   - Uses Tailwind classes for consistent appearance.
 - **Logic:**
   - Language state managed in the main app.
-  - Language preference stored in localStorage (key: `dashboard_language`).
+  - Language preference stored in localStorage (key: `language`).
   - All text elements use a translation function (e.g., `t(key)`).
 
 **Example Implementation:**
@@ -83,18 +92,19 @@ This guide documents the standardized implementation for dashboard headers, side
 ---
 
 ## 5. Implementation Checklist for New Dashboards
-- [ ] Copy the standardized `Header.tsx` and `Sidebar.tsx` components.
-- [ ] Use the same language toggle logic and styling.
-- [ ] Set up the main layout in `App.tsx` to manage sidebar state and language.
-- [ ] Apply the same padding and margin logic for header and sidebar.
-- [ ] Use the same translation structure and localStorage key for language preference.
-- [ ] Use the same icon set and color palette.
+- [x] Copy the standardized `Header.tsx` and `Sidebar.tsx` components.
+- [x] Use the same language toggle logic and styling.
+- [x] Set up the main layout in `App.tsx` to manage sidebar state and language.
+- [x] Apply the same padding and margin logic for header and sidebar.
+- [x] Use the same translation structure and localStorage key for language preference (`language`).
+- [x] Sidebar should be open by default.
+- [x] Use the same icon set and color palette.
 
 ---
 
 ## 6. Example Main Layout (`App.tsx`)
 ```tsx
-const [sidebarOpen, setSidebarOpen] = useState(false);
+const [sidebarOpen, setSidebarOpen] = useState(true); // Sidebar open by default
 const toggleSidebar = () => setSidebarOpen(open => !open);
 
 <Header 

@@ -35,7 +35,11 @@ interface SidebarProps {
 }
 
 const App: React.FC = () => {
-  const [language, setLanguage] = useState<Language>('en');
+  const getInitialLanguage = () => {
+    const stored = localStorage.getItem('language');
+    return stored === 'zh' ? 'zh' : 'en';
+  };
+  const [language, setLanguage] = useState<Language>(getInitialLanguage());
   const [activeSection, setActiveSection] = useState<ActiveSection>('domain-selection');
   const [selectedDomain, setSelectedDomain] = useState<IndustryDomain>('healthcare');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -116,8 +120,6 @@ const App: React.FC = () => {
   // Function to toggle language
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'zh' : 'en');
-    // Save language preference to localStorage
-    localStorage.setItem('language', language === 'en' ? 'zh' : 'en');
   };
 
   // Function to handle section changes with loading state
@@ -129,13 +131,10 @@ const App: React.FC = () => {
     }, 500);
   };
 
-  // Initialize language from localStorage
+  // Persist language to localStorage whenever it changes
   useEffect(() => {
-    const savedLang = localStorage.getItem('language') as Language | null;
-    if (savedLang) {
-      setLanguage(savedLang);
-    }
-  }, []);
+    localStorage.setItem('language', language);
+  }, [language]);
 
   // Render active section content
   const renderContent = () => {
@@ -194,9 +193,9 @@ const App: React.FC = () => {
           isOpen={isSidebarOpen}
           goToHome={goToHome}
         />
-        
         <main 
-          className={`flex-1 overflow-y-auto p-6 transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}
+          className="flex-1 w-full overflow-y-auto p-6 transition-all duration-300"
+          style={{ height: '100vh' }}
           role="main"
           aria-label={language === 'en' ? 'Main Content' : '主要内容'}
         >

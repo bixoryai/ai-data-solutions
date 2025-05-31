@@ -1,95 +1,55 @@
 import React from 'react';
-import { Home, Cog, Activity, BarChart3 } from 'lucide-react';
+import { Home, Menu, Globe } from 'lucide-react';
 
 interface HeaderProps {
   language: 'en' | 'zh';
   toggleLanguage: () => void;
   goToHome: () => void;
+  toggleSidebar: () => void;
   selectedSector: 'manufacturing' | 'energy' | 'transportation';
 }
 
-const Header: React.FC<HeaderProps> = ({ language, toggleLanguage, goToHome, selectedSector }) => {
-  const content = {
-    en: {
-      title: 'Predictive Maintenance',
-      subtitle: 'Interactive Demo',
-      manufacturing: 'Manufacturing',
-      energy: 'Energy',
-      transportation: 'Transportation'
-    },
-    zh: {
-      title: '预测性维护',
-      subtitle: '交互式演示',
-      manufacturing: '制造业',
-      energy: '能源',
-      transportation: '交通运输'
-    }
-  };
-
-  // Get sector-specific color
-  const getSectorColor = () => {
-    switch (selectedSector) {
-      case 'manufacturing':
-        return 'text-blue-600';
-      case 'energy':
-        return 'text-amber-600';
-      case 'transportation':
-        return 'text-green-600';
-      default:
-        return 'text-blue-600';
-    }
-  };
-
-  // Get sector-specific icon
-  const getSectorIcon = () => {
-    switch (selectedSector) {
-      case 'manufacturing':
-        return <Cog className={getSectorColor()} />;
-      case 'energy':
-        return <Activity className={getSectorColor()} />;
-      case 'transportation':
-        return <BarChart3 className={getSectorColor()} />;
-      default:
-        return <Cog className={getSectorColor()} />;
-    }
+const Header: React.FC<HeaderProps> = ({ language, toggleLanguage, goToHome, toggleSidebar, selectedSector }) => {
+  const title = language === 'en' ? 'Predictive Maintenance' : '预测性维护';
+  const subtitle = language === 'en' ? 'Interactive Demo' : '交互式演示';
+  const sectorLabels = {
+    manufacturing: { en: 'Manufacturing', zh: '制造业' },
+    energy: { en: 'Energy', zh: '能源' },
+    transportation: { en: 'Transportation', zh: '交通运输' }
   };
 
   return (
-    <header className="bg-white shadow-sm z-10">
+    <header className="bg-gradient-to-r from-indigo-900 to-indigo-700 text-white">
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <a 
-              href="#"
-              onClick={(e) => { e.preventDefault(); goToHome(); }}
-              className="mr-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
-              aria-label="Go to home page"
+            <button 
+              onClick={goToHome}
+              className="p-2 rounded-full hover:bg-primary-700 transition-colors mr-2"
+              aria-label={language === 'en' ? 'Go to home' : '返回首页'}
             >
-              <Home size={24} className="text-blue-600" />
-            </a>
+              <Home size={24} />
+            </button>
+            <button 
+              onClick={toggleSidebar}
+              className="p-2 rounded-full hover:bg-primary-700 transition-colors mr-4"
+              aria-label={language === 'en' ? 'Toggle sidebar' : '切换侧边栏'}
+            >
+              <Menu size={24} />
+            </button>
             <div>
-              <h1 className="text-xl font-semibold text-gray-800 flex items-center">
-                {content[language].title}
-                <span className="mx-2 text-gray-400">|</span>
-                <span className="text-lg font-medium text-gray-600">{content[language].subtitle}</span>
-              </h1>
-              <div className="flex items-center mt-1">
-                <div className="flex items-center text-sm text-gray-500">
-                  <span className="mr-2">{getSectorIcon()}</span>
-                  <span className={`font-medium ${getSectorColor()}`}>
-                    {content[language][selectedSector]}
-                  </span>
-                </div>
-              </div>
+              <h1 className="text-2xl font-bold leading-tight">{title}</h1>
+              <p className="text-sm text-primary-100 leading-tight">{subtitle}</p>
             </div>
           </div>
-          
-          <div className="flex items-center">
-            <button 
+          <div className="flex items-center space-x-4">
+            <span className="text-primary-100 font-medium">{sectorLabels[selectedSector][language]}</span>
+            <button
+              className="flex items-center px-3 py-1.5 bg-white bg-opacity-10 rounded-md text-sm hover:bg-opacity-20 transition-colors"
               onClick={toggleLanguage}
-              className="px-3 py-1 rounded border border-gray-300 text-sm font-medium hover:bg-gray-50"
             >
-              {language === 'en' ? '中文' : 'English'}
+              <Globe size={16} className="mr-1.5" />
+              <span>{language === 'en' ? '中文' : 'English'}</span>
             </button>
           </div>
         </div>
