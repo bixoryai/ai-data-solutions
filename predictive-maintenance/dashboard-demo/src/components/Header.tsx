@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ language, toggleLanguage, goToHome, tog
   };
 
   return (
-    <header className="bg-gradient-to-r from-indigo-900 to-indigo-700 text-white">
+    <header className="fixed top-0 left-0 w-full z-30 bg-gradient-to-r from-indigo-900 to-indigo-700 text-white">
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center">

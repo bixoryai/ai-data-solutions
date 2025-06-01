@@ -70,21 +70,27 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <aside
-      className={`relative bg-gray-800 text-white w-64 fixed h-screen transition-all duration-300 ease-in-out overflow-y-auto ${isOpen ? 'left-0' : '-left-64'}`}
+      className={`fixed top-0 left-0 h-screen w-64 z-20 bg-gray-800 text-white transition-all duration-300 ease-in-out overflow-y-auto
+        ${isOpen ? 'left-0 opacity-100 pointer-events-auto' : '-left-64 opacity-0 pointer-events-none'}`}
       role="navigation"
       aria-label={language === 'en' ? 'Main Navigation' : '主导航'}
     >
+      <div className="p-4 border-b border-gray-700">
+        <h2 className="text-lg font-semibold">
+          {language === 'en' ? 'Navigation' : '导航'}
+        </h2>
+      </div>
       <nav className="py-4">
         <ul>
           {navItems.map((item, idx) => (
-            <li key={item.id}>
+            <li key={item.id} className={idx === 0 ? 'mt-8' : ''}>
               <button
                 onClick={() => setActiveSection(item.id)}
                 className={`w-full flex items-center px-4 py-3 text-left transition-colors duration-200 border-l-4 ${
                   activeSection === item.id
                     ? 'bg-primary-700 text-white border-primary-500'
                     : 'text-gray-300 hover:bg-gray-700 border-transparent'
-                }${idx === 0 ? ' mt-2' : ''}`}
+                }`}
               >
                 <span className="mr-3">{item.icon}</span>
                 <span>{item.label[language]}</span>

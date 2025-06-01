@@ -109,7 +109,7 @@ const App: React.FC = () => {
           goToHome={goToHome}
         />
         <main
-          className="flex-1 w-full overflow-y-auto p-6 transition-all duration-300"
+          className={`flex-1 w-full overflow-y-auto p-6 pt-28 transition-all duration-300 ${isSidebarOpen ? 'ml-64' : ''}`}
           style={{ height: '100vh' }}
           role="main"
           aria-label={language === 'en' ? 'Main Content' : '主要内容'}
