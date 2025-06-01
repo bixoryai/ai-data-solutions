@@ -183,25 +183,44 @@ const App: React.FC = () => {
         toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         selectedDomain={selectedDomain}
       />
-      
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar 
-          navItems={navItems} 
-          activeSection={activeSection} 
-          setActiveSection={handleSectionChange} 
-          language={language}
-          isOpen={isSidebarOpen}
-          goToHome={goToHome}
-        />
+      <div className="flex flex-1 overflow-hidden relative">
+        {/* Sidebar overlay for mobile */}
+        <div className="sm:hidden">
+          {isSidebarOpen && (
+            <>
+              <div className="fixed inset-0 bg-black bg-opacity-40 z-30" onClick={() => setIsSidebarOpen(false)}></div>
+              <Sidebar 
+                navItems={navItems}
+                activeSection={activeSection}
+                setActiveSection={(section: string) => {
+                  handleSectionChange(section);
+                  setIsSidebarOpen(false); // close sidebar on mobile after selection
+                }}
+                language={language}
+                isOpen={isSidebarOpen}
+                goToHome={goToHome}
+              />
+            </>
+          )}
+        </div>
+        {/* Sidebar static for desktop */}
+        <div className="hidden sm:block">
+          <Sidebar 
+            navItems={navItems}
+            activeSection={activeSection}
+            setActiveSection={handleSectionChange}
+            language={language}
+            isOpen={isSidebarOpen}
+            goToHome={goToHome}
+          />
+        </div>
         <main 
-          className="flex-1 w-full overflow-y-auto p-6 transition-all duration-300"
+          className={`flex-1 w-full overflow-y-auto p-4 transition-all duration-300 ${isSidebarOpen ? 'sm:ml-64' : ''}`}
           style={{ height: '100vh' }}
           role="main"
           aria-label={language === 'en' ? 'Main Content' : '主要内容'}
         >
-          <div className="container mx-auto">
-            {renderContent()}
-          </div>
+          {renderContent()}
         </main>
       </div>
     </div>

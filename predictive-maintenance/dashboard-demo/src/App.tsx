@@ -100,16 +100,37 @@ const App: React.FC = () => {
         selectedSector={selectedSector}
         toggleSidebar={toggleSidebar}
       />
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar
-          activeSection={activeSection}
-          setActiveSection={setActiveSection}
-          language={language}
-          isOpen={isSidebarOpen}
-          goToHome={goToHome}
-        />
+      <div className="flex flex-1 overflow-hidden relative">
+        {/* Sidebar overlay for mobile */}
+        <div className="sm:hidden">
+          {isSidebarOpen && (
+            <>
+              <div className="fixed inset-0 bg-black bg-opacity-40 z-30" onClick={toggleSidebar}></div>
+              <Sidebar
+                activeSection={activeSection}
+                setActiveSection={(section: ActiveSection) => {
+                  setActiveSection(section);
+                  setIsSidebarOpen(false); // close sidebar on mobile after selection
+                }}
+                language={language}
+                isOpen={isSidebarOpen}
+                goToHome={goToHome}
+              />
+            </>
+          )}
+        </div>
+        {/* Sidebar static for desktop */}
+        <div className="hidden sm:block">
+          <Sidebar
+            activeSection={activeSection}
+            setActiveSection={setActiveSection}
+            language={language}
+            isOpen={isSidebarOpen}
+            goToHome={goToHome}
+          />
+        </div>
         <main
-          className={`flex-1 w-full overflow-y-auto p-6 pt-28 transition-all duration-300 ${isSidebarOpen ? 'ml-64' : ''}`}
+          className={`flex-1 w-full overflow-y-auto p-4 pt-28 transition-all duration-300 ${isSidebarOpen ? 'sm:ml-64' : ''}`}
           style={{ height: '100vh' }}
           role="main"
           aria-label={language === 'en' ? 'Main Content' : '主要内容'}

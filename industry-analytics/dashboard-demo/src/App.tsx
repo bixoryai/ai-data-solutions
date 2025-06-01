@@ -59,14 +59,34 @@ function App() {
         title={translations[language].operationsDashboard} 
         toggleSidebar={toggleSidebar}
       />
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar 
-          activeSection={activeSection}
-          setActiveSection={(section: Section) => setActiveSection(section)} 
-          language={language}
-          isOpen={sidebarOpen}
-        />
-        <main className={`flex-1 overflow-y-auto p-6 pt-24 transition-all duration-300 ${sidebarOpen ? 'ml-64' : ''}`}>
+      <div className="flex flex-1 overflow-hidden relative">
+        {/* Sidebar overlay for mobile */}
+        <div className="sm:hidden">
+          {sidebarOpen && (
+            <>
+              <div className="fixed inset-0 bg-black bg-opacity-40 z-30" onClick={toggleSidebar}></div>
+              <Sidebar 
+                activeSection={activeSection}
+                setActiveSection={(section: Section) => {
+                  setActiveSection(section);
+                  setSidebarOpen(false); // close sidebar on mobile after selection
+                }} 
+                language={language}
+                isOpen={sidebarOpen}
+              />
+            </>
+          )}
+        </div>
+        {/* Sidebar static for desktop */}
+        <div className="hidden sm:block">
+          <Sidebar 
+            activeSection={activeSection}
+            setActiveSection={setActiveSection}
+            language={language}
+            isOpen={sidebarOpen}
+          />
+        </div>
+        <main className={`flex-1 overflow-y-auto p-4 pt-24 transition-all duration-300 ${sidebarOpen ? 'sm:ml-64' : ''}`}>
           {renderContent()}
         </main>
       </div>

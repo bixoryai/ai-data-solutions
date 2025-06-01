@@ -70,17 +70,19 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <aside
-      className={`fixed top-0 left-0 h-screen w-64 z-20 bg-gray-800 text-white transition-all duration-300 ease-in-out overflow-y-auto
-        ${isOpen ? 'left-0 opacity-100 pointer-events-auto' : '-left-64 opacity-0 pointer-events-none'}`}
-      role="navigation"
-      aria-label={language === 'en' ? 'Main Navigation' : '主导航'}
+      className={`bg-gray-800 text-white w-64 max-w-full fixed h-full z-40 transition-all duration-300 ease-in-out shadow-lg flex flex-col
+        ${isOpen ? 'left-0' : '-left-64'}
+        sm:left-0 sm:shadow-none
+      `}
+      aria-modal="true"
+      role="dialog"
     >
       <div className="p-4 border-b border-gray-700">
         <h2 className="text-lg font-semibold">
           {language === 'en' ? 'Navigation' : '导航'}
         </h2>
       </div>
-      <nav className="py-4">
+      <nav className="py-4 flex-1 overflow-y-auto">
         <ul>
           {navItems.map((item, idx) => (
             <li key={item.id} className={idx === 0 ? 'mt-8' : ''}>
@@ -99,7 +101,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           ))}
         </ul>
       </nav>
-      <div className="absolute bottom-0 w-full bg-gray-900">
+      <div className="mt-auto bg-gray-900">
         <button
           onClick={goToHome}
           className="w-full flex items-center justify-center px-4 py-3 text-gray-300 hover:bg-gray-700 transition-colors border-t border-gray-700"

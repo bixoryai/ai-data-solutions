@@ -39,11 +39,11 @@ const Dashboard: React.FC<DashboardProps> = ({ translations }) => {
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-gray-800">{t('operationsDashboard')}</h2>
         <div className="flex items-center">
-          <div className="relative mr-3">
+          <div className="relative mr-3 w-full max-w-xs">
             <input 
               type="text" 
               placeholder={t('searchAnalytics')}
-              className="pl-9 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-64"
+              className="pl-9 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-full"
             />
             <Search size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>

@@ -43,9 +43,18 @@ const Header: React.FC<HeaderProps> = ({ language, changeLanguage, title, toggle
             >
               <Home size={24} />
             </button>
+            {/* Hamburger for mobile */}
             <button 
               onClick={toggleSidebar}
-              className="p-2 mr-4 rounded-full hover:bg-primary-700 transition-colors"
+              className="p-2 mr-4 rounded-full hover:bg-primary-700 transition-colors sm:hidden"
+              aria-label="Open sidebar menu"
+            >
+              <Menu size={24} />
+            </button>
+            {/* Sidebar toggle for desktop */}
+            <button 
+              onClick={toggleSidebar}
+              className="p-2 mr-4 rounded-full hover:bg-primary-700 transition-colors hidden sm:block"
               aria-label="Toggle sidebar"
             >
               <Menu size={24} />

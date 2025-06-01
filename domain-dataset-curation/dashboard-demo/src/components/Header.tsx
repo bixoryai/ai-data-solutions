@@ -32,9 +32,18 @@ const Header: React.FC<HeaderProps> = ({ language, toggleLanguage, goToHome, tog
             >
               <Home size={24} />
             </button>
+            {/* Hamburger for mobile */}
             <button 
               onClick={toggleSidebar}
-              className="p-2 rounded-full hover:bg-primary-700 transition-colors mr-4"
+              className="p-2 rounded-full hover:bg-primary-700 transition-colors mr-4 sm:hidden"
+              aria-label={language === 'en' ? 'Open sidebar menu' : '打开侧边栏菜单'}
+            >
+              <Menu size={24} />
+            </button>
+            {/* Sidebar toggle for desktop */}
+            <button 
+              onClick={toggleSidebar}
+              className="p-2 rounded-full hover:bg-primary-700 transition-colors mr-4 hidden sm:block"
               aria-label={language === 'en' ? 'Toggle sidebar' : '切换侧边栏'}
             >
               <Menu size={24} />

@@ -141,18 +141,38 @@ const App: React.FC = () => {
         goToHome={goToHome}
         toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
       />
-      
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar 
-          navItems={navItems} 
-          activeSection={activeSection} 
-          setActiveSection={setActiveSection} 
-          language={language}
-          isOpen={isSidebarOpen}
-          goToHome={goToHome}
-        />
-        
-        <main className={`flex-1 overflow-y-auto p-6 transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
+      <div className="flex flex-1 overflow-hidden relative">
+        {/* Sidebar overlay for mobile */}
+        <div className="sm:hidden">
+          {isSidebarOpen && (
+            <>
+              <div className="fixed inset-0 bg-black bg-opacity-40 z-30" onClick={() => setIsSidebarOpen(false)}></div>
+              <Sidebar 
+                navItems={navItems}
+                activeSection={activeSection}
+                setActiveSection={(section: string) => {
+                  setActiveSection(section);
+                  setIsSidebarOpen(false); // close sidebar on mobile after selection
+                }}
+                language={language}
+                isOpen={isSidebarOpen}
+                goToHome={goToHome}
+              />
+            </>
+          )}
+        </div>
+        {/* Sidebar static for desktop */}
+        <div className="hidden sm:block">
+          <Sidebar 
+            navItems={navItems}
+            activeSection={activeSection}
+            setActiveSection={setActiveSection}
+            language={language}
+            isOpen={isSidebarOpen}
+            goToHome={goToHome}
+          />
+        </div>
+        <main className={`flex-1 overflow-y-auto p-4 transition-all duration-300 ${isSidebarOpen ? 'sm:ml-64' : ''}`}>
           <div className="container mx-auto">
             {renderContent()}
           </div>
