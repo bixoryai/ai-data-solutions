@@ -6,11 +6,13 @@ AI-powered solutions for data processing, analysis, and visualization with a web
 
 This repository hosts a collection of AI-powered data solutions for various data-related tasks. It includes a central demo portal that showcases multiple individual solution dashboards, providing easy access to these solutions either locally or over the internet.
 
+**All dashboard demos and the main portal are now fully mobile responsive.**
+
 ## Core Components
 
 1. **GitHub Repository Structure**: Organized framework for housing multiple AI data solution projects
 2. **Demo Portal Interface**: Web-based entry point to access and showcase all dashboard demos
-3. **Individual Solution Dashboards**: Interactive demonstrations of each AI data solution
+3. **Individual Solution Dashboards**: Interactive demonstrations of each AI data solution (**all dashboards are mobile-optimized**)
 4. **Presentation Module**: Modern interactive presentation for showcasing AI capabilities
 
 ## Solution Offerings
@@ -31,16 +33,19 @@ This repository hosts a collection of AI-powered data solutions for various data
    - About page: Implemented and accessible via the "About" button
    - Demo dashboard: Fully functional and accessible via the "View Demo" button
    - Build Plan: Not yet implemented (button disabled)
+   - **Dashboard is fully mobile responsive**
 
 2. **Synthetic Data Generator**
    - About page: Implemented and accessible via the "About" button
    - Demo dashboard: Fully functional and accessible via the "View Demo" button
    - Build Plan: Not yet implemented (button disabled)
+   - **Dashboard is fully mobile responsive**
 
 3. **Domain Dataset Curation**
    - About page: Implemented and accessible via the "About" button
    - Demo dashboard: Fully functional and accessible via the "View Demo" button
    - Build Plan: Not yet implemented (button disabled)
+   - **Dashboard is fully mobile responsive**
 
 4. **Predictive Maintenance**
    - About page: Implemented and accessible via the "About" button
@@ -48,6 +53,7 @@ This repository hosts a collection of AI-powered data solutions for various data
    - Sidebar toggle, header/sidebar layout, and main content padding issues resolved (now matches all other dashboards)
    - Build Plan: Not yet implemented (button disabled)
    - Key features: Equipment health monitoring, failure prediction, maintenance scheduling, root cause analysis, and cost optimization
+   - **Dashboard is fully mobile responsive**
 
 ### Coming Soon Solutions
 
@@ -193,6 +199,7 @@ The Demo Portal is a standalone HTML file (`index.html`) at the repository root 
 - Brief descriptions of capabilities
 - Status indicators (Ready/Coming Soon)
 - Launch buttons to access demos
+- **The portal and all dashboards are mobile-optimized for all devices.**
 
 ## Language Support
 

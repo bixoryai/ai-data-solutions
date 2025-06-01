@@ -1,5 +1,7 @@
 # Dashboard UI/UX Standardization Guide
 
+**All dashboards and the main portal are now fully mobile responsive.**
+
 This guide documents the standardized implementation for dashboard headers, side-menus (sidebars), language toggle buttons, and general UI/UX practices. **All dashboard demos now use this unified standard, based on the component audit and recent improvements.**
 
 - **Update (2024):** All dashboard demos, including Predictive Maintenance, are now fully compliant with this standard. Sidebar toggle, header/sidebar layout, and main content alignment have been audited and fixed across all dashboards.
@@ -85,7 +87,7 @@ This guide documents the standardized implementation for dashboard headers, side
 ## 4. General UI/UX Practices
 - **Consistent Color Scheme:** Use the same primary colors, gradients, and background shades across all dashboards.
 - **Icon Set:** Use Lucide icons for all navigation and action icons.
-- **Responsive Layout:** Ensure header, sidebar, and content adapt to different screen sizes.
+- **Responsive Layout:** Ensure header, sidebar, and content adapt to different screen sizes. **All dashboards and the main portal are now fully mobile responsive.**
 - **Smooth Transitions:** Use Tailwind's `transition-all duration-300` for sidebar and content shifts.
 - **Accessibility:**
   - Use `aria-label` for icon buttons.

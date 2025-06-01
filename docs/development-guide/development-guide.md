@@ -204,6 +204,7 @@ All dashboard demos in AI Data Solutions now follow a unified UI/UX standard for
 - A language toggle button (top right in header) with preference stored in localStorage under the key `language`
 - Sidebar is open by default and toggled via the header
 - Main content layout with consistent padding/margin logic
+- **All dashboards and the main portal are now fully mobile responsive.**
 
 **Implementation:**
 - Use the shared `Header.tsx` and `Sidebar.tsx` components as the base for all dashboards.
@@ -238,6 +239,7 @@ For custom CSS (when needed):
 - Design mobile-first and scale up to larger screens
 - Use Tailwind's responsive prefixes consistently
 - Test on multiple screen sizes and devices
+- **All dashboards and the main portal are now fully mobile responsive.**
 
 ## Testing Standards
 
