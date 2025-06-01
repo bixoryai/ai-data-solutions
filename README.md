@@ -44,7 +44,8 @@ This repository hosts a collection of AI-powered data solutions for various data
 
 4. **Predictive Maintenance**
    - About page: Implemented and accessible via the "About" button
-   - Demo dashboard: Fully functional and accessible via the "View Demo" button
+   - Demo dashboard: Fully functional, UI/UX standardized, and accessible via the "View Demo" button
+   - Sidebar toggle, header/sidebar layout, and main content padding issues resolved (now matches all other dashboards)
    - Build Plan: Not yet implemented (button disabled)
    - Key features: Equipment health monitoring, failure prediction, maintenance scheduling, root cause analysis, and cost optimization
 

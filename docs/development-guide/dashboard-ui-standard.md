@@ -2,6 +2,8 @@
 
 This guide documents the standardized implementation for dashboard headers, side-menus (sidebars), language toggle buttons, and general UI/UX practices. **All dashboard demos now use this unified standard, based on the component audit and recent improvements.**
 
+- **Update (2024):** All dashboard demos, including Predictive Maintenance, are now fully compliant with this standard. Sidebar toggle, header/sidebar layout, and main content alignment have been audited and fixed across all dashboards.
+
 ---
 
 ## Background & Rationale
