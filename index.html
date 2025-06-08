@@ -302,7 +302,7 @@
                     <div class="card-header bg-accent-amber bg-opacity-10">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="datasetCuration">Domain Dataset Curation</h3>
-                            <span class="status-badge status-ready text-xs" data-i18n="ready">View Demo</span>
+                            <span class="status-badge status-ready text-xs" data-i18n="ready">Ready</span>
                         </div>
                     </div>
                     <div class="card-body p-4">
@@ -348,7 +348,7 @@
                     <div class="card-header bg-indigo-100">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="customerAnalytics">Customer Analytics</h3>
-                            <span class="status-badge status-ready text-xs" data-i18n="statusReady">Ready</span>
+                            <span class="status-badge status-ready text-xs" data-i18n="ready">Ready</span>
                         </div>
                     </div>
                     <div class="card-body p-4">
@@ -360,38 +360,33 @@
                         </div>
                         <div class="three-button-row">
                             <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
-                            <a href="./customer-analytics/dashboard-demo/build/index.html" class="btn btn-primary" data-i18n="viewDemo">View Demo</a>
+                            <a href="./customer-analytics/dashboard-demo/build/index.html" class="btn btn-primary" data-i18n="ready">View Demo</a>
                             <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
                         </div>
                     </div>
                 </div>
                 
-                <!-- NLP Solutions Card -->
-                <div class="card" data-industry="all">
-                    <div class="card-header bg-blue-100">
+                <!-- NLP Data Intelligence Card -->
+                <div class="card" data-industries='["all", "manufacturing", "finance", "healthcare", "retail", "supplychain"]'>
+                    <div class="card-header">
                         <div class="flex justify-between items-center">
-                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="nlpSolutions">NLP Solutions</h3>
-                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
+                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="nlpSolutions">NLP Data Intelligence</h3>
+                            <span class="status-badge status-ready text-xs" data-i18n="ready">Ready</span>
                         </div>
                     </div>
-                    <div class="card-body p-4">
-                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="nlpSolutionsDesc">Document understanding, information extraction, and intelligent search and knowledge management.</p>
-                        <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded" data-i18n="textAnalysis">Text Analysis</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded" data-i18n="informationExtraction">Information Extraction</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded" data-i18n="multilingual">Multilingual</span>
-                        </div>
+                    <div class="card-body">
+                        <p class="text-gray-600 mb-4" data-i18n="nlpSolutionsDesc">Document understanding, information extraction, and intelligent search.</p>
                         <div class="three-button-row">
                             <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
-                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
+                            <a href="nlp-data-intelligence/dashboard-demo/build/index.html" class="btn btn-primary" data-i18n="ready">View Demo</a>
                             <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Supply Chain Intelligence Card -->
-                <div class="card" data-industry="supplychain">
-                    <div class="card-header bg-teal-100">
+                <div class="card" data-industries='["all", "supplychain"]'>
+                    <div class="card-header">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="supplyChain">Supply Chain Intelligence</h3>
                             <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
@@ -541,8 +536,8 @@
                 retention: "Retention",
                 segmentation: "Segmentation",
                 
-                nlpSolutions: "NLP Solutions",
-                nlpSolutionsDesc: "Document understanding, information extraction, and intelligent search and knowledge management.",
+                nlpSolutions: "NLP Data Intelligence",
+                nlpSolutionsDesc: "Document understanding, information extraction, and intelligent search.",
                 textAnalysis: "Text Analysis",
                 informationExtraction: "Information Extraction",
                 multilingual: "Multilingual",
