@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
-import Sidebar from './components/Sidebar';
+import Sidebar, { NavItem } from './components/Sidebar';
 import TextAnalysis from './components/TextAnalysis';
 import DashboardHome from './components/DashboardHome';
 import Search from './components/Search';
@@ -17,12 +17,10 @@ const translations = {
   },
 };
 
-type Section = 'dashboard' | 'text-analysis' | 'search' | 'settings';
-
 const App: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState<'en' | 'zh'>('en');
-  const [activeSection, setActiveSection] = useState<Section>('dashboard');
+  const [activeSection, setActiveSection] = useState<NavItem>('Dashboard');
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem('language');
@@ -40,19 +38,15 @@ const App: React.FC = () => {
     localStorage.setItem('language', lang);
   };
 
-  const goToHome = () => {
-    window.location.href = '/';
-  };
-  
   const renderContent = () => {
     switch (activeSection) {
-      case 'dashboard':
+      case 'Dashboard':
         return <DashboardHome language={language} />;
-      case 'text-analysis':
+      case 'Text Analysis':
         return <TextAnalysis language={language} />;
-      case 'search':
+      case 'Search':
         return <Search language={language} />;
-      case 'settings':
+      case 'Settings':
         return <SettingsPage language={language} setLanguage={changeLanguage} />;
       default:
         return <DashboardHome language={language} />;
@@ -60,27 +54,24 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="bg-gray-100 min-h-screen">
+      <Header
+        language={language}
+        changeLanguage={changeLanguage}
+        toggleSidebar={toggleSidebar}
+        title={translations[language].title}
+      />
       <Sidebar
+        isOpen={sidebarOpen}
+        language={language}
         activeSection={activeSection}
         setActiveSection={setActiveSection}
-        language={language}
-        isOpen={sidebarOpen}
-        goToHome={goToHome}
       />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <Header
-          language={language}
-          toggleLanguage={() => changeLanguage(language === 'en' ? 'zh' : 'en')}
-          title={translations[language].title}
-          subtitle={translations[language].subtitle}
-          toggleSidebar={toggleSidebar}
-          goToHome={goToHome}
-        />
-        <main className={`flex-1 overflow-y-auto p-6 pt-24 transition-all duration-300 ${sidebarOpen ? 'ml-64' : ''}`}>
+      <main className={`transition-all duration-300 ${sidebarOpen ? 'lg:ml-64' : ''}`}>
+        <div className="pt-20">
           {renderContent()}
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };

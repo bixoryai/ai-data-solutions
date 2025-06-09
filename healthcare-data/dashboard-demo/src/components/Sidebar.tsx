@@ -1,38 +1,33 @@
 import React from 'react';
-import { LayoutDashboard, FileText, Search, Settings, Home } from 'lucide-react';
+import { Home, TrendingUp, Scan, BrainCircuit, SlidersHorizontal } from 'lucide-react';
 
 export interface NavItemInfo {
   name: NavItem;
   icon: React.ReactNode;
 }
 
-export type NavItem = 'Dashboard' | 'Text Analysis' | 'Search' | 'Settings';
+export type NavItem = 'Predictive Analytics' | 'Medical Imaging' | 'NLP Intelligence' | 'Resource Simulator' | 'Settings';
 
 interface SidebarProps {
   isOpen: boolean;
   language: 'en' | 'zh';
-  activeSection: NavItem;
-  setActiveSection: (item: NavItem) => void;
+  activeNavItem: NavItem;
+  setActiveNavItem: (item: NavItem) => void;
+  navItems: readonly NavItemInfo[];
 }
 
-const navItems: readonly NavItemInfo[] = [
-    { name: 'Dashboard', icon: <LayoutDashboard /> },
-    { name: 'Text Analysis', icon: <FileText /> },
-    { name: 'Search', icon: <Search /> },
-    { name: 'Settings', icon: <Settings /> },
-];
-
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, language, activeSection, setActiveSection }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, language, activeNavItem, setActiveNavItem, navItems }) => {
   const translations = {
-    'Dashboard': { en: 'Dashboard', zh: '仪表板' },
-    'Text Analysis': { en: 'Text Analysis', zh: '文本分析' },
-    'Search': { en: 'Search', zh: '搜索' },
+    'Predictive Analytics': { en: 'Predictive Analytics', zh: '预测分析' },
+    'Medical Imaging': { en: 'Medical Imaging', zh: '医学影像' },
+    'NLP Intelligence': { en: 'NLP Intelligence', zh: 'NLP智能' },
+    'Resource Simulator': { en: 'Resource Simulator', zh: '资源模拟' },
     'Settings': { en: 'Settings', zh: '设置' },
   };
 
   return (
     <aside
-      className={`fixed top-0 left-0 h-full w-64 bg-gray-800 text-white z-30 transition-all duration-300 flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+      className={`fixed top-0 left-0 h-full w-64 bg-gray-800 text-white z-30 transition-all duration-300 flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-64'}`}
       aria-label="Sidebar"
     >
       <div className="flex flex-col flex-1 pt-24">
@@ -40,9 +35,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, language, activeSection, setA
           {navItems.map((item) => (
             <button
               key={item.name}
-              onClick={() => setActiveSection(item.name)}
+              onClick={() => setActiveNavItem(item.name)}
               className={`w-full flex items-center p-3 rounded-lg transition-colors ${
-                activeSection === item.name
+                activeNavItem === item.name
                   ? 'bg-blue-600 text-white'
                   : 'text-gray-300 hover:bg-gray-700 hover:text-white'
               }`}

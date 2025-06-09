@@ -431,15 +431,15 @@
                 </div>
                 
                 <!-- Financial Analytics Card -->
-                <div class="card" data-industry="finance">
-                    <div class="card-header bg-green-100">
+                <div class="card" data-industries='["finance"]'>
+                    <div class="card-header">
                         <div class="flex justify-between items-center">
-                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="financialAnalytics">Financial Analytics</h3>
-                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
+                            <h3 class="text-lg font-bold" data-i18n="financialAnalytics">Financial Analytics</h3>
+                            <span class="status-badge status-ready" data-i18n="ready">Ready</span>
                         </div>
                     </div>
                     <div class="card-body p-4">
-                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="financialAnalyticsDesc">Fraud detection, credit risk assessment, and algorithmic trading and market analysis.</p>
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="financialAnalyticsDesc">Interactive dashboards for financial data analysis, fraud detection, and risk assessment.</p>
                         <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
                             <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded" data-i18n="fraudDetection">Fraud Detection</span>
                             <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded" data-i18n="riskAssessment">Risk Assessment</span>
@@ -447,30 +447,31 @@
                         </div>
                         <div class="three-button-row">
                             <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
-                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
+                            <a href="./financial-analytics/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="ready">View Demo</a>
                             <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Healthcare Data Card -->
-                <div class="card" data-industry="healthcare">
-                    <div class="card-header bg-red-100">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="healthcareData">Healthcare Data</h3>
-                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
+                <div class="card" data-industry-tag="healthcare">
+                    <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center h-40">
+                        <div class="text-center text-white">
+                            <!-- Icon -->
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold" data-i18n="healthcareData">Healthcare Data</h3>
+                            <p class="opacity-80 text-sm" data-i18n="statusReady">Ready</p>
                         </div>
                     </div>
                     <div class="card-body p-4">
-                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="healthcareDataDesc">Patient outcome prediction, medical image analysis, and drug discovery optimization.</p>
-                        <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
-                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded" data-i18n="clinicalAnalysis">Clinical Analysis</span>
-                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded" data-i18n="medicalImaging">Medical Imaging</span>
-                            <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded" data-i18n="drugDiscovery">Drug Discovery</span>
-                        </div>
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="healthcareDataDesc">Predictive analytics for patient outcomes, medical imaging analysis, and resource optimization.</p>
                         <div class="three-button-row">
                             <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
-                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
+                            <a href="./healthcare-data/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="ready">View Demo</a>
                             <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
                         </div>
                     </div>
@@ -555,13 +556,13 @@
                 objectDetection: "Object Detection",
                 
                 financialAnalytics: "Financial Analytics",
-                financialAnalyticsDesc: "Fraud detection, credit risk assessment, and algorithmic trading and market analysis.",
+                financialAnalyticsDesc: "Interactive dashboards for financial data analysis, fraud detection, and risk assessment.",
                 fraudDetection: "Fraud Detection",
                 riskAssessment: "Risk Assessment",
                 trading: "Trading",
                 
                 healthcareData: "Healthcare Data",
-                healthcareDataDesc: "Patient outcome prediction, medical image analysis, and drug discovery optimization.",
+                healthcareDataDesc: "Predictive analytics for patient outcomes, medical imaging analysis, and resource optimization.",
                 clinicalAnalysis: "Clinical Analysis",
                 medicalImaging: "Medical Imaging",
                 drugDiscovery: "Drug Discovery",
@@ -639,13 +640,13 @@
                 objectDetection: "物体检测",
                 
                 financialAnalytics: "金融分析",
-                financialAnalyticsDesc: "欺诈检测、信用风险评估以及算法交易和市场分析。",
+                financialAnalyticsDesc: "用于金融数据分析、欺诈检测和风险评估的交互式仪表板。",
                 fraudDetection: "欺诈检测",
                 riskAssessment: "风险评估",
                 trading: "交易",
                 
                 healthcareData: "医疗数据",
-                healthcareDataDesc: "患者结果预测、医学影像分析和药物发现优化。",
+                healthcareDataDesc: "用于患者结果预测、医学影像分析和资源优化的预测性分析。",
                 clinicalAnalysis: "临床分析",
                 medicalImaging: "医学影像",
                 drugDiscovery: "药物发现",

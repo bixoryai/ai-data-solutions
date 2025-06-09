@@ -16,7 +16,8 @@ This guide documents the standardized implementation for dashboard headers, side
 ---
 
 ## 1. Header
-- **Position:** Fixed at the top (`fixed top-0 left-0 w-full z-20`).
+- **Position:** Fixed at the top (`fixed top-0 left-0 w-full`).
+- **Layering:** Must have a higher `z-index` (e.g., `z-40`) than the sidebar to ensure it always stays on top.
 - **Style:** Gradient background (`bg-gradient-to-r from-primary-800 to-primary-600 text-white`), with Home and Menu icons on the left.
 - **Content:**
   - Title (e.g., "Manufacturing Operations Dashboard") and subtitle ("Interactive Demo").
@@ -38,6 +39,7 @@ This guide documents the standardized implementation for dashboard headers, side
 
 ## 2. Sidebar (Side-Menu)
 - **Position:** Fixed on the left, slides in/out (`fixed`, `left-0` or `-left-64`).
+- **Layering:** Must have a lower `z-index` (e.g., `z-30`) than the header.
 - **Width:** 16rem (`w-64`).
 - **Style:** Dark theme (`bg-gray-800 text-white`), with navigation icons and labels (both English and Chinese).
 - **Content:**

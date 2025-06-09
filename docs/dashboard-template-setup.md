@@ -1,6 +1,6 @@
 # Standard Operating Procedure: Creating a New Dashboard Demo
 
-This guide will walk you through setting up a new dashboard demo, ensuring it aligns with the project's `PRD` structure and `dashboard-ui-standard.md`. We will use the `customer-analytics` demo as our "gold standard" template.
+This guide will walk you through setting up a new dashboard demo, ensuring it aligns with the project's `PRD` structure and `dashboard-ui-standard.md`. We will use the `nlp-data-intelligence` demo as our "gold standard" template.
 
 ---
 
@@ -19,7 +19,7 @@ This guide will walk you through setting up a new dashboard demo, ensuring it al
     ```
 
 2.  **Copy Core Configuration Files**:
-    To ensure consistency, copy the essential configuration files from a known-good demo like `customer-analytics/dashboard-demo/` into your new `new-solution/dashboard-demo/` directory.
+    To ensure consistency, copy the essential configuration files from a known-good demo like `nlp-data-intelligence/dashboard-demo/` into your new `new-solution/dashboard-demo/` directory.
     *   `package.json` (for dependencies and scripts)
     *   `tailwind.config.js`
     *   `tsconfig.json`
@@ -60,7 +60,7 @@ This guide will walk you through setting up a new dashboard demo, ensuring it al
 ### **Phase 2: Building the Core Layout (Following `dashboard-ui-standard.md`)**
 
 5.  **Copy Standardized Layout Components**:
-    This is the most critical step for UI consistency. Copy the standardized `Header.tsx` and `Sidebar.tsx` files from `customer-analytics/dashboard-demo/src/components/` into your new `src/components/` directory.
+    This is the most critical step for UI consistency. Copy the standardized `Header.tsx` and `Sidebar.tsx` files from `nlp-data-intelligence/dashboard-demo/src/components/` into your new `src/components/` directory.
 
 6.  **Create the Main App Component (`App.tsx`)**:
     This component will orchestrate the entire dashboard. Create `src/components/App.tsx`. Its primary responsibilities are:
