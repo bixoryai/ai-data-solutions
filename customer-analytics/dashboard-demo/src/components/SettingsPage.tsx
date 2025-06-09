@@ -3,10 +3,10 @@ import { Sun, Moon, Languages } from 'lucide-react';
 
 interface SettingsPageProps {
   language: 'en' | 'zh';
-  setLanguage: (lang: 'en' | 'zh') => void;
+  changeLanguage: (lang: 'en' | 'zh') => void;
 }
 
-const SettingsPage: React.FC<SettingsPageProps> = ({ language, setLanguage }) => {
+const SettingsPage: React.FC<SettingsPageProps> = ({ language, changeLanguage }) => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
   useEffect(() => {
@@ -52,13 +52,13 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ language, setLanguage }) =>
           </h3>
           <div className="flex space-x-4">
             <button
-              onClick={() => setLanguage('en')}
+              onClick={() => changeLanguage('en')}
               className={`px-4 py-2 rounded-lg transition-colors ${language === 'en' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 dark:text-gray-200'}`}
             >
               English
             </button>
             <button
-              onClick={() => setLanguage('zh')}
+              onClick={() => changeLanguage('zh')}
               className={`px-4 py-2 rounded-lg transition-colors ${language === 'zh' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 dark:text-gray-200'}`}
             >
               中文

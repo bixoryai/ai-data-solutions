@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import Header from './Header';
 import Sidebar, { NavItem, NavItemInfo } from './Sidebar';
-import DashboardHome from './DashboardHome';
-import AnalyticsPage from './AnalyticsPage';
-import ReportsPage from './ReportsPage';
+import { LayoutDashboard, Boxes, Users, Settings } from 'lucide-react';
+import DashboardPage from './DashboardPage';
+import DemandAndInventoryPage from './DemandAndInventoryPage';
+import SupplierPerformancePage from './SupplierPerformancePage';
 import SettingsPage from './SettingsPage';
-import { LayoutDashboard, BarChart2, FileText, Settings } from 'lucide-react';
 
 const navItems: readonly NavItemInfo[] = [
   { name: 'Dashboard', icon: <LayoutDashboard /> },
-  { name: 'Analytics', icon: <BarChart2 /> },
-  { name: 'Reports', icon: <FileText /> },
+  { name: 'Demand & Inventory', icon: <Boxes /> },
+  { name: 'Supplier Performance', icon: <Users /> },
   { name: 'Settings', icon: <Settings /> },
 ];
 
@@ -21,9 +21,10 @@ const App: React.FC = () => {
     (localStorage.getItem('language') as 'en' | 'zh') || 'en'
   );
 
+  // Placeholder for translations
   const appTranslations = {
-    en: { title: 'Customer Analytics Dashboard' },
-    zh: { title: '客户分析仪表板' },
+    en: { title: 'Supply Chain Intelligence' },
+    zh: { title: '供应链智能' },
   };
 
   const toggleSidebar = () => setSidebarOpen((open) => !open);
@@ -35,15 +36,15 @@ const App: React.FC = () => {
   const renderContent = () => {
     switch (activeNavItem) {
       case 'Dashboard':
-        return <DashboardHome language={language} />;
-      case 'Analytics':
-        return <AnalyticsPage language={language} />;
-      case 'Reports':
-        return <ReportsPage language={language} />;
+        return <DashboardPage language={language} />;
+      case 'Demand & Inventory':
+        return <DemandAndInventoryPage language={language} />;
+      case 'Supplier Performance':
+        return <SupplierPerformancePage language={language} />;
       case 'Settings':
-        return <SettingsPage language={language} changeLanguage={changeLanguage} />;
+        return <SettingsPage language={language} />;
       default:
-        return <DashboardHome language={language} />;
+        return <DashboardPage language={language} />;
     }
   };
 
@@ -63,9 +64,7 @@ const App: React.FC = () => {
         navItems={navItems}
       />
       <main className={`transition-all duration-300 ${isSidebarOpen ? 'lg:ml-64' : ''}`}>
-        <div className="pt-20">
-          {renderContent()}
-        </div>
+        <div className="pt-20">{renderContent()}</div>
       </main>
     </div>
   );

@@ -69,24 +69,26 @@ This repository hosts a collection of AI-powered data solutions for various data
    - Key features: Document understanding, text analysis, sentiment analysis, intelligent search, and knowledge management. Interactive dashboard with language toggle.
    - **Dashboard is fully mobile responsive**
 
+7. **Supply Chain Intelligence**
+   - About page: Not yet implemented (button disabled)
+   - Demo dashboard: Fully functional, accessible via the "View Demo" button
+   - Build Plan: Not yet implemented (button disabled)
+   - Key features: Interactive dashboard with KPI cards, demand/inventory charts, supplier performance scorecards, and a disruption simulator.
+   - **Dashboard is fully mobile responsive**
+
 ### Coming Soon Solutions
 
-1. **Supply Chain Intelligence**
-   - Current status: In development
-   - Features: Demand forecasting, inventory optimization, and logistics management
-   - Industry focus: Supply Chain and Manufacturing
-
-2. **Computer Vision**
+1. **Computer Vision**
    - Current status: In development
    - Features: Quality control, defect detection, and visual inspection automation
    - Industry focus: Manufacturing
 
-3. **Financial Analytics**
+2. **Financial Analytics**
    - Current status: In development
    - Features: Fraud detection, credit risk assessment, and algorithmic trading
    - Industry focus: Finance
 
-4. **Healthcare Data**
+3. **Healthcare Data**
    - Current status: In development
    - Features: Patient outcome prediction, medical image analysis, and drug discovery
    - Industry focus: Healthcare
