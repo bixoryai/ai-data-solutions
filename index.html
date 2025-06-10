@@ -407,25 +407,18 @@
                     </div>
                 </div>
                 
-                <!-- Computer Vision Card -->
+                <!-- Computer Vision -->
                 <div class="card" data-industry="manufacturing">
-                    <div class="card-header bg-orange-100">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-lg sm:text-xl font-semibold text-gray-800" data-i18n="computerVision">Computer Vision</h3>
-                            <span class="status-badge status-coming-soon text-xs" data-i18n="comingSoon">Coming Soon</span>
-                        </div>
+                    <div class="card-header flex justify-between items-center">
+                        <h3 class="text-lg font-bold" data-i18n="computerVision">Computer Vision</h3>
+                        <span class="status-badge status-ready" data-i18n="ready">Ready</span>
                     </div>
-                    <div class="card-body p-4">
-                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="computerVisionDesc">Quality control, defect detection, and visual inspection automation for various industries.</p>
-                        <div class="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
-                            <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded" data-i18n="imageAnalysis">Image Analysis</span>
-                            <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded" data-i18n="qualityControl">Quality Control</span>
-                            <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded" data-i18n="objectDetection">Object Detection</span>
-                        </div>
+                    <div class="card-body">
+                        <p class="text-gray-600 text-sm mb-4" data-i18n="computerVisionDesc">Quality control, defect detection, and visual inspection automation.</p>
                         <div class="three-button-row">
-                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
-                            <a href="#" class="btn btn-primary-disabled" data-i18n="ready">View Demo</a>
-                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                            <button class="btn btn-outline-disabled" disabled data-i18n="about">About</button>
+                            <a href="computer-vision/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="viewDemo">View Demo</a>
+                            <button class="btn btn-secondary-disabled" disabled data-i18n="buildPlan">Build Plan</button>
                         </div>
                     </div>
                 </div>
@@ -453,7 +446,7 @@
                     </div>
                 </div>
                 
-                <!-- Healthcare Data Card -->
+                <!-- Healthcare Data -->
                 <div class="card" data-industry-tag="healthcare">
                     <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center h-40">
                         <div class="text-center text-white">
@@ -550,7 +543,7 @@
                 riskManagement: "Risk Management",
                 
                 computerVision: "Computer Vision",
-                computerVisionDesc: "Quality control, defect detection, and visual inspection automation for various industries.",
+                computerVisionDesc: "Quality control, defect detection, and visual inspection automation.",
                 imageAnalysis: "Image Analysis",
                 qualityControl: "Quality Control",
                 objectDetection: "Object Detection",

@@ -94,14 +94,16 @@ A major effort has been completed to standardize the UI/UX across all dashboard 
    - Key features: Placeholders for patient outcome prediction, medical image analysis, and drug discovery modules.
    - **Dashboard is fully mobile responsive**
 
+10. **Computer Vision**
+    - About page: Not yet implemented (button disabled)
+    - Demo dashboard: Fully functional, UI/UX standardized, and accessible via the "View Demo" button
+    - Build Plan: Not yet implemented (button disabled)
+    - Key features: Live visual inspection, defect analytics, model performance monitoring, and ROI simulation.
+    - **Dashboard is fully mobile responsive**
+
 ### Coming Soon Solutions
 
-1. **Computer Vision**
-   - Current status: In development
-   - Features: Quality control, defect detection, and visual inspection automation
-   - Industry focus: Manufacturing
-
-2. **Healthcare Data**
+1. **Healthcare Data**
    - Current status: In development
    - Features: Patient outcome prediction, medical image analysis, and drug discovery
    - Industry focus: Healthcare
@@ -213,6 +215,18 @@ ai-data-solutions/
 │   │   ├── src/                 # Source code
 │   │   └── README.md            # Instructions for running the demo
 │   ├── presentation/            # Interactive presentation for customer analytics
+│   └── README.md                # Project documentation
+│
+├── computer-vision/             # Computer Vision solution (new)
+│   ├── dashboard-demo/          # Demo dashboard for computer vision
+│   │   ├── package.json         # Project dependencies
+│   │   ├── public/              # Static assets
+│   │   ├── src/                 # Source code
+│   │   │   ├── components/      # Dashboard components
+│   │   │   ├── data/            # Mock data files
+│   │   │   ├── utils/           # Utility functions
+│   │   │   └── index.tsx        # Entry point
+│   │   └── README.md            # Instructions for running the demo
 │   └── README.md                # Project documentation
 │
 └── docs/                        # Documentation for the entire repository
