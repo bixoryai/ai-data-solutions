@@ -344,24 +344,24 @@
                     </div>
                 </div>
                 
-                <!-- Customer Analytics Card -->
-                <div class="card" data-industries='["retail", "finance", "healthcare"]'>
-                    <div class="p-4 bg-gradient-to-br from-rose-500 to-rose-700 flex items-center justify-center h-40">
+                <!-- Customer Analytics -->
+                <div class="card" data-industries='["finance", "retail", "healthcare"]'>
+                    <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center h-40">
                         <div class="text-center text-white">
                             <div class="mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-4.663c.75-1.05 1.163-2.313 1.163-3.664a4.5 4.5 0 00-4.5-4.5c-2.137 0-3.935 1.405-4.42 3.262a4.5 4.5 0 00-4.008 4.417c0 .03.002.059.005.087a4.5 4.5 0 003.963 4.492c.087.004.175.007.262.007a4.5 4.5 0 004.417-4.008c.254-1.857 1.886-3.262 3.935-3.262a4.5 4.5 0 004.5 4.5c0 1.351-.413 2.614-1.163 3.664l.001.001z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.962a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm7.5 2.962a4.5 4.5 0 100-9 4.5 4.5 0 000 9z" />
                                 </svg>
                             </div>
                             <h3 class="text-xl font-bold" data-i18n="customerAnalytics">Customer Analytics</h3>
-                            <p class="opacity-80 text-sm">Ready</p>
+                            <p class="opacity-80 text-sm" data-i18n="ready">Ready</p>
                         </div>
                     </div>
                     <div class="card-body p-4">
                         <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="customerAnalyticsDesc">Customer segmentation, behavior prediction, and personalized recommendation engines.</p>
                         <div class="three-button-row">
-                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
-                            <a href="./customer-analytics/dashboard-demo/build/index.html" class="btn btn-primary" data-i18n="ready">View Demo</a>
+                            <a href="./customer-analytics/presentation/build/index.html" class="btn btn-secondary dashboard-link" data-i18n="about">About</a>
+                            <a href="./customer-analytics/dashboard-demo/build/index.html" class="btn btn-primary" data-i18n="viewDemo">View Demo</a>
                             <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
                         </div>
                     </div>
@@ -797,6 +797,12 @@
                     if (newHref.includes('domain-dataset-curation/presentation')) {
                         console.log('Processing domain-dataset-curation presentation link: ' + newHref);
                         newHref = './domain-dataset-curation/presentation/build/index.html';
+                    }
+                    
+                    // For customer-analytics presentation link
+                    if (newHref.includes('customer-analytics/presentation')) {
+                        console.log('Processing customer-analytics presentation link: ' + newHref);
+                        newHref = './customer-analytics/presentation/build/index.html';
                     }
                     
                     // Predictive Maintenance Dashboard
