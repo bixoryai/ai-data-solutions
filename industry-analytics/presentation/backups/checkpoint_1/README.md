@@ -1,0 +1,67 @@
+# Industry-specific AI Analytics Presentation
+
+This project contains a modern, interactive presentation showcasing industry-specific AI analytics capabilities, designed with a sleek dark theme and polished UI elements.
+
+## Implementation Details
+
+The presentation is built as a self-contained React component with custom styling:
+
+- **React-based Implementation** (`src/components/Presentation.tsx`)
+  - Modern functional React component using hooks
+  - Custom animations and transitions
+  - Keyboard navigation support (arrow keys)
+
+- **Styling** (`src/components/Presentation.css`)
+  - Custom CSS with modern styling techniques
+  - Responsive design that works on various screen sizes
+  - Animations, gradients, and glassmorphism effects
+
+## Slide Structure
+
+The presentation consists of the following slides:
+
+1. **Title Slide** - Introduction with company branding and tagline
+2. **The Opportunity** - Key market statistics and industry-specific AI value propositions
+3. **Key Business Challenges We Solve** - Pain points addressed by the solution
+4. **Our AI-First Approach** - Solution overview with industry-specific applications
+
+## UI Features
+
+- **Progress Bar** - Visual indicator at the top showing slide progress
+- **Edge Navigation** - Side arrow buttons for intuitive navigation between slides
+- **Slide Counter** - Simple indicator showing current slide position and total slides
+- **Keyboard Navigation** - Support for navigating with arrow keys
+- **Visual Effects** - Background animations, data visualization elements, and interactive hover states
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Build for production
+npm run build
+```
+
+## Dependencies
+
+- React & TypeScript
+- Lucide React (for icons)
+
+## Project Structure
+
+- `src/components/Presentation.tsx` - Main presentation component with slide content
+- `src/components/Presentation.css` - Comprehensive styling for the presentation
+- `public/images/` - Images used in the presentation, including the company logo
+
+## Design Principles
+
+The presentation follows a modern design approach:
+- Dark gradient backgrounds with subtle grid patterns
+- Bright accent colors (primarily gold/yellow) for important headings
+- Card-based information layout with hover effects
+- Clean typography with appropriate text hierarchy
+- Subtle animations that enhance without distracting

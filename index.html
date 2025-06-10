@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Data Solutions - Demo Portal</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                            950: '#1e1b4b',
+                        },
+                        secondary: {
+                            cyan: '#06b6d4',
+                            emerald: '#10b981',
+                        },
+                        accent: {
+                            orange: '#f97316',
+                            amber: '#eab308',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .card {
+                @apply bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300;
+            }
+            .card-header {
+                @apply p-4 border-b border-gray-100;
+            }
+            .card-body {
+                @apply p-4;
+            }
+            .btn {
+                @apply px-4 py-2 rounded-md font-medium transition-colors duration-200;
+            }
+            .btn-primary {
+                @apply bg-primary-600 text-white hover:bg-primary-700;
+            }
+            .btn-primary:disabled {
+                @apply bg-gray-400 cursor-not-allowed hover:bg-gray-400;
+            }
+            .btn-primary-disabled {
+                @apply bg-blue-300 text-white cursor-not-allowed hover:bg-blue-300;
+            }
+            .btn-secondary {
+                @apply bg-secondary-cyan text-white hover:bg-opacity-90;
+            }
+            .btn-secondary:disabled {
+                @apply bg-gray-400 cursor-not-allowed hover:bg-gray-400;
+            }
+            .btn-secondary-disabled {
+                @apply bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300;
+            }
+            .btn-outline {
+                @apply border border-primary-600 text-primary-600 hover:bg-primary-50;
+            }
+            .btn-outline-disabled {
+                @apply border border-gray-300 text-gray-400 cursor-not-allowed hover:bg-gray-50;
+            }
+            .status-badge {
+                @apply text-xs font-semibold px-2 py-1 rounded-full;
+            }
+            .status-ready {
+                @apply bg-green-100 text-green-800;
+            }
+            .status-coming-soon {
+                @apply bg-amber-100 text-amber-800;
+            }
+            /* Language toggle styling removed as it's now positioned in the flex layout */
+            .language-button {
+                @apply px-3 py-1.5 rounded border border-gray-300 text-sm font-medium bg-white text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50;
+            }
+            
+            /* Ensure proper display of Chinese text */
+            [data-i18n], h1, h2, h3, p, span, button {
+                writing-mode: horizontal-tb !important;
+                text-orientation: mixed !important;
+            }
+            
+            /* Build plan button margin */
+            .build-plan-btn {
+                @apply mt-2;
+            }
+            
+            /* Three-button container */
+            .three-button-row {
+                @apply flex flex-row gap-2 text-sm sm:text-base;
+            }
+            .three-button-row .btn {
+                @apply flex-1 text-center;
+            }
+
+            /* Industry filter buttons */
+            .industry-filter-btn {
+                @apply text-gray-600 hover:bg-gray-100 transition-colors;
+            }
+            .industry-filter-btn.active {
+                @apply bg-primary-600 text-white hover:bg-primary-700;
+            }
+
+            /* Card transitions for filtering */
+            .card {
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="bg-gray-800 text-white relative shadow-md">
+        <div class="container mx-auto px-4 py-5 md:py-6 lg:py-8">
+            <!-- Single row with logo, title, and language toggle - Improved for mobile -->
+            <div class="flex flex-col sm:flex-row justify-between items-center max-w-6xl mx-auto">
+                <!-- Top row for mobile: Logo and language toggle -->
+                <div class="w-full sm:hidden flex justify-between items-center mb-4">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0">
+                        <img 
+                            src="assets/images/logo.png" 
+                            alt="AI Data Solutions Logo" 
+                            class="h-12 sm:h-16 w-auto"
+                            loading="lazy"
+                        >
+                    </div>
+                    
+                    <!-- Language toggle -->
+                    <div>
+                        <button 
+                            id="language-toggle-btn-mobile" 
+                            class="language-button" 
+                            aria-label="Toggle language"
+                            role="button"
+                        >
+                            <span id="language-text-mobile">中文</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Desktop layout (hidden on mobile) -->
+                <!-- Logo on the left -->
+                <div class="hidden sm:flex flex-shrink-0 w-1/4 justify-start">
+                    <img 
+                        src="assets/images/logo.png" 
+                        alt="AI Data Solutions Logo" 
+                        class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto"
+                        loading="lazy"
+                    >
+                </div>
+                
+                <!-- Title in the center - shown on all screens -->
+                <div class="flex-grow flex justify-center items-center">
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white text-center" data-i18n="title">AI Data Solutions</h1>
+                </div>
+                
+                <!-- Language toggle on the right (desktop only) -->
+                <div class="hidden sm:flex flex-shrink-0 w-1/4 justify-end">
+                    <button 
+                        id="language-toggle-btn" 
+                        class="language-button" 
+                        aria-label="Toggle language"
+                        role="button"
+                    >
+                        <span id="language-text">中文</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Subtitle row - centered -->
+            <div class="text-center mt-1 md:mt-2">
+                <p class="text-base sm:text-lg md:text-xl text-primary-100 max-w-2xl mx-auto" data-i18n="subtitle">Advanced AI-powered solutions for data processing, analysis, and visualization</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center" data-i18n="featuredSolution">Featured Solution</h2>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden lg:flex">
+                <div class="lg:w-1/2 bg-gradient-to-br from-primary-500 to-primary-700 p-4 sm:p-6 md:p-8 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <div class="mb-3 md:mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold" data-i18n="manufacturingAnalytics">Manufacturing Analytics</h3>
+                        <p class="mt-1 sm:mt-2 opacity-80 featured-status text-sm sm:text-base" data-i18n="ready">Ready</p>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 p-4 sm:p-6 md:p-8">
+                    <h3 class="text-2xl font-bold text-gray-800" data-i18n="industryAnalytics">Industry-specific AI Analytics</h3>
+                    <p class="mt-4 text-gray-600" data-i18n="industryAnalyticsDesc">Advanced analytics dashboards tailored for manufacturing industry, providing real-time insights and predictive capabilities.</p>
+                    <ul class="mt-6 space-y-2">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span data-i18n="feature1">Real-time production monitoring</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span data-i18n="feature2">Predictive maintenance</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span data-i18n="feature3">Quality control analytics</span>
+                        </li>
+                    </ul>
+                    <div class="mt-8">
+                        <a href="./industry-analytics/dashboard-demo/build/index.html" class="btn btn-primary featured-button dashboard-link" data-i18n="ready">View Demo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center" data-i18n="allSolutions">All Solutions</h2>
+            
+            <!-- Industry Filter Tabs -->
+            <div class="mb-6 flex flex-wrap justify-center">
+                <div class="mx-auto bg-white rounded-lg shadow-sm p-2 flex flex-wrap gap-2 justify-center">
+                    <button class="industry-filter-btn active px-3 py-1 rounded-md text-sm" data-industry="all" data-i18n="industryAll">All Industries</button>
+                    <button class="industry-filter-btn px-3 py-1 rounded-md text-sm" data-industry="manufacturing" data-i18n="industryManufacturing">Manufacturing</button>
+                    <button class="industry-filter-btn px-3 py-1 rounded-md text-sm" data-industry="finance" data-i18n="industryFinance">Finance</button>
+                    <button class="industry-filter-btn px-3 py-1 rounded-md text-sm" data-industry="healthcare" data-i18n="industryHealthcare">Healthcare</button>
+                    <button class="industry-filter-btn px-3 py-1 rounded-md text-sm" data-industry="retail" data-i18n="industryRetail">Retail</button>
+                    <button class="industry-filter-btn px-3 py-1 rounded-md text-sm" data-industry="supplychain" data-i18n="industrySupplyChain">Supply Chain</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="solutions-grid">
+                <!-- Industry Analytics Card -->
+                <div class="card" data-industries='["manufacturing"]'>
+                    <div class="p-4 bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center h-40">
+                        <div class="text-center text-white">
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold" data-i18n="industryAnalyticsShort">Industry Analytics</h3>
+                            <p class="opacity-80 text-sm">Ready</p>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="industryAnalyticsShortDesc">Advanced analytics dashboards tailored for specific industries.</p>
+                        <div class="three-button-row">
+                            <a href="./industry-analytics/presentation/build/index.html" class="btn btn-secondary dashboard-link" data-i18n="about">About</a>
+                            <a href="./industry-analytics/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Synthetic Data Generator Card -->
+                <div class="card" data-industries='["all"]'>
+                    <div class="p-4 bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center h-40">
+                        <div class="text-center text-white">
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold" data-i18n="syntheticData">Synthetic Data Generator</h3>
+                            <p class="opacity-80 text-sm">Ready</p>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="syntheticDataDesc">Tools for creating realistic synthetic datasets for testing and development.</p>
+                        <div class="three-button-row">
+                            <a href="./synthetic-data-generator/presentation/build/index.html" class="btn btn-secondary dashboard-link" data-i18n="about">About</a>
+                            <a href="./synthetic-data-generator/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domain Dataset Curation Card -->
+                <div class="card" data-industries='["all"]'>
+                    <div class="p-4 bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center h-40">
+                        <div class="text-center text-white">
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678a.75.75 0 11-.166 1.482A19.502 19.502 0 0012 4.5c-2.433 0-4.768.16-7.004.453a.75.75 0 11-.165-1.482A20.939 20.939 0 0112 3zm0 18c-2.755 0-5.455-.232-8.083-.678a.75.75 0 11.166-1.482A19.502 19.502 0 0012 19.5c2.433 0 4.768-.16 7.004-.453a.75.75 0 11.165 1.482A20.939 20.939 0 0112 21zm0-3a8.952 8.952 0 00-8.941-8.941H3.06a.75.75 0 010-1.5h.008a8.953 8.953 0 008.942-8.942V6a.75.75 0 011.5 0v.008a8.953 8.953 0 008.942 8.942h.008a.75.75 0 010 1.5h-.008a8.952 8.952 0 00-8.941 8.941V18z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold" data-i18n="datasetCuration">Domain Dataset Curation</h3>
+                            <p class="opacity-80 text-sm">Ready</p>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="datasetCurationDesc">Solutions for curating and managing domain-specific datasets.</p>
+                        <div class="three-button-row">
+                            <a href="./domain-dataset-curation/presentation/build/index.html" class="btn btn-secondary dashboard-link" data-i18n="about">About</a>
+                            <a href="./domain-dataset-curation/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Predictive Maintenance Card -->
+                <div class="card" data-industries='["manufacturing"]'>
+                    <div class="p-4 bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center h-40">
+                        <div class="text-center text-white">
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.66.54-1.192 1.2-1.192h.6c.66 0 1.2.532 1.2 1.192v11.826c0 .66-.54 1.192-1.2 1.192h-.6c-.66 0-1.2-.532-1.2-1.192V6.087zM8.25 6.087c0-.66.54-1.192 1.2-1.192h.6c.66 0 1.2.532 1.2 1.192v11.826c0 .66-.54 1.192-1.2 1.192h-.6c-.66 0-1.2-.532-1.2-1.192V6.087zM12 2.25c5.385 0 9.75 4.365 9.75 9.75s-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12 6.615 2.25 12 2.25z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold" data-i18n="predictiveMaintenance">Predictive Maintenance</h3>
+                            <p class="opacity-80 text-sm">Ready</p>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="predictiveMaintenanceDesc">AI-powered systems to predict equipment failures before they occur and optimize maintenance schedules.</p>
+                        <div class="three-button-row">
+                            <a href="predictive-maintenance/presentation/build/index.html" class="btn btn-secondary" data-i18n="about">About</a>
+                            <a href="predictive-maintenance/dashboard-demo/build/index.html" class="btn btn-primary" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Customer Analytics Card -->
+                <div class="card" data-industries='["retail", "finance", "healthcare"]'>
+                    <div class="p-4 bg-gradient-to-br from-rose-500 to-rose-700 flex items-center justify-center h-40">
+                        <div class="text-center text-white">
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-4.663c.75-1.05 1.163-2.313 1.163-3.664a4.5 4.5 0 00-4.5-4.5c-2.137 0-3.935 1.405-4.42 3.262a4.5 4.5 0 00-4.008 4.417c0 .03.002.059.005.087a4.5 4.5 0 003.963 4.492c.087.004.175.007.262.007a4.5 4.5 0 004.417-4.008c.254-1.857 1.886-3.262 3.935-3.262a4.5 4.5 0 004.5 4.5c0 1.351-.413 2.614-1.163 3.664l.001.001z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold" data-i18n="customerAnalytics">Customer Analytics</h3>
+                            <p class="opacity-80 text-sm">Ready</p>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="customerAnalyticsDesc">Customer segmentation, behavior prediction, and personalized recommendation engines.</p>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="./customer-analytics/dashboard-demo/build/index.html" class="btn btn-primary" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- NLP Data Intelligence Card -->
+                <div class="card" data-industries='["all", "manufacturing", "finance", "healthcare", "retail", "supplychain"]'>
+                    <div class="p-4 bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center h-40">
+                        <div class="text-center text-white">
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold" data-i18n="nlpSolutions">NLP Data Intelligence</h3>
+                            <p class="opacity-80 text-sm">Ready</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-gray-600 mb-4" data-i18n="nlpSolutionsDesc">Document understanding, information extraction, and intelligent search.</p>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="nlp-data-intelligence/dashboard-demo/build/index.html" class="btn btn-primary" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Supply Chain Intelligence Card -->
+                <div class="card" data-industries='["all", "supplychain", "manufacturing"]'>
+                    <div class="p-4 bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center h-40">
+                        <div class="text-center text-white">
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125V14.25m-17.25 4.5v-1.875a3.375 3.375 0 013.375-3.375h9.75a3.375 3.375 0 013.375 3.375v1.875M16.5 6h.25a2.25 2.25 0 012.25 2.25v2.25a2.25 2.25 0 01-2.25 2.25H15v-4.5h1.5z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold" data-i18n="supplyChain">Supply Chain Intelligence</h3>
+                            <p class="opacity-80 text-sm">Ready</p>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="supplyChainDesc">Demand forecasting, inventory optimization, and risk identification and mitigation.</p>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="./supply-chain-intelligence/dashboard-demo/build/index.html" class="btn btn-primary" data-i18n="viewDemo">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Computer Vision -->
+                <div class="card" data-industries='["manufacturing"]'>
+                    <div class="p-4 bg-gradient-to-br from-slate-500 to-slate-700 flex items-center justify-center h-40">
+                        <div class="text-center text-white">
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639l4.25-8.5a1.012 1.012 0 011.634 0l4.25 8.5a1.012 1.012 0 010 .639l-4.25 8.5a1.012 1.012 0 01-1.634 0l-4.25-8.5z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold" data-i18n="computerVision">Computer Vision</h3>
+                            <p class="opacity-80 text-sm">Ready</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-gray-600 text-sm mb-4" data-i18n="computerVisionDesc">Quality control, defect detection, and visual inspection automation.</p>
+                        <div class="three-button-row">
+                            <button class="btn btn-outline-disabled" disabled data-i18n="about">About</button>
+                            <a href="computer-vision/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="viewDemo">View Demo</a>
+                            <button class="btn btn-secondary-disabled" disabled data-i18n="buildPlan">Build Plan</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Financial Analytics Card -->
+                <div class="card" data-industries='["finance"]'>
+                    <div class="p-4 bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center h-40">
+                        <div class="text-center text-white">
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-9.75M18 1.5l-1.5 1.5-1.5-1.5M15 11.25l1.5 1.5 1.5-1.5M12 4.5l1.5 1.5 1.5-1.5M12 11.25l1.5 1.5 1.5-1.5" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold" data-i18n="financialAnalytics">Financial Analytics</h3>
+                            <p class="opacity-80 text-sm">Ready</p>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="financialAnalyticsDesc">Interactive dashboards for financial data analysis, fraud detection, and risk assessment.</p>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="./financial-analytics/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Healthcare Data -->
+                <div class="card" data-industries='["healthcare"]'>
+                    <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center h-40">
+                        <div class="text-center text-white">
+                            <!-- Icon -->
+                            <div class="mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold" data-i18n="healthcareData">Healthcare Data</h3>
+                            <p class="opacity-80 text-sm" data-i18n="statusReady">Ready</p>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4" data-i18n="healthcareDataDesc">Predictive analytics for patient outcomes, medical imaging analysis, and resource optimization.</p>
+                        <div class="three-button-row">
+                            <a href="#" class="btn btn-secondary-disabled" data-i18n="about">About</a>
+                            <a href="./healthcare-data/dashboard-demo/build/index.html" class="btn btn-primary dashboard-link" data-i18n="ready">View Demo</a>
+                            <a href="#" class="btn btn-outline-disabled" data-i18n="buildPlan">Build Plan</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 sm:py-8 mt-8 sm:mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 text-center md:text-left">
+                    <h2 class="text-lg sm:text-xl font-bold" data-i18n="title">AI Data Solutions</h2>
+                    <p class="text-gray-400 mt-1 text-sm sm:text-base" data-i18n="copyright">© 2023 BixoryAI. All rights reserved.</p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400 text-sm sm:text-base" data-i18n="footerDesc">A collection of AI-powered data solutions</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translation data
+        const translations = {
+            en: {
+                title: "AI Data Solutions",
+                subtitle: "Advanced AI-powered solutions for data processing, analysis, and visualization",
+                featuredSolution: "Featured Solution",
+                manufacturingAnalytics: "Manufacturing Analytics",
+                comingSoon: "Coming Soon",
+                ready: "View Demo",
+                industryAnalytics: "Industry-specific AI Analytics",
+                industryAnalyticsDesc: "Advanced analytics dashboards tailored for manufacturing industry, providing real-time insights and predictive capabilities.",
+                feature1: "Real-time production monitoring",
+                feature2: "Predictive maintenance",
+                feature3: "Quality control analytics",
+                allSolutions: "All Solutions",
+                industryAnalyticsShort: "Industry Analytics",
+                industryAnalyticsShortDesc: "Advanced analytics dashboards tailored for specific industries.",
+                syntheticData: "Synthetic Data Generator",
+                syntheticDataDesc: "Tools for creating realistic synthetic datasets for testing and development.",
+                datasetCuration: "Domain Dataset Curation",
+                datasetCurationDesc: "Solutions for curating and managing domain-specific datasets.",
+                tag1: "Manufacturing",
+                tag2: "Analytics",
+                tag3: "Dashboards",
+                tag4: "Data Generation",
+                tag5: "Privacy",
+                tag6: "Testing",
+                tag7: "Data Cleaning",
+                tag8: "Curation",
+                tag9: "Quality",
+                predictiveMaintenance: "Predictive Maintenance",
+                predictiveMaintenanceDesc: "AI-powered systems to predict equipment failures before they occur and optimize maintenance schedules.",
+                assetManagement: "Asset Management",
+                maintenance: "Maintenance",
+                reliability: "Reliability",
+                
+                customerAnalytics: "Customer Analytics",
+                customerAnalyticsDesc: "Customer segmentation, behavior prediction, and personalized recommendation engines.",
+                personalization: "Personalization",
+                retention: "Retention",
+                segmentation: "Segmentation",
+                
+                nlpSolutions: "NLP Data Intelligence",
+                nlpSolutionsDesc: "Document understanding, information extraction, and intelligent search.",
+                textAnalysis: "Text Analysis",
+                informationExtraction: "Information Extraction",
+                multilingual: "Multilingual",
+                
+                supplyChain: "Supply Chain Intelligence",
+                supplyChainDesc: "Demand forecasting, inventory optimization, and risk identification and mitigation.",
+                forecasting: "Forecasting",
+                logistics: "Logistics",
+                riskManagement: "Risk Management",
+                
+                computerVision: "Computer Vision",
+                computerVisionDesc: "Quality control, defect detection, and visual inspection automation.",
+                imageAnalysis: "Image Analysis",
+                qualityControl: "Quality Control",
+                objectDetection: "Object Detection",
+                
+                financialAnalytics: "Financial Analytics",
+                financialAnalyticsDesc: "Interactive dashboards for financial data analysis, fraud detection, and risk assessment.",
+                fraudDetection: "Fraud Detection",
+                riskAssessment: "Risk Assessment",
+                trading: "Trading",
+                
+                healthcareData: "Healthcare Data",
+                healthcareDataDesc: "Predictive analytics for patient outcomes, medical imaging analysis, and resource optimization.",
+                clinicalAnalysis: "Clinical Analysis",
+                medicalImaging: "Medical Imaging",
+                drugDiscovery: "Drug Discovery",
+                
+                copyright: "© 2023 BixoryAI. All rights reserved.",
+                footerDesc: "A collection of AI-powered data solutions",
+                
+                buildPlan: "Build Plan",
+                
+                about: "About",
+                
+                industryAll: "All Industries",
+                industryManufacturing: "Manufacturing",
+                industryFinance: "Finance",
+                industryHealthcare: "Healthcare",
+                industryRetail: "Retail",
+                industrySupplyChain: "Supply Chain"
+            },
+            zh: {
+                title: "AI 数据解决方案",
+                subtitle: "先进的 AI 驱动数据处理、分析和可视化解决方案",
+                featuredSolution: "特色解决方案",
+                manufacturingAnalytics: "制造业分析",
+                comingSoon: "即将推出",
+                ready: "查看演示",
+                industryAnalytics: "行业特定 AI 分析",
+                industryAnalyticsDesc: "为制造业量身定制的高级分析仪表板，提供实时洞察和预测能力。",
+                feature1: "实时生产监控",
+                feature2: "预测性维护",
+                feature3: "质量控制分析",
+                allSolutions: "所有解决方案",
+                industryAnalyticsShort: "行业分析",
+                industryAnalyticsShortDesc: "为特定行业量身定制的高级分析仪表板。",
+                syntheticData: "合成数据生成器",
+                syntheticDataDesc: "用于创建逼真的合成数据集以进行测试和开发的工具。",
+                datasetCuration: "领域数据集管理",
+                datasetCurationDesc: "用于管理和整理特定领域数据集的解决方案。",
+                tag1: "制造业",
+                tag2: "分析",
+                tag3: "仪表板",
+                tag4: "数据生成",
+                tag5: "隐私",
+                tag6: "测试",
+                tag7: "数据清洗",
+                tag8: "数据管理",
+                tag9: "质量",
+                predictiveMaintenance: "预测性维护",
+                predictiveMaintenanceDesc: "AI驱动的系统，可在设备故障发生前进行预测并优化维护计划。",
+                assetManagement: "资产管理",
+                maintenance: "维护",
+                reliability: "可靠性",
+                
+                customerAnalytics: "客户分析",
+                customerAnalyticsDesc: "客户细分、行为预测和个性化推荐引擎。",
+                personalization: "个性化",
+                retention: "客户保留",
+                segmentation: "细分",
+                
+                nlpSolutions: "自然语言处理解决方案",
+                nlpSolutionsDesc: "文档理解、信息提取以及智能搜索和知识管理。",
+                textAnalysis: "文本分析",
+                informationExtraction: "信息提取",
+                multilingual: "多语言",
+                
+                supplyChain: "供应链智能",
+                supplyChainDesc: "需求预测、库存优化以及风险识别和缓解。",
+                forecasting: "预测",
+                logistics: "物流",
+                riskManagement: "风险管理",
+                
+                computerVision: "计算机视觉",
+                computerVisionDesc: "质量控制、缺陷检测和各行业的视觉检测自动化。",
+                imageAnalysis: "图像分析",
+                qualityControl: "质量控制",
+                objectDetection: "物体检测",
+                
+                financialAnalytics: "金融分析",
+                financialAnalyticsDesc: "用于金融数据分析、欺诈检测和风险评估的交互式仪表板。",
+                fraudDetection: "欺诈检测",
+                riskAssessment: "风险评估",
+                trading: "交易",
+                
+                healthcareData: "医疗数据",
+                healthcareDataDesc: "用于患者结果预测、医学影像分析和资源优化的预测性分析。",
+                clinicalAnalysis: "临床分析",
+                medicalImaging: "医学影像",
+                drugDiscovery: "药物发现",
+                
+                copyright: "© 2023 BixoryAI. 保留所有权利。",
+                footerDesc: "AI 驱动的数据解决方案集合",
+                
+                buildPlan: "构建计划",
+                
+                about: "关于",
+                
+                industryAll: "所有行业",
+                industryManufacturing: "制造业",
+                industryFinance: "金融",
+                industryHealthcare: "医疗",
+                industryRetail: "零售",
+                industrySupplyChain: "供应链"
+            }
+        };
+
+        // Language toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageToggleBtn = document.getElementById('language-toggle-btn');
+            const languageToggleBtnMobile = document.getElementById('language-toggle-btn-mobile');
+            const languageText = document.getElementById('language-text');
+            const languageTextMobile = document.getElementById('language-text-mobile');
+
+            const updateButtonText = (lang) => {
+                const buttonText = lang === 'en' ? '中文' : 'English';
+                if (languageText) languageText.textContent = buttonText;
+                if (languageTextMobile) languageTextMobile.textContent = buttonText;
+            };
+
+            const handleLanguageToggle = () => {
+                const currentLang = document.documentElement.lang || 'en';
+                const newLang = currentLang === 'en' ? 'zh' : 'en';
+                localStorage.setItem('language', newLang);
+                setLanguage(newLang);
+                updateButtonText(newLang);
+            };
+
+            // Initialize language from localStorage or default to English
+            const savedLang = localStorage.getItem('language') || 'en';
+            setLanguage(savedLang);
+            updateButtonText(savedLang);
+            
+            // Add click event listener to toggle buttons
+            if (languageToggleBtn) languageToggleBtn.addEventListener('click', handleLanguageToggle);
+            if (languageToggleBtnMobile) languageToggleBtnMobile.addEventListener('click', handleLanguageToggle);
+            
+            // Demo availability check
+            const demosAvailable = {
+                'industry-analytics': true,
+                'synthetic-data-generator': true,  // Updated to true to ensure links work
+                'domain-dataset-curation': true    // Updated to true to enable the demo
+            };
+            
+            // Update UI based on demo availability
+            updateDemoAvailability(demosAvailable);
+            
+            console.log('Demo portal initialized. Checking for available demos...');
+        });
+        
+        // Function to set language
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+        }
+        
+        // Function to get the base URL for different environments
+        function getBaseUrl() {
+            const hostname = window.location.hostname;
+            // Check if running on custom domain
+            if (hostname === 'ai-data-solutions.bixory.ai') {
+                return '';
+            }
+            // Check if running on GitHub Pages
+            else if (hostname.includes('github.io')) {
+                return '/ai-data-solutions';
+            }
+            // Local development
+            return '';
+        }
+        
+        // Function to update demo availability in the UI
+        function updateDemoAvailability(demosAvailable) {
+            const baseUrl = getBaseUrl();
+            
+            // Update links to work with both GitHub Pages and local development
+            const featuredButton = document.querySelector('.featured-button');
+            if (featuredButton) {
+                const currentHref = featuredButton.getAttribute('href');
+                featuredButton.setAttribute('href', `${baseUrl}${currentHref.startsWith('/') ? '' : '/'}${currentHref.replace(/^\//, '')}`);
+            }
+            
+            // Update all dashboard links with consistent path formatting
+            document.querySelectorAll('.dashboard-link').forEach(link => {
+                const currentHref = link.getAttribute('href');
+                if (currentHref && !currentHref.startsWith('http')) {
+                    // Ensure paths are consistently formatted for all environments
+                    let newHref = currentHref;
+                    
+                    // Standardize all paths to ensure consistent behavior across environments
+                    
+                    // First, ensure all paths use forward slashes
+                    newHref = newHref.replace(/\\/g, '/');
+                    
+                    // For industry-analytics presentation link
+                    if (newHref.includes('industry-analytics/presentation')) {
+                        console.log('Processing industry-analytics presentation link: ' + newHref);
+                        newHref = './industry-analytics/presentation/build/index.html';
+                    }
+                    
+                    // For synthetic-data-generator dashboard link
+                    if (newHref.includes('synthetic-data-generator/dashboard-demo')) {
+                        console.log('Processing synthetic-data-generator dashboard link: ' + newHref);
+                        newHref = './synthetic-data-generator/dashboard-demo/build/index.html';
+                    }
+                    
+                    // For synthetic-data-generator presentation link
+                    if (newHref.includes('synthetic-data-generator/presentation')) {
+                        console.log('Processing synthetic-data-generator presentation link: ' + newHref);
+                        newHref = './synthetic-data-generator/presentation/build/index.html';
+                    }
+                    
+                    // For domain-dataset-curation dashboard link
+                    if (newHref.includes('domain-dataset-curation/dashboard-demo')) {
+                        console.log('Processing domain-dataset-curation dashboard link: ' + newHref);
+                        newHref = './domain-dataset-curation/dashboard-demo/build/index.html';
+                    }
+                    
+                    // For domain-dataset-curation presentation link
+                    if (newHref.includes('domain-dataset-curation/presentation')) {
+                        console.log('Processing domain-dataset-curation presentation link: ' + newHref);
+                        newHref = './domain-dataset-curation/presentation/build/index.html';
+                    }
+                    
+                    // Predictive Maintenance Dashboard
+                    if (newHref.includes('predictive-maintenance/dashboard-demo')) {
+                        console.log('Processing predictive-maintenance dashboard link: ' + newHref);
+                        newHref = './predictive-maintenance/dashboard-demo/build/index.html';
+                    }
+                    
+                    // Special handling for GitHub Pages environment
+                    if (window.location.hostname.includes('github.io')) {
+                        // For GitHub Pages, ensure all paths start with the repository name
+                        if (newHref.startsWith('./')) {
+                            newHref = newHref.substring(2); // Remove the leading './' for GitHub Pages
+                        }
+                        link.setAttribute('href', `${baseUrl}/${newHref}`);
+                    } else {
+                        // For local and custom domain, use the standard path formatting
+                        link.setAttribute('href', `${baseUrl}${newHref.startsWith('/') ? '' : '/'}${newHref.replace(/^\//, '')}`);
+                    }
+                    
+                    // Log the updated link for debugging
+                    console.log(`Updated link: ${currentHref} -> ${link.getAttribute('href')}`);
+                }
+            });
+            
+            // Update featured solution status if needed
+            if (demosAvailable['synthetic-data-generator']) {
+                // If we want to enable Synthetic Data Generator in the future
+            }
+            
+            // Update Domain Dataset Curation card if needed
+            if (demosAvailable['domain-dataset-curation']) {
+                // If we want to enable Domain Dataset Curation in the future
+            }
+        }
+
+        // Industry filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up industry filter buttons
+            const filterButtons = document.querySelectorAll('.industry-filter-btn');
+            const cards = document.querySelectorAll('#solutions-grid .card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get the selected industry filter
+                    const industryFilter = this.getAttribute('data-industry');
+                    
+                    // Filter cards based on selected industry
+                    cards.forEach(card => {
+                        const industriesAttr = card.getAttribute('data-industries');
+                        let cardIndustries = [];
+
+                        if (industriesAttr) {
+                            try {
+                                // Parse the JSON string, allowing for single quotes
+                                cardIndustries = JSON.parse(industriesAttr.replace(/'/g, '"'));
+                            } catch (e) {
+                                console.error('Failed to parse industries attribute:', industriesAttr, e);
+                            }
+                        }
+                        
+                        // Determine if the card should be shown
+                        const shouldShow = industryFilter === 'all' || cardIndustries.includes(industryFilter) || cardIndustries.includes('all');
+                        
+                        if (shouldShow) {
+                            card.style.display = 'block';
+                            // Use a timeout to allow the display property to take effect before changing opacity
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'scale(1)';
+                            }, 10);
+                        } else {
+                            // Hide cards that don't match the selected industry
+                            card.style.opacity = '0';
+                            card.style.transform = 'scale(0.95)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300); // Match the transition duration
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
