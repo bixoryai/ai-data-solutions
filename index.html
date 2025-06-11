@@ -41,7 +41,18 @@
     <style type="text/tailwindcss">
         @layer components {
             .card {
-                @apply bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300;
+                @apply bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-2 hover:scale-105;
+                max-height: 500px; /* Adjust if cards get taller */
+            }
+            .card.is-hidden {
+                @apply opacity-0 scale-95;
+                max-height: 0;
+                margin-top: 0;
+                margin-bottom: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+                border-width: 0;
+                overflow: hidden;
             }
             .card-header {
                 @apply p-4 border-b border-gray-100;
@@ -85,23 +96,19 @@
             .status-coming-soon {
                 @apply bg-amber-100 text-amber-800;
             }
-            /* Language toggle styling removed as it's now positioned in the flex layout */
             .language-button {
                 @apply px-3 py-1.5 rounded border border-gray-300 text-sm font-medium bg-white text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50;
             }
             
-            /* Ensure proper display of Chinese text */
             [data-i18n], h1, h2, h3, p, span, button {
                 writing-mode: horizontal-tb !important;
                 text-orientation: mixed !important;
             }
             
-            /* Build plan button margin */
             .build-plan-btn {
                 @apply mt-2;
             }
             
-            /* Three-button container */
             .three-button-row {
                 @apply flex flex-row gap-2 text-sm sm:text-base;
             }
@@ -109,17 +116,27 @@
                 @apply flex-1 text-center;
             }
 
-            /* Industry filter buttons */
             .industry-filter-btn {
                 @apply text-gray-600 hover:bg-gray-100 transition-colors;
             }
             .industry-filter-btn.active {
                 @apply bg-primary-600 text-white hover:bg-primary-700;
             }
+            
+            .card-entry {
+                animation: fade-in-up 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+                opacity: 0;
+            }
 
-            /* Card transitions for filtering */
-            .card {
-                transition: opacity 0.3s ease, transform 0.3s ease;
+            @keyframes fade-in-up {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
         }
     </style>
@@ -674,8 +691,9 @@
             }
         };
 
-        // Language toggle functionality
+        // All scripts are now in one DOMContentLoaded listener for better performance
         document.addEventListener('DOMContentLoaded', function() {
+            // --- Language Toggle Setup ---
             const languageToggleBtn = document.getElementById('language-toggle-btn');
             const languageToggleBtnMobile = document.getElementById('language-toggle-btn-mobile');
             const languageText = document.getElementById('language-text');
@@ -695,28 +713,63 @@
                 updateButtonText(newLang);
             };
 
-            // Initialize language from localStorage or default to English
             const savedLang = localStorage.getItem('language') || 'en';
             setLanguage(savedLang);
             updateButtonText(savedLang);
             
-            // Add click event listener to toggle buttons
             if (languageToggleBtn) languageToggleBtn.addEventListener('click', handleLanguageToggle);
             if (languageToggleBtnMobile) languageToggleBtnMobile.addEventListener('click', handleLanguageToggle);
             
-            // Demo availability check
+            // --- Demo Availability Check ---
             const demosAvailable = {
                 'industry-analytics': true,
-                'synthetic-data-generator': true,  // Updated to true to ensure links work
-                'domain-dataset-curation': true    // Updated to true to enable the demo
+                'synthetic-data-generator': true,
+                'domain-dataset-curation': true
             };
-            
-            // Update UI based on demo availability
             updateDemoAvailability(demosAvailable);
-            
-            console.log('Demo portal initialized. Checking for available demos...');
+            console.log('Demo portal initialized.');
+
+            // --- Card Animations & Filtering ---
+            const filterButtons = document.querySelectorAll('.industry-filter-btn');
+            const cards = document.querySelectorAll('#solutions-grid .card');
+
+            // 1. Entry Animation
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 100}ms`;
+                card.classList.add('card-entry');
+            });
+
+            // 2. Filter Logic
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const industryFilter = this.getAttribute('data-industry');
+                    
+                    cards.forEach(card => {
+                        const industriesAttr = card.getAttribute('data-industries');
+                        let cardIndustries = [];
+                        if (industriesAttr) {
+                            try {
+                                cardIndustries = JSON.parse(industriesAttr.replace(/'/g, '"'));
+                            } catch (e) {
+                                console.error('Failed to parse industries attribute:', industriesAttr, e);
+                            }
+                        }
+                        
+                        const shouldShow = industryFilter === 'all' || cardIndustries.includes(industryFilter);
+                        
+                        if (shouldShow) {
+                            card.classList.remove('is-hidden');
+                        } else {
+                            card.classList.add('is-hidden');
+                        }
+                    });
+                });
+            });
         });
-        
+
         // Function to set language
         function setLanguage(lang) {
             const elements = document.querySelectorAll('[data-i18n]');
@@ -726,23 +779,18 @@
                     element.textContent = translations[lang][key];
                 }
             });
-            
-            // Update HTML lang attribute
             document.documentElement.lang = lang;
         }
         
         // Function to get the base URL for different environments
         function getBaseUrl() {
             const hostname = window.location.hostname;
-            // Check if running on custom domain
             if (hostname === 'ai-data-solutions.bixory.ai') {
                 return '';
             }
-            // Check if running on GitHub Pages
             else if (hostname.includes('github.io')) {
                 return '/ai-data-solutions';
             }
-            // Local development
             return '';
         }
         
@@ -750,148 +798,21 @@
         function updateDemoAvailability(demosAvailable) {
             const baseUrl = getBaseUrl();
             
-            // Update links to work with both GitHub Pages and local development
-            const featuredButton = document.querySelector('.featured-button');
-            if (featuredButton) {
-                const currentHref = featuredButton.getAttribute('href');
-                featuredButton.setAttribute('href', `${baseUrl}${currentHref.startsWith('/') ? '' : '/'}${currentHref.replace(/^\//, '')}`);
-            }
-            
-            // Update all dashboard links with consistent path formatting
             document.querySelectorAll('.dashboard-link').forEach(link => {
                 const currentHref = link.getAttribute('href');
                 if (currentHref && !currentHref.startsWith('http')) {
-                    // Ensure paths are consistently formatted for all environments
-                    let newHref = currentHref;
-                    
-                    // Standardize all paths to ensure consistent behavior across environments
-                    
-                    // First, ensure all paths use forward slashes
-                    newHref = newHref.replace(/\\/g, '/');
-                    
-                    // For industry-analytics presentation link
-                    if (newHref.includes('industry-analytics/presentation')) {
-                        console.log('Processing industry-analytics presentation link: ' + newHref);
-                        newHref = './industry-analytics/presentation/build/index.html';
-                    }
-                    
-                    // For synthetic-data-generator dashboard link
-                    if (newHref.includes('synthetic-data-generator/dashboard-demo')) {
-                        console.log('Processing synthetic-data-generator dashboard link: ' + newHref);
-                        newHref = './synthetic-data-generator/dashboard-demo/build/index.html';
-                    }
-                    
-                    // For synthetic-data-generator presentation link
-                    if (newHref.includes('synthetic-data-generator/presentation')) {
-                        console.log('Processing synthetic-data-generator presentation link: ' + newHref);
-                        newHref = './synthetic-data-generator/presentation/build/index.html';
-                    }
-                    
-                    // For domain-dataset-curation dashboard link
-                    if (newHref.includes('domain-dataset-curation/dashboard-demo')) {
-                        console.log('Processing domain-dataset-curation dashboard link: ' + newHref);
-                        newHref = './domain-dataset-curation/dashboard-demo/build/index.html';
-                    }
-                    
-                    // For domain-dataset-curation presentation link
-                    if (newHref.includes('domain-dataset-curation/presentation')) {
-                        console.log('Processing domain-dataset-curation presentation link: ' + newHref);
-                        newHref = './domain-dataset-curation/presentation/build/index.html';
-                    }
-                    
-                    // For customer-analytics presentation link
-                    if (newHref.includes('customer-analytics/presentation')) {
-                        console.log('Processing customer-analytics presentation link: ' + newHref);
-                        newHref = './customer-analytics/presentation/build/index.html';
-                    }
-                    
-                    // Predictive Maintenance Dashboard
-                    if (newHref.includes('predictive-maintenance/dashboard-demo')) {
-                        console.log('Processing predictive-maintenance dashboard link: ' + newHref);
-                        newHref = './predictive-maintenance/dashboard-demo/build/index.html';
-                    }
-                    
-                    // Special handling for GitHub Pages environment
+                    let newHref = currentHref.replace(/\\/g, '/');
                     if (window.location.hostname.includes('github.io')) {
-                        // For GitHub Pages, ensure all paths start with the repository name
                         if (newHref.startsWith('./')) {
-                            newHref = newHref.substring(2); // Remove the leading './' for GitHub Pages
+                            newHref = newHref.substring(2);
                         }
                         link.setAttribute('href', `${baseUrl}/${newHref}`);
                     } else {
-                        // For local and custom domain, use the standard path formatting
                         link.setAttribute('href', `${baseUrl}${newHref.startsWith('/') ? '' : '/'}${newHref.replace(/^\//, '')}`);
                     }
-                    
-                    // Log the updated link for debugging
-                    console.log(`Updated link: ${currentHref} -> ${link.getAttribute('href')}`);
                 }
             });
-            
-            // Update featured solution status if needed
-            if (demosAvailable['synthetic-data-generator']) {
-                // If we want to enable Synthetic Data Generator in the future
-            }
-            
-            // Update Domain Dataset Curation card if needed
-            if (demosAvailable['domain-dataset-curation']) {
-                // If we want to enable Domain Dataset Curation in the future
-            }
         }
-
-        // Industry filtering functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set up industry filter buttons
-            const filterButtons = document.querySelectorAll('.industry-filter-btn');
-            const cards = document.querySelectorAll('#solutions-grid .card');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    // Get the selected industry filter
-                    const industryFilter = this.getAttribute('data-industry');
-                    
-                    // Filter cards based on selected industry
-                    cards.forEach(card => {
-                        const industriesAttr = card.getAttribute('data-industries');
-                        let cardIndustries = [];
-
-                        if (industriesAttr) {
-                            try {
-                                // Parse the JSON string, allowing for single quotes
-                                cardIndustries = JSON.parse(industriesAttr.replace(/'/g, '"'));
-                            } catch (e) {
-                                console.error('Failed to parse industries attribute:', industriesAttr, e);
-                            }
-                        }
-                        
-                        // Determine if the card should be shown
-                        const shouldShow = industryFilter === 'all' || cardIndustries.includes(industryFilter) || cardIndustries.includes('all');
-                        
-                        if (shouldShow) {
-                            card.style.display = 'block';
-                            // Use a timeout to allow the display property to take effect before changing opacity
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'scale(1)';
-                            }, 10);
-                        } else {
-                            // Hide cards that don't match the selected industry
-                            card.style.opacity = '0';
-                            card.style.transform = 'scale(0.95)';
-                            setTimeout(() => {
-                                card.style.display = 'none';
-                            }, 300); // Match the transition duration
-                        }
-                    });
-                });
-            });
-        });
     </script>
 </body>
 </html> 
