@@ -96,9 +96,9 @@ A major effort has been completed to standardize the UI/UX across all dashboard 
    - **Dashboard is fully mobile responsive**
 
 9. **Healthcare Data**
-   - About page: Not yet implemented (button disabled)
+   - About page: Implemented and accessible via the "About" button
    - Demo dashboard: Initial scaffolding complete with a standardized UI. Accessible via the "View Demo" button (placeholder).
-   - Presentation: Not yet implemented
+   - Presentation: Completed and standardized
    - Build Plan: Not yet implemented (button disabled)
    - Key features: Placeholders for patient outcome prediction, medical image analysis, and drug discovery modules.
    - **Dashboard is fully mobile responsive**
