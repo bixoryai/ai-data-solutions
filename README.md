@@ -104,9 +104,9 @@ A major effort has been completed to standardize the UI/UX across all dashboard 
    - **Dashboard is fully mobile responsive**
 
 10. **Computer Vision**
-    - About page: Not yet implemented (button disabled)
+    - About page: Implemented and accessible via the "About" button
     - Demo dashboard: Fully functional, UI/UX standardized, and accessible via the "View Demo" button
-    - Presentation: Not yet implemented
+    - Presentation: Completed and standardized
     - Build Plan: Not yet implemented (button disabled)
     - Key features: Live visual inspection, defect analytics, model performance monitoring, and ROI simulation.
     - **Dashboard is fully mobile responsive**
