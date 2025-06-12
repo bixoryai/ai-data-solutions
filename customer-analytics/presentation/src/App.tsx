@@ -53,14 +53,23 @@ function App() {
   };
 
   const goToHome = () => {
+    // Get the base URL for different environments
     const hostname = window.location.hostname;
     
     if (hostname === 'ai-data-solutions.bixory.ai') {
+      // Custom domain - go to root
       window.location.href = '/';
+      return;
     } else if (hostname.includes('github.io')) {
+      // GitHub Pages - include repository name
       window.location.href = '/ai-data-solutions/';
+      return;
     } else {
-      window.location.href = '../../';
+      // Local development - go to parent directory
+      const currentPath = window.location.pathname;
+      const parentPath = currentPath.substring(0, currentPath.indexOf('/customer-analytics'));
+      window.location.href = parentPath || '/';
+      return;
     }
   };
 
