@@ -53,10 +53,14 @@ function App() {
   };
 
   const goToHome = () => {
-    if (window.location.hostname.includes('bixory.ai') || window.location.hostname.includes('github.io')) {
+    const hostname = window.location.hostname;
+    
+    if (hostname === 'ai-data-solutions.bixory.ai') {
+      window.location.href = '/';
+    } else if (hostname.includes('github.io')) {
       window.location.href = '/ai-data-solutions/';
     } else {
-      window.location.href = '/';
+      window.location.href = '../../';
     }
   };
 

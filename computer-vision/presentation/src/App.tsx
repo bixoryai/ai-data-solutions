@@ -502,10 +502,13 @@ function App() {
 
   const goToHome = () => {
     const hostname = window.location.hostname;
-    if (hostname === 'ai-data-solutions.bixory.ai' || hostname.includes('github.io')) {
+    
+    if (hostname === 'ai-data-solutions.bixory.ai') {
+      window.location.href = '/';
+    } else if (hostname.includes('github.io')) {
       window.location.href = '/ai-data-solutions/';
     } else {
-      window.location.href = '/';
+      window.location.href = '../../';
     }
   };
 
