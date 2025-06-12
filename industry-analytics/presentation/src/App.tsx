@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Home, Globe } from 'lucide-react';
 import IntroductionSlide from './components/slides/IntroductionSlide';
 import StrengthsSlide from './components/slides/StrengthsSlide';
 
+// Forcing a rebuild to fix deployment issues.
 const App: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [language, setLanguage] = useState<'en' | 'zh'>('en');
