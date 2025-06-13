@@ -505,10 +505,16 @@ function App() {
     
     if (hostname === 'ai-data-solutions.bixory.ai') {
       window.location.href = '/';
+      return;
     } else if (hostname.includes('github.io')) {
       window.location.href = '/ai-data-solutions/';
+      return;
     } else {
-      window.location.href = '../../';
+      // Local development - go to parent directory
+      const currentPath = window.location.pathname;
+      const parentPath = currentPath.substring(0, currentPath.indexOf('/computer-vision'));
+      window.location.href = parentPath || '/';
+      return;
     }
   };
 
@@ -518,13 +524,14 @@ function App() {
     <div className="flex flex-col min-h-screen bg-gray-50">
       <header className="bg-white shadow-sm py-4 px-6 flex justify-between items-center relative">
         <div className="flex items-center">
-          <button
-            onClick={goToHome}
+          <a 
+            href="#"
+            onClick={(e) => { e.preventDefault(); goToHome(); }}
             className="mr-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
             aria-label="Go to home page"
           >
             <Home size={24} className="text-blue-600" />
-          </button>
+          </a>
         </div>
 
         <div className="absolute left-1/2 transform -translate-x-1/2 text-center">
