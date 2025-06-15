@@ -1,12 +1,19 @@
 import React from 'react';
 import { Home } from 'lucide-react';
+import getTranslation from '../types/translations';
+
+export type NavItem = 
+  | 'Dashboard' 
+  | 'Fraud Detection' 
+  | 'Risk Assessment' 
+  | 'Financial Forecasting' 
+  | 'Portfolio Analytics'
+  | 'Settings';
 
 export interface NavItemInfo {
   name: NavItem;
   icon: React.ReactNode;
 }
-
-export type NavItem = 'Dashboard' | 'Fraud Detection' | 'Risk Assessment' | 'Settings';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -16,45 +23,45 @@ interface SidebarProps {
   navItems: readonly NavItemInfo[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, language, activeNavItem, setActiveNavItem, navItems }) => {
-  const translations = {
-    'Dashboard': { en: 'Dashboard', zh: '仪表板' },
-    'Fraud Detection': { en: 'Fraud Detection', zh: '欺诈检测' },
-    'Risk Assessment': { en: 'Risk Assessment', zh: '风险评估' },
-    'Settings': { en: 'Settings', zh: '设置' },
-  };
-
+const Sidebar: React.FC<SidebarProps> = ({
+  isOpen,
+  language,
+  activeNavItem,
+  setActiveNavItem,
+  navItems,
+}) => {
   return (
     <aside
-      className={`fixed top-0 left-0 h-full w-64 bg-gray-800 text-white z-30 transition-all duration-300 flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-64'}`}
-      aria-label="Sidebar"
+      className={`fixed top-0 left-0 h-full bg-gray-800 text-white transition-all duration-300 z-40 ${
+        isOpen ? 'w-64' : 'w-20'
+      }`}
     >
-      <div className="flex flex-col flex-1 pt-24">
-        <nav className="flex-1 px-4 space-y-2">
-          {navItems.map((item) => (
-            <button
-              key={item.name}
-              onClick={() => setActiveNavItem(item.name)}
-              className={`w-full flex items-center p-3 rounded-lg transition-colors ${
-                activeNavItem === item.name
+      <div className="flex items-center justify-center h-20 border-b border-gray-700">
+        <h1 className={`text-2xl font-bold ${!isOpen && 'hidden'}`}>Bixory</h1>
+      </div>
+      <nav className="flex-grow">
+        <ul className="space-y-2 p-4">
+          {navItems.map(({ name, icon }) => (
+            <li
+              key={name}
+              onClick={() => setActiveNavItem(name)}
+              className={`flex items-center p-3 rounded-lg cursor-pointer transition-colors ${
+                activeNavItem === name
                   ? 'bg-blue-600 text-white'
-                  : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                  : 'hover:bg-gray-700'
               }`}
             >
-              <span className="mr-3">{item.icon}</span>
-              <span>{translations[item.name as NavItem][language]}</span>
-            </button>
+              {icon}
+              <span className={`ml-4 ${!isOpen && 'hidden'}`}>{getTranslation(name, language)}</span>
+            </li>
           ))}
-        </nav>
-        <div className="mt-auto px-4 pb-6">
-           <button
-            className="w-full flex items-center justify-center px-3 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md text-white font-semibold transition-colors"
-            onClick={() => window.location.href = '/'}
-          >
-            <Home className="mr-2" size={18} />
-            {language === 'en' ? 'Return Home' : '返回首页'}
-          </button>
-        </div>
+        </ul>
+      </nav>
+      <div className="absolute bottom-0 w-full p-4 border-t border-gray-700">
+        <a href="../../../../index.html" className="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors">
+          <Home />
+          <span className={`ml-4 ${!isOpen && 'hidden'}`}>{getTranslation('Return to Portal', language)}</span>
+        </a>
       </div>
     </aside>
   );

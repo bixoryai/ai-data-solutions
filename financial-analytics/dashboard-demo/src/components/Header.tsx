@@ -15,7 +15,7 @@ const Header: React.FC<HeaderProps> = ({
   title,
 }) => {
   return (
-    <header className="fixed top-0 left-0 w-full bg-gradient-to-r from-primary-800 to-primary-600 text-white z-40 shadow-md">
+    <header className="fixed top-0 left-0 w-full bg-gradient-to-r from-primary-800 to-primary-600 text-white z-50 shadow-md">
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
           <div className="flex items-center">

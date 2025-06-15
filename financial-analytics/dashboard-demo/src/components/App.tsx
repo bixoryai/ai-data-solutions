@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
 import Header from './Header';
 import Sidebar, { NavItem, NavItemInfo } from './Sidebar';
-import { LayoutDashboard, ShieldCheck, TrendingUp, Settings } from 'lucide-react';
+import { LayoutDashboard, ShieldCheck, TrendingUp, Settings, LineChart, PieChart } from 'lucide-react';
 import DashboardPage from './DashboardPage';
 import FraudDetectionPage from './FraudDetectionPage';
 import RiskAssessmentPage from './RiskAssessmentPage';
 import SettingsPage from './SettingsPage';
+import FinancialForecastingPage from './FinancialForecastingPage';
+import PortfolioAnalyticsPage from './PortfolioAnalyticsPage';
 
 // Define nav items based on potential financial features
 const navItems: readonly NavItemInfo[] = [
   { name: 'Dashboard', icon: <LayoutDashboard /> },
   { name: 'Fraud Detection', icon: <ShieldCheck /> },
   { name: 'Risk Assessment', icon: <TrendingUp /> },
+  { name: 'Financial Forecasting', icon: <LineChart /> },
+  { name: 'Portfolio Analytics', icon: <PieChart /> },
   { name: 'Settings', icon: <Settings /> },
 ];
 
-const App: React.FC = () => {
+interface AppProps {
+  language?: 'en' | 'zh';
+}
+
+const App: React.FC<AppProps> = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [activeNavItem, setActiveNavItem] = useState<NavItem>('Dashboard');
   const [language, setLanguage] = useState<'en' | 'zh'>(
@@ -34,17 +42,23 @@ const App: React.FC = () => {
   };
 
   const renderContent = () => {
+    const props = { language };
+    
     switch (activeNavItem) {
       case 'Dashboard':
-        return <DashboardPage language={language} />;
+        return <DashboardPage {...props} />;
       case 'Fraud Detection':
-        return <FraudDetectionPage language={language} />;
+        return <FraudDetectionPage {...props} />;
       case 'Risk Assessment':
-        return <RiskAssessmentPage language={language} />;
+        return <RiskAssessmentPage {...props} />;
+      case 'Financial Forecasting':
+        return <FinancialForecastingPage {...props} />;
+      case 'Portfolio Analytics':
+        return <PortfolioAnalyticsPage {...props} />;
       case 'Settings':
-        return <SettingsPage language={language} />;
+        return <SettingsPage {...props} />;
       default:
-        return <DashboardPage language={language} />;
+        return <DashboardPage {...props} />;
     }
   };
 
