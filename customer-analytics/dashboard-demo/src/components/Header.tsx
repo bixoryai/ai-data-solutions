@@ -6,20 +6,10 @@ interface HeaderProps {
   changeLanguage: (lang: 'en' | 'zh') => void;
   toggleSidebar: () => void;
   title: string;
+  onNavigateHome: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ language, changeLanguage, toggleSidebar, title }) => {
-  const getBaseUrl = () => {
-    const hostname = window.location.hostname;
-    if (hostname.includes('github.io')) {
-      return '/ai-data-solutions';
-    }
-    return '';
-  };
-
-  const goToHome = () => {
-    window.location.href = `${getBaseUrl()}/index.html`;
-  };
+const Header: React.FC<HeaderProps> = ({ language, changeLanguage, toggleSidebar, title, onNavigateHome }) => {
 
   const translations = {
     en: { subtitle: 'Interactive Demo', language: '中文' },
@@ -31,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ language, changeLanguage, toggleSidebar
     <header className="fixed top-0 left-0 w-full z-40 bg-gradient-to-r from-indigo-800 to-purple-600 text-white flex items-center justify-between px-6 h-24 shadow">
       <div className="flex items-center space-x-4">
         <button
-          onClick={goToHome}
+          onClick={onNavigateHome}
           className="p-2 rounded-full hover:bg-white hover:bg-opacity-10 transition-colors"
           aria-label="Go to home"
         >

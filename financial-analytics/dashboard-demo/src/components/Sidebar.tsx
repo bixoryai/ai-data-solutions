@@ -21,6 +21,7 @@ interface SidebarProps {
   activeNavItem: NavItem;
   setActiveNavItem: (item: NavItem) => void;
   navItems: readonly NavItemInfo[];
+  onNavigateHome: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -29,6 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   activeNavItem,
   setActiveNavItem,
   navItems,
+  onNavigateHome,
 }) => {
   return (
     <aside
@@ -58,10 +60,14 @@ const Sidebar: React.FC<SidebarProps> = ({
         </ul>
       </nav>
       <div className="absolute bottom-0 w-full p-4 border-t border-gray-700">
-        <a href="../../../../index.html" className="flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors">
+        <button
+          type="button"
+          onClick={onNavigateHome}
+          className="w-full flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors text-left"
+        >
           <Home />
           <span className={`ml-4 ${!isOpen && 'hidden'}`}>{getTranslation('Return to Portal', language)}</span>
-        </a>
+        </button>
       </div>
     </aside>
   );

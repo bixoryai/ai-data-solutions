@@ -15,6 +15,7 @@ import CompetitiveLandscapeSlide from './components/slides/CompetitiveLandscapeS
 import FutureVisionSlide from './components/slides/FutureVisionSlide';
 import NextStepsSlide from './components/slides/NextStepsSlide';
 import ThankYouSlide from './components/slides/ThankYouSlide';
+import { navigateToPortalHome } from './utils/navigation';
 
 // Translations for multilingual support
 const translations = {
@@ -122,24 +123,7 @@ function App() {
   };
 
   const goToHome = () => {
-    // Get the base URL for different environments
-    const hostname = window.location.hostname;
-    
-    if (hostname === 'ai-data-solutions.bixory.ai') {
-      // Custom domain - go to root
-      window.location.href = '/';
-      return;
-    } else if (hostname.includes('github.io')) {
-      // GitHub Pages - include repository name
-      window.location.href = '/ai-data-solutions/';
-      return;
-    } else {
-      // Local development - go to parent directory
-      const currentPath = window.location.pathname;
-      const parentPath = currentPath.substring(0, currentPath.indexOf('/financial-analytics'));
-      window.location.href = parentPath || '/';
-      return;
-    }
+    navigateToPortalHome();
   };
 
   const CurrentSlideComponent = slides[currentSlide].component;

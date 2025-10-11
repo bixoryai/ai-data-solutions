@@ -6,6 +6,7 @@ import AnalyticsPage from './AnalyticsPage';
 import ReportsPage from './ReportsPage';
 import SettingsPage from './SettingsPage';
 import { LayoutDashboard, BarChart2, FileText, Settings } from 'lucide-react';
+import { navigateToPortalHome } from '../utils/navigation';
 
 const navItems: readonly NavItemInfo[] = [
   { name: 'Dashboard', icon: <LayoutDashboard /> },
@@ -32,6 +33,10 @@ const App: React.FC = () => {
     localStorage.setItem('language', lang);
   };
 
+  const handleNavigateHome = () => {
+    navigateToPortalHome();
+  };
+
   const renderContent = () => {
     switch (activeNavItem) {
       case 'Dashboard':
@@ -54,6 +59,7 @@ const App: React.FC = () => {
         changeLanguage={changeLanguage}
         toggleSidebar={toggleSidebar}
         title={appTranslations[language].title}
+        onNavigateHome={handleNavigateHome}
       />
       <Sidebar
         isOpen={isSidebarOpen}
@@ -61,6 +67,7 @@ const App: React.FC = () => {
         activeNavItem={activeNavItem}
         setActiveNavItem={setActiveNavItem}
         navItems={navItems}
+        onNavigateHome={handleNavigateHome}
       />
       <main className={`transition-all duration-300 ${isSidebarOpen ? 'lg:ml-64' : ''}`}>
         <div className="pt-20">
