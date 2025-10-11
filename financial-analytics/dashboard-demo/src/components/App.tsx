@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from './Header';
 import Sidebar, { NavItem, NavItemInfo } from './Sidebar';
 import { LayoutDashboard, ShieldCheck, TrendingUp, Settings, LineChart, PieChart } from 'lucide-react';
+import { navigateToPortalHome } from '../utils/navigation';
 import DashboardPage from './DashboardPage';
 import FraudDetectionPage from './FraudDetectionPage';
 import RiskAssessmentPage from './RiskAssessmentPage';
@@ -41,6 +42,10 @@ const App: React.FC<AppProps> = () => {
     localStorage.setItem('language', lang);
   };
 
+  const handleNavigateHome = () => {
+    navigateToPortalHome();
+  };
+
   const renderContent = () => {
     const props = { language };
     
@@ -69,6 +74,7 @@ const App: React.FC<AppProps> = () => {
         changeLanguage={changeLanguage}
         toggleSidebar={toggleSidebar}
         title={appTranslations[language].title}
+        onNavigateHome={handleNavigateHome}
       />
       <Sidebar
         isOpen={isSidebarOpen}
@@ -76,6 +82,7 @@ const App: React.FC<AppProps> = () => {
         activeNavItem={activeNavItem}
         setActiveNavItem={setActiveNavItem}
         navItems={navItems}
+        onNavigateHome={handleNavigateHome}
       />
       <main className={`transition-all duration-300 ${isSidebarOpen ? 'lg:ml-64' : ''}`}>
         <div className="pt-20">
