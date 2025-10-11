@@ -6,6 +6,7 @@ interface HeaderProps {
   changeLanguage: (lang: 'en' | 'zh') => void;
   toggleSidebar: () => void;
   title: string;
+  onNavigateHome: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -13,6 +14,7 @@ const Header: React.FC<HeaderProps> = ({
   changeLanguage,
   toggleSidebar,
   title,
+  onNavigateHome,
 }) => {
   return (
     <header className="fixed top-0 left-0 w-full bg-gradient-to-r from-primary-800 to-primary-600 text-white z-50 shadow-md">
@@ -20,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <button
-              onClick={() => (window.location.href = '/')}
+              onClick={onNavigateHome}
               className="p-2 mr-2 rounded-full hover:bg-primary-700 transition-colors"
               aria-label="Go to home"
             >

@@ -13,9 +13,17 @@ interface SidebarProps {
   activeNavItem: NavItem;
   setActiveNavItem: (item: NavItem) => void;
   navItems: readonly NavItemInfo[];
+  onNavigateHome: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, language, activeNavItem, setActiveNavItem, navItems }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  isOpen,
+  language,
+  activeNavItem,
+  setActiveNavItem,
+  navItems,
+  onNavigateHome,
+}) => {
   const translations = {
     Dashboard: { en: 'Dashboard', zh: '仪表板' },
     Analytics: { en: 'Analytics', zh: '分析' },
@@ -46,9 +54,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, language, activeNavItem, setA
           ))}
         </nav>
         <div className="mt-auto px-4 pb-6">
-           <button
+          <button
             className="w-full flex items-center justify-center px-3 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md text-white font-semibold transition-colors"
-            onClick={() => window.location.href = '/'}
+            onClick={onNavigateHome}
           >
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-home mr-2"><path d="M3 9.5V19a2 2 0 0 0 2 2h3.5a.5.5 0 0 0 .5-.5V15a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5.5a.5.5 0 0 0 .5.5H19a2 2 0 0 0 2-2V9.5a2 2 0 0 0-.59-1.41l-7-7a2 2 0 0 0-2.82 0l-7 7A2 2 0 0 0 3 9.5z"/></svg>
             {language === 'en' ? 'Return Home' : '返回首页'}
